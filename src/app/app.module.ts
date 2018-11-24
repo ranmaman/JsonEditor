@@ -5,17 +5,21 @@ import { HttpClientModule } from '@angular/common/http';
 import { rootRouterConfig } from './app.routes';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatFileUploadModule } from 'angular-material-fileupload';
 import {
   MatButtonModule,
   MatCheckboxModule,
   MatInputModule,
   MatSelectModule,
   MatDatepickerModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MatStepperModule,
+
  } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { FormComponent } from './form-component/form.component';
+
 
 @NgModule({
   declarations: [
@@ -34,7 +38,8 @@ import { FormComponent } from './form-component/form.component';
     MatNativeDateModule,
     MatCheckboxModule,
     HttpClientModule,
-    MatSelectModule
+    MatSelectModule,
+    MatStepperModule
   ],
   providers: [],
   bootstrap: [AppComponent]

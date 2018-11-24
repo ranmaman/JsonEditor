@@ -1,17 +1,11 @@
 <div class="container">
   <div class="row">
 
-    <div class="col-2">
-      <div class="user-details-container">
-        <img class="user-image" src="https://randomuser.me/api/portraits/lego/3.jpg"/>
-        <span class="user-title">{{userDetailsForm.get('fullname').value}}</span>
-        <p class="user-bio">{{userDetailsForm.get('bio').value}}</p>
-      </div>
-    </div>
-
-    <div class="col">
-      <h2 class="section-title">User details</h2>
+<mat-horizontal-stepper #stepper>
+  <mat-step [stepControl]="userDetailsForm">
       <form [formGroup]="userDetailsForm" (ngSubmit)="onSubmitUserDetails(userDetailsForm.value)">
+        <ng-template matStepLabel>User Details</ng-template>
+        <input type='file' (change)="onSelectFile($event)"><br /><br />
         <mat-form-field class="full-width">
           <input matInput placeholder="Full Name" formControlName="fullname" required>
           <mat-error *ngFor="let validation of validation_messages.fullname">
@@ -73,19 +67,16 @@
 
 
 
-        <button class="submit-btn" color="primary" mat-raised-button type="submit" [disabled]="!userDetailsForm.valid">
-          Submit
-        </button>
+      <div>
+        <button class= "submit-btn" mat-button [disabled] = "!userDetailsForm.valid" matStepperNext>Next</button>
+      </div>
 
       </form>
-    </div>
-
-
-    <div class="col">
-      <h2 class="section-title">Account details</h2>
+  </mat-step>
+  <mat-step [stepControl]="accountDetailsForm">
 
       <form [formGroup]="accountDetailsForm" novalidate (ngSubmit)="onSubmitAccountDetails(accountDetailsForm.value)">
-
+        <ng-template matStepLabel>Account Details</ng-template>
         <mat-form-field class="full-width">
           <input matInput maxlength="25" placeholder="Username" formControlName="username" required>
           <mat-error *ngFor="let validation of account_validation_messages.username">
@@ -125,12 +116,14 @@
           <mat-error class="error-message" *ngIf="accountDetailsForm.get('terms').hasError(validation.type) && (accountDetailsForm.get('terms').dirty || accountDetailsForm.get('terms').touched)">{{validation.message}}</mat-error>
         </mat-error>
 
-        <button class="submit-btn" color="primary" mat-raised-button type="submit" [disabled]="!accountDetailsForm.valid">
-          Submit
-        </button>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button class= "submit-btn" mat-button [disabled] = "!accountDetailsForm.valid" matStepperNext>Next</button>
+      </div>
 
       </form>
+        </mat-step>
+</mat-horizontal-stepper>
 
-    </div>
   </div>
 </div>

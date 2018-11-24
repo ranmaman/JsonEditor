@@ -19,7 +19,7 @@ export class FormComponent implements OnInit {
 
   userDetailsForm: FormGroup;
   accountDetailsForm: FormGroup;
-
+  filecontent: string;
   matching_passwords_group: FormGroup;
   country_phone_group: FormGroup;
 
@@ -152,6 +152,17 @@ export class FormComponent implements OnInit {
 
   onSubmitUserDetails(value){
     console.log(value);
+  }
+  onSelectFile(event) {
+      var reader = new FileReader();
+
+      reader.readAsText(event.target.files[0]); // read file as data url
+
+      reader.onload = (event) => { // called once readAsDataURL is completed
+        console.log(reader.result);
+        this.filecontent = reader.result.toString();
+        this.accountDetailsForm.patchValue({email:reader.result.toString()});
+      }
   }
 
 }
