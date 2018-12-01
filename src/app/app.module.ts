@@ -5,7 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { rootRouterConfig } from './app.routes';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatFileUploadModule } from 'angular-material-fileupload';
 import {
   MatButtonModule,
   MatCheckboxModule,

@@ -8,6 +8,7 @@
         <input type='file' (change)="onSelectFile($event)"><br /><br />
         <mat-form-field class="full-width">
           <input matInput placeholder="Full Name" formControlName="fullname" required>
+          <mat-hint align="start">Specify your full name</mat-hint>
           <mat-error *ngFor="let validation of validation_messages.fullname">
             <mat-error class="error-message" *ngIf="userDetailsForm.get('fullname').hasError(validation.type) && (userDetailsForm.get('fullname').dirty || userDetailsForm.get('fullname').touched)">{{validation.message}}</mat-error>
           </mat-error>

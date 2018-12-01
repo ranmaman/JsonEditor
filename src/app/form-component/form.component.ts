@@ -19,7 +19,7 @@ export class FormComponent implements OnInit {
 
   userDetailsForm: FormGroup;
   accountDetailsForm: FormGroup;
-  filecontent: string;
+  filecontent: any;
   matching_passwords_group: FormGroup;
   country_phone_group: FormGroup;
 
@@ -119,8 +119,8 @@ export class FormComponent implements OnInit {
 
     // user details form validations
     this.userDetailsForm = this.fb.group({
-      fullname: ['Homero Simpson', Validators.required ],
-      bio: ["Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s", Validators.maxLength(256)],
+      fullname: ['', Validators.required ],
+      bio: ['', Validators.maxLength(256)],
       birthday: ['', Validators.required],
       gender: new FormControl(this.genders[0], Validators.required),
       country_phone: this.country_phone_group
@@ -159,10 +159,14 @@ export class FormComponent implements OnInit {
       reader.readAsText(event.target.files[0]); // read file as data url
 
       reader.onload = (event) => { // called once readAsDataURL is completed
-        console.log(reader.result);
-        this.filecontent = reader.result.toString();
-        this.accountDetailsForm.patchValue({email:reader.result.toString()});
+        this.filecontent = JSON.parse(reader.result.toString());
+        this.accountDetailsForm.patchValue({email:this.filecontent.name});
+        this.accountDetailsForm.patchValue({username:this.filecontent.default_attributes.ChefWs.RootHttpUrl});
+        this.userDetailsForm.patchValue({fullname:this.filecontent.default_attributes.linux_version});
+        this.userDetailsForm.patchValue({bio:this.filecontent.default_attributes.vertica.verticaVersion});
+
       }
   }
+
 
 }
