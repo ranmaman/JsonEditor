@@ -13,6 +13,8 @@ import {
   MatDatepickerModule,
   MatNativeDateModule,
   MatStepperModule,
+  MatTooltipModule
+
 
  } from '@angular/material';
 
@@ -38,7 +40,8 @@ import { FormComponent } from './form-component/form.component';
     MatCheckboxModule,
     HttpClientModule,
     MatSelectModule,
-    MatStepperModule
+    MatStepperModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,5 @@
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FieldProperties } from './field.properties';
 import {
   Country,
   UsernameValidator,
@@ -7,8 +8,12 @@ import {
   PhoneValidator
 } from '../validators';
 
-export class UserDetailsComponent{
-    genders = [
+export class UserDetailsComponent {
+  
+
+
+
+  genders = [
     "Male",
     "Female",
     "Other"
@@ -38,40 +43,62 @@ export class UserDetailsComponent{
       { type: 'validCountryPhone', message: 'Phone incorrect for the country selected' }
     ]
   };
-  constructor(){}
-  GetUserDetailsForm():FormGroup{
-        return new FormGroup({
-            fullname: new FormControl ('', Validators.required ),
-      bio: new FormControl ('', Validators.maxLength(256)),
-      birthday: new FormControl ('', Validators.required),
+
+  descriptions = {
+    'fullname':
+    { message: 'fullname description' }
+    ,
+    'bio':
+    { message: 'bio description' },
+
+    'gender':
+    { message: 'gender description' },
+
+    'birthday':
+    { message: 'birthday description' },
+    'country':
+    { message: 'country description' },
+    'phone':
+    { message: 'phone description' }
+  };
+
+  GetUserDetailsForm(): FormGroup {
+    return new FormGroup({
+      fullname: new FormControl('', Validators.required),
+      bio: new FormControl('', Validators.maxLength(256)),
+      birthday: new FormControl('', Validators.required),
       gender: new FormControl(this.genders[0], Validators.required),
       country_phone: new FormGroup({
-          country: new FormControl(this.countries[0], Validators.required),
-          phone: new FormControl('', {
-      validators: Validators.compose([
-        Validators.required
-      ])
-    })
-      })
+        country: new FormControl(this.countries[0], Validators.required),
+        phone: new FormControl('', {
+          validators: Validators.compose([
+            Validators.required
+          ])
         })
-    }
-    GetValidationMessages(){
-        return this.validation_messages
-    }
+      })
+    })
+  }
 
-    GetGenders(){
-        return this.genders
-    }
+  GetValidationMessages() {
+    return this.validation_messages
+  }
 
-    GetCountries(){
-        return this.countries
-    }
+  GetGenders() {
+    return this.genders
+  }
 
-    patchValues(form:FormGroup , filecontent: any ){
-        console.log('!!!!!!!!!!!!!!!1' + filecontent.default_attributes.linux_version);
-        form.patchValue({fullname:filecontent.default_attributes.linux_version});
-        form.patchValue({bio:filecontent.default_attributes.vertica.verticaVersion});
+  GetCountries() {
+    return this.countries
+  }
 
-     }
+  GetDescriptions() {
+    return this.descriptions
+  }
+
+  patchValues(form: FormGroup, filecontent: any) {
+    form.patchValue({ fullname: filecontent.default_attributes.linux_version });
+    form.patchValue({ bio: filecontent.default_attributes.vertica.verticaVersion });
+
+  }
 
 }

@@ -1,130 +1,284 @@
 <div class="container">
   <div class="row">
 
-<mat-horizontal-stepper #stepper>
-  <mat-step [stepControl]="userDetailsForm">
-      <form [formGroup]="userDetailsForm" (ngSubmit)="onSubmitUserDetails(userDetailsForm.value)">
-        <ng-template matStepLabel>User Details</ng-template>
-        <input type='file' (change)="onSelectFile($event)"><br /><br />
-        <mat-form-field class="full-width">
-          <input matInput placeholder="Full Name" formControlName="fullname" required>
-          <mat-hint align="start">Specify your full name</mat-hint>
-          <mat-error *ngFor="let validation of userDetailsComponent.GetValidationMessages().fullname">
-            <mat-error class="error-message" *ngIf="userDetailsForm.get('fullname').hasError(validation.type) && (userDetailsForm.get('fullname').dirty || userDetailsForm.get('fullname').touched)">{{validation.message}}</mat-error>
-          </mat-error>
-        </mat-form-field>
+    <mat-horizontal-stepper #stepper>
+      <mat-step [stepControl]="EnvironmentGeneralForm">
+        <form [formGroup]="EnvironmentGeneralForm">
+          <ng-template matStepLabel>Environment General Information</ng-template>
+          <input type='file' (change)="onSelectFile($event)"><br /><br />
+          <mat-form-field class="full-width" matTooltip="Tooltip!" matTooltipPosition="before"> 
+            <input matInput placeholder="Environment Name" formControlName="name" required>
+            <mat-hint align="start">{{EnvironmentGeneralComponent.GetDescriptions().name.message}}</mat-hint>
+            <mat-error *ngFor="let validation of EnvironmentGeneralComponent.GetValidationMessages().name">
+              <mat-error class="error-message" *ngIf="EnvironmentGeneralForm.get('name').hasError(validation.type) && (EnvironmentGeneralForm.get('name').dirty || EnvironmentGeneralForm.get('name').touched)">{{validation.message}}</mat-error>
+            </mat-error>
+          </mat-form-field>
 
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Chef Workstation ip" formControlName="chefWSAddress" required>
+            <mat-hint align="start">{{EnvironmentGeneralComponent.GetDescriptions().chefWSAddress.message}}</mat-hint>
+            <mat-error *ngFor="let validation of EnvironmentGeneralComponent.GetValidationMessages().chefWSAddress">
+              <mat-error class="error-message" *ngIf="EnvironmentGeneralForm.get('chefWSAddress').hasError(validation.type) && (EnvironmentGeneralForm.get('chefWSAddress').dirty || EnvironmentGeneralForm.get('chefWSAddress').touched)">{{validation.message}}</mat-error>
+            </mat-error>
+          </mat-form-field>
 
-        <mat-form-field class="full-width">
-          <input matInput [matDatepicker]="picker" placeholder="Your birthday" formControlName="birthday" required>
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-          <mat-error *ngFor="let validation of userDetailsComponent.GetValidationMessages().birthday">
-            <mat-error class="error-message" *ngIf="userDetailsForm.get('birthday').hasError(validation.type) && (userDetailsForm.get('birthday').dirty || userDetailsForm.get('birthday').touched)">{{validation.message}}</mat-error>
-          </mat-error>
-        </mat-form-field>
-
-
-        <mat-form-field class="full-width">
-          <mat-select placeholder="Gender">
-            <mat-option *ngFor="let gender of userDetailsComponent.GetGenders()" [value]="gender">
-              {{ gender }}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngFor="let validation of userDetailsComponent.GetValidationMessages().gender">
-            <mat-error class="error-message" *ngIf="userDetailsForm.get('gender').hasError(validation.type) && (userDetailsForm.get('gender').dirty || userDetailsForm.get('gender').touched)">{{validation.message}}</mat-error>
-          </mat-error>
-        </mat-form-field>
-
-
-        <div formGroupName="country_phone" class="row">
-          <mat-form-field class="full-width col-4">
-            <mat-select formControlName="country" placeholder="Country">
-              <mat-option *ngFor="let country of userDetailsComponent.GetCountries()" [value]="country">
-                {{ country.name }}
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Environment Type" formControlName="environmenttype" #envType>
+              <mat-option *ngFor="let envType of EnvironmentGeneralComponent.GetEnvironmentTypes()" [value]="envType">
+                {{ envType }}
               </mat-option>
             </mat-select>
+            <mat-hint align="start">{{EnvironmentGeneralComponent.GetDescriptions().environmenttype.message}}</mat-hint>
+            <mat-error *ngFor="let validation of EnvironmentGeneralComponent.GetValidationMessages().environmenttype">
+              <mat-error class="error-message" *ngIf="EnvironmentGeneralForm.get('environmenttype').hasError(validation.type) && (EnvironmentGeneralForm.get('environmenttype').dirty || EnvironmentGeneralForm.get('environmenttype').touched)">{{validation.message}}</mat-error>
+            </mat-error>
           </mat-form-field>
-          <mat-form-field class="full-width col-8">
-            <input matInput placeholder="Phone" type="tel" formControlName="phone" required>
-            <mat-hint align="start"><strong>Mobile:</strong> {{ userDetailsForm.value.country_phone.country.sampleMobilePhone }}</mat-hint>
-            <mat-hint align="end"><strong>Fixed:</strong> {{ userDetailsForm.value.country_phone.country.sampleFixedPhone }}</mat-hint>
-            <mat-error *ngFor="let validation of userDetailsComponent.GetValidationMessages().phone">
-              <mat-error class="error-message" class="error-message" *ngIf="userDetailsForm.get('country_phone').get('phone').hasError(validation.type) && (userDetailsForm.get('country_phone').get('phone').dirty || userDetailsForm.get('country_phone').get('phone').touched)">
-                {{ validation.message }}
+
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Industry Type" formControlName="industries">
+              <mat-option *ngFor="let industryType of EnvironmentGeneralComponent.GetIndustries()" [value]="industryType">
+                {{ industryType }}
+              </mat-option>
+            </mat-select>
+            <mat-hint align="start">{{EnvironmentGeneralComponent.GetDescriptions().industries.message}}</mat-hint>
+            <mat-error *ngFor="let validation of EnvironmentGeneralComponent.GetValidationMessages().industries">
+              <mat-error class="error-message" *ngIf="EnvironmentGeneralForm.get('industries').hasError(validation.type) && (EnvironmentGeneralForm.get('industries').dirty || EnvironmentGeneralForm.get('industries').touched)">{{validation.message}}</mat-error>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-checkbox formControlName="RserverIncluded" #RServerIncluded>
+            Install R server
+          </mat-checkbox>
+
+
+
+          <div>
+            <button class="submit-btn" mat-button [disabled]="!EnvironmentGeneralForm.valid" matStepperNext>Next</button>
+          </div>
+
+        </form>
+      </mat-step>
+
+
+
+      <mat-step [stepControl]="userDetailsForm">
+        <form [formGroup]="userDetailsForm" (ngSubmit)="onSubmitUserDetails(userDetailsForm.value)">
+          <ng-template matStepLabel>SQL Connection</ng-template>
+
+
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button class="submit-btn" mat-button matStepperNext>Next</button>
+          </div>
+
+        </form>
+      </mat-step>
+
+      <mat-step  *ngIf="EnvironmentGeneralForm.get('environmenttype').value != 'SQL'" [stepControl]="userDetailsForm">
+        <form [formGroup]="userDetailsForm" (ngSubmit)="onSubmitUserDetails(userDetailsForm.value)">
+          <ng-template matStepLabel>Vertica</ng-template>
+
+
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button class="submit-btn" mat-button matStepperNext>Next</button>
+          </div>
+
+        </form>
+      </mat-step>
+
+      <mat-step *ngIf="RServerIncluded.checked"  [stepControl]="userDetailsForm">
+        <form [formGroup]="userDetailsForm" (ngSubmit)="onSubmitUserDetails(userDetailsForm.value)">
+          <ng-template matStepLabel>R Server</ng-template>
+
+
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button class="submit-btn" mat-button matStepperNext>Next</button>
+          </div>
+
+        </form>
+      </mat-step>
+
+      <mat-step *ngIf="EnvironmentGeneralForm.get('environmenttype').value == 'Hadoop'" [stepControl]="userDetailsForm">
+        <form [formGroup]="userDetailsForm" (ngSubmit)="onSubmitUserDetails(userDetailsForm.value)">
+          <ng-template matStepLabel>Hadoop</ng-template>
+
+
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button class="submit-btn" mat-button matStepperNext>Next</button>
+          </div>
+
+        </form>
+      </mat-step>
+
+      <mat-step *ngIf="EnvironmentGeneralForm.get('industries').value != 'Semi'" [stepControl]="userDetailsForm">
+        <form [formGroup]="userDetailsForm" (ngSubmit)="onSubmitUserDetails(userDetailsForm.value)">
+          <ng-template matStepLabel>Kafka</ng-template>
+
+
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button class="submit-btn" mat-button matStepperNext>Next</button>
+          </div>
+
+        </form>
+      </mat-step>
+
+      <mat-step *ngIf="EnvironmentGeneralForm.get('industries').value != 'Semi'" [stepControl]="userDetailsForm">
+        <form [formGroup]="userDetailsForm" (ngSubmit)="onSubmitUserDetails(userDetailsForm.value)">
+          <ng-template matStepLabel>Pentaho</ng-template>
+
+
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button class="submit-btn" mat-button matStepperNext>Finish</button>
+          </div>
+
+        </form>
+      </mat-step>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <!-- <mat-step *ngIf="userDetailsForm.get('bio').value == 'bbb'" [stepControl]="accountDetailsForm">
+
+        <form [formGroup]="accountDetailsForm" novalidate (ngSubmit)="onSubmitAccountDetails(accountDetailsForm.value)">
+          <ng-template matStepLabel>Account Details</ng-template>
+          <mat-form-field class="full-width">
+            <input matInput maxlength="25" placeholder="Username" formControlName="username" required>
+            <mat-error *ngFor="let validation of accountDetailsComponent.GetValidationMessages().username">
+              <mat-error class="error-message" *ngIf="accountDetailsForm.get('username').hasError(validation.type) && (accountDetailsForm.get('username').dirty || accountDetailsForm.get('username').touched)">{{validation.message}}</mat-error>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="full-width">
+            <input matInput type="email" placeholder="Email" formControlName="email" required>
+            <mat-error *ngFor="let validation of accountDetailsComponent.GetValidationMessages().email">
+              <mat-error class="error-message" *ngIf="accountDetailsForm.get('email').hasError(validation.type) && (accountDetailsForm.get('email').dirty || accountDetailsForm.get('email').touched)">{{validation.message}}</mat-error>
+            </mat-error>
+          </mat-form-field>
+
+
+          <div formGroupName="matching_passwords">
+            <mat-form-field class="full-width">
+              <input matInput type="password" placeholder="Password" formControlName="password" required>
+              <mat-error *ngFor="let validation of accountDetailsComponent.GetValidationMessages().password">
+                <mat-error class="error-message" *ngIf="accountDetailsForm.get('matching_passwords').get('password').hasError(validation.type) && (accountDetailsForm.get('matching_passwords').get('password').dirty || accountDetailsForm.get('matching_passwords').get('password').touched)">{{validation.message}}</mat-error>
               </mat-error>
-            </mat-error>
-          </mat-form-field>
-        </div>
+            </mat-form-field>
 
-        <mat-form-field class="full-width">
-          <textarea matInput maxlength="256" placeholder="Bio" formControlName="bio" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5"></textarea>
-          <mat-hint align="start">Tell us about yourself</mat-hint>
-          <mat-hint align="end">{{userDetailsForm.get('bio').value.length}} / 256</mat-hint>
-          <mat-error *ngFor="let validation of userDetailsComponent.GetValidationMessages().bio">
-            <mat-error class="error-message" *ngIf="userDetailsForm.get('bio').hasError(validation.type) && (userDetailsForm.get('bio').dirty || userDetailsForm.get('bio').touched)">{{validation.message}}</mat-error>
+            <mat-form-field class="full-width">
+              <input matInput type="password" placeholder="Confirm Password" formControlName="confirm_password" [errorStateMatcher]="parentErrorStateMatcher"
+                required>
+              <mat-error *ngFor="let validation of accountDetailsComponent.GetValidationMessages().confirm_password">
+                <mat-error class="error-message" *ngIf="(accountDetailsForm.get('matching_passwords').get('confirm_password').hasError(validation.type)|| accountDetailsForm.get('matching_passwords').hasError(validation.type)) && (accountDetailsForm.get('matching_passwords').get('confirm_password').dirty || accountDetailsForm.get('matching_passwords').get('confirm_password').touched)">{{validation.message}}</mat-error>
+              </mat-error>
+            </mat-form-field>
+
+          </div>
+
+          <mat-checkbox formControlName="terms">
+            I accept terms and conditions
+          </mat-checkbox>
+          <mat-error *ngFor="let validation of accountDetailsComponent.GetValidationMessages().terms">
+            <mat-error class="error-message" *ngIf="accountDetailsForm.get('terms').hasError(validation.type) && (accountDetailsForm.get('terms').dirty || accountDetailsForm.get('terms').touched)">{{validation.message}}</mat-error>
           </mat-error>
-        </mat-form-field>
 
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button class="submit-btn" mat-button [disabled]="!accountDetailsForm.valid" matStepperNext>Next</button>
+          </div>
 
-
-      <div>
-        <button class= "submit-btn" mat-button [disabled] = "!userDetailsForm.valid" matStepperNext>Next</button>
-      </div>
-
-      </form>
-  </mat-step>
-  <mat-step [stepControl]="accountDetailsForm">
-
-      <form [formGroup]="accountDetailsForm" novalidate (ngSubmit)="onSubmitAccountDetails(accountDetailsForm.value)">
-        <ng-template matStepLabel>Account Details</ng-template>
-        <mat-form-field class="full-width">
-          <input matInput maxlength="25" placeholder="Username" formControlName="username" required>
-          <mat-error *ngFor="let validation of accountDetailsComponent.GetValidationMessages().username">
-            <mat-error class="error-message" *ngIf="accountDetailsForm.get('username').hasError(validation.type) && (accountDetailsForm.get('username').dirty || accountDetailsForm.get('username').touched)">{{validation.message}}</mat-error>
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field class="full-width">
-          <input matInput type="email" placeholder="Email" formControlName="email" required>
-          <mat-error *ngFor="let validation of accountDetailsComponent.GetValidationMessages().email">
-            <mat-error class="error-message" *ngIf="accountDetailsForm.get('email').hasError(validation.type) && (accountDetailsForm.get('email').dirty || accountDetailsForm.get('email').touched)">{{validation.message}}</mat-error>
-          </mat-error>
-        </mat-form-field>
-
-
-        <div formGroupName="matching_passwords">
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="userDetailsForm">
+        <form [formGroup]="userDetailsForm" (ngSubmit)="onSubmitUserDetails(userDetailsForm.value)">
+          <ng-template matStepLabel>User Details</ng-template>
+          <input type='file' (change)="onSelectFile($event)"><br /><br />
           <mat-form-field class="full-width">
-            <input matInput type="password" placeholder="Password" formControlName="password" required>
-            <mat-error *ngFor="let validation of accountDetailsComponent.GetValidationMessages().password">
-              <mat-error class="error-message" *ngIf="accountDetailsForm.get('matching_passwords').get('password').hasError(validation.type) && (accountDetailsForm.get('matching_passwords').get('password').dirty || accountDetailsForm.get('matching_passwords').get('password').touched)">{{validation.message}}</mat-error>
+            <input matInput placeholder="Full Name" formControlName="fullname" required>
+            <mat-hint align="start">{{userDetailsComponent.GetDescriptions().fullname.message}}</mat-hint>
+            <mat-error *ngFor="let validation of userDetailsComponent.GetValidationMessages().fullname">
+              <mat-error class="error-message" *ngIf="userDetailsForm.get('fullname').hasError(validation.type) && (userDetailsForm.get('fullname').dirty || userDetailsForm.get('fullname').touched)">{{validation.message}}</mat-error>
             </mat-error>
           </mat-form-field>
+
+
 
           <mat-form-field class="full-width">
-            <input matInput type="password" placeholder="Confirm Password" formControlName="confirm_password"  [errorStateMatcher]="parentErrorStateMatcher" required>
-            <mat-error *ngFor="let validation of accountDetailsComponent.GetValidationMessages().confirm_password">
-              <mat-error class="error-message" *ngIf="(accountDetailsForm.get('matching_passwords').get('confirm_password').hasError(validation.type)|| accountDetailsForm.get('matching_passwords').hasError(validation.type)) && (accountDetailsForm.get('matching_passwords').get('confirm_password').dirty || accountDetailsForm.get('matching_passwords').get('confirm_password').touched)">{{validation.message}}</mat-error>
+            <mat-select placeholder="Gender">
+              <mat-option *ngFor="let gender of userDetailsComponent.GetGenders()" [value]="gender">
+                {{ gender }}
+              </mat-option>
+            </mat-select>
+            <mat-hint align="start">{{userDetailsComponent.GetDescriptions().gender.message}}</mat-hint>
+            <mat-error *ngFor="let validation of userDetailsComponent.GetValidationMessages().gender">
+              <mat-error class="error-message" *ngIf="userDetailsForm.get('gender').hasError(validation.type) && (userDetailsForm.get('gender').dirty || userDetailsForm.get('gender').touched)">{{validation.message}}</mat-error>
             </mat-error>
           </mat-form-field>
 
-        </div>
 
-        <mat-checkbox formControlName="terms">
-          I accept terms and conditions
-        </mat-checkbox>
-        <mat-error *ngFor="let validation of accountDetailsComponent.GetValidationMessages().terms">
-          <mat-error class="error-message" *ngIf="accountDetailsForm.get('terms').hasError(validation.type) && (accountDetailsForm.get('terms').dirty || accountDetailsForm.get('terms').touched)">{{validation.message}}</mat-error>
-        </mat-error>
+          <div formGroupName="country_phone" class="row">
+            <mat-form-field class="full-width col-4">
+              <mat-select formControlName="country" placeholder="Country">
+                <mat-option *ngFor="let country of userDetailsComponent.GetCountries()" [value]="country">
+                  {{ country.name }}
+                </mat-option>
+              </mat-select>
+              <mat-hint align="start">{{userDetailsComponent.GetDescriptions().country.message}}</mat-hint>
+            </mat-form-field>
+            <mat-form-field class="full-width col-8">
+              <input matInput placeholder="Phone" type="tel" formControlName="phone" required>
+              <mat-hint align="start"><strong>Mobile:</strong> {{ userDetailsForm.value.country_phone.country.sampleMobilePhone }}</mat-hint>
+              <mat-hint align="end"><strong>Fixed:</strong> {{ userDetailsForm.value.country_phone.country.sampleFixedPhone }}</mat-hint>
+              <mat-error *ngFor="let validation of userDetailsComponent.GetValidationMessages().phone">
+                <mat-error class="error-message" class="error-message" *ngIf="userDetailsForm.get('country_phone').get('phone').hasError(validation.type) && (userDetailsForm.get('country_phone').get('phone').dirty || userDetailsForm.get('country_phone').get('phone').touched)">
+                  {{ validation.message }}
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
 
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button class= "submit-btn" mat-button [disabled] = "!accountDetailsForm.valid" matStepperNext>Next</button>
-      </div>
+          <mat-form-field class="full-width">
+            <textarea matInput maxlength="256" placeholder="Bio" formControlName="bio" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5"></textarea>
+            <mat-hint align="start">Tell us about yourself</mat-hint>
+            <mat-hint align="end">{{userDetailsForm.get('bio').value.length}} / 256</mat-hint>
+            <mat-error *ngFor="let validation of userDetailsComponent.GetValidationMessages().bio">
+              <mat-error class="error-message" *ngIf="userDetailsForm.get('bio').hasError(validation.type) && (userDetailsForm.get('bio').dirty || userDetailsForm.get('bio').touched)">{{validation.message}}</mat-error>
+            </mat-error>
+          </mat-form-field>
 
-      </form>
-        </mat-step>
-</mat-horizontal-stepper>
+
+
+          <div>
+            <button class="submit-btn" mat-button [disabled]="!userDetailsForm.valid" matStepperNext>Next</button>
+          </div>
+
+        </form>
+      </mat-step>-->
+    </mat-horizontal-stepper>
 
   </div>
 </div>

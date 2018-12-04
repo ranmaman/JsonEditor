@@ -7,9 +7,9 @@ import {
   PhoneValidator
 } from '../validators';
 
-export class AccountDetailsComponent{
+export class AccountDetailsComponent {
 
-    account_validation_messages = {
+  account_validation_messages = {
     'username': [
       { type: 'required', message: 'Username is required' },
       { type: 'minlength', message: 'Username must be at least 5 characters long' },
@@ -35,40 +35,41 @@ export class AccountDetailsComponent{
     ]
   }
 
-  constructor(){}
-  GetAccountDetailsForm():FormGroup{
-        return new FormGroup({
-       username: new FormControl('', Validators.compose([
-       UsernameValidator.validUsername,
-       Validators.maxLength(25),
-       Validators.minLength(5),
-       Validators.pattern('^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]+$'),
-       Validators.required
+  constructor() { }
+  
+  GetAccountDetailsForm(): FormGroup {
+    return new FormGroup({
+      username: new FormControl('', Validators.compose([
+        UsernameValidator.validUsername,
+        Validators.maxLength(25),
+        Validators.minLength(5),
+        Validators.pattern('^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]+$'),
+        Validators.required
       ])),
       email: new FormControl('', Validators.compose([
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
       ])),
       matching_passwords: new FormGroup({
-      password: new FormControl('', Validators.compose([
-        Validators.minLength(5),
-        Validators.required,
-        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
-      ])),
-      confirm_password: new FormControl('', Validators.required)
-    }, (formGroup: FormGroup) => {
-      return PasswordValidator.areEqual(formGroup);
-    }),
+        password: new FormControl('', Validators.compose([
+          Validators.minLength(5),
+          Validators.required,
+          Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
+        ])),
+        confirm_password: new FormControl('', Validators.required)
+      }, (formGroup: FormGroup) => {
+        return PasswordValidator.areEqual(formGroup);
+      }),
       terms: new FormControl(false, Validators.pattern('true'))
-        })
-    }
+    })
+  }
 
-     GetValidationMessages(){
-         return this.account_validation_messages
-     }
+  GetValidationMessages() {
+    return this.account_validation_messages
+  }
 
-     patchValues(form:FormGroup , filecontent: any ){
-        form.patchValue({email:filecontent.name});
-        form.patchValue({username:filecontent.default_attributes.ChefWs.RootHttpUrl});
-     }
+  patchValues(form: FormGroup, filecontent: any) {
+    form.patchValue({ email: filecontent.name });
+    form.patchValue({ username: filecontent.default_attributes.ChefWs.RootHttpUrl });
+  }
 }
