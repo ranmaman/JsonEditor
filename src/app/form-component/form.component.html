@@ -6,42 +6,47 @@
         <form [formGroup]="EnvironmentGeneralForm">
           <ng-template matStepLabel>Environment General Information</ng-template>
           <input type='file' (change)="onSelectFile($event)"><br /><br />
-          <mat-form-field class="full-width" matTooltip="Tooltip!" matTooltipPosition="before"> 
+
+
+
+
+
+          <mat-form-field class="full-width">
             <input matInput placeholder="Environment Name" formControlName="name" required>
-            <mat-hint align="start">{{EnvironmentGeneralComponent.GetDescriptions().name.message}}</mat-hint>
-            <mat-error *ngFor="let validation of EnvironmentGeneralComponent.GetValidationMessages().name">
+            <mat-hint align="start">{{EnvironmentGeneralComponent.nameField.description}}</mat-hint>
+            <mat-error *ngFor="let validation of EnvironmentGeneralComponent.nameField.validationMsg">
               <mat-error class="error-message" *ngIf="EnvironmentGeneralForm.get('name').hasError(validation.type) && (EnvironmentGeneralForm.get('name').dirty || EnvironmentGeneralForm.get('name').touched)">{{validation.message}}</mat-error>
             </mat-error>
           </mat-form-field>
 
           <mat-form-field class="full-width">
             <input matInput placeholder="Chef Workstation ip" formControlName="chefWSAddress" required>
-            <mat-hint align="start">{{EnvironmentGeneralComponent.GetDescriptions().chefWSAddress.message}}</mat-hint>
-            <mat-error *ngFor="let validation of EnvironmentGeneralComponent.GetValidationMessages().chefWSAddress">
+            <mat-hint align="start">{{EnvironmentGeneralComponent.chefWSField.description}}</mat-hint>
+            <mat-error *ngFor="let validation of EnvironmentGeneralComponent.chefWSField.validationMsg">
               <mat-error class="error-message" *ngIf="EnvironmentGeneralForm.get('chefWSAddress').hasError(validation.type) && (EnvironmentGeneralForm.get('chefWSAddress').dirty || EnvironmentGeneralForm.get('chefWSAddress').touched)">{{validation.message}}</mat-error>
             </mat-error>
           </mat-form-field>
 
           <mat-form-field class="full-width">
             <mat-select placeholder="Environment Type" formControlName="environmenttype" #envType>
-              <mat-option *ngFor="let envType of EnvironmentGeneralComponent.GetEnvironmentTypes()" [value]="envType">
+              <mat-option *ngFor="let envType of EnvironmentGeneralComponent.environmentTypeField.options" [value]="envType">
                 {{ envType }}
               </mat-option>
             </mat-select>
-            <mat-hint align="start">{{EnvironmentGeneralComponent.GetDescriptions().environmenttype.message}}</mat-hint>
-            <mat-error *ngFor="let validation of EnvironmentGeneralComponent.GetValidationMessages().environmenttype">
+            <mat-hint align="start">{{EnvironmentGeneralComponent.environmentTypeField.description}}</mat-hint>
+            <mat-error *ngFor="let validation of EnvironmentGeneralComponent.environmentTypeField.validationMsg">
               <mat-error class="error-message" *ngIf="EnvironmentGeneralForm.get('environmenttype').hasError(validation.type) && (EnvironmentGeneralForm.get('environmenttype').dirty || EnvironmentGeneralForm.get('environmenttype').touched)">{{validation.message}}</mat-error>
             </mat-error>
           </mat-form-field>
 
           <mat-form-field class="full-width">
             <mat-select placeholder="Industry Type" formControlName="industries">
-              <mat-option *ngFor="let industryType of EnvironmentGeneralComponent.GetIndustries()" [value]="industryType">
+              <mat-option *ngFor="let industryType of EnvironmentGeneralComponent.industryField.options" [value]="industryType">
                 {{ industryType }}
               </mat-option>
             </mat-select>
-            <mat-hint align="start">{{EnvironmentGeneralComponent.GetDescriptions().industries.message}}</mat-hint>
-            <mat-error *ngFor="let validation of EnvironmentGeneralComponent.GetValidationMessages().industries">
+            <mat-hint align="start">{{EnvironmentGeneralComponent.industryField.description}}</mat-hint>
+            <mat-error *ngFor="let validation of EnvironmentGeneralComponent.industryField.validationMsg">
               <mat-error class="error-message" *ngIf="EnvironmentGeneralForm.get('industries').hasError(validation.type) && (EnvironmentGeneralForm.get('industries').dirty || EnvironmentGeneralForm.get('industries').touched)">{{validation.message}}</mat-error>
             </mat-error>
           </mat-form-field>
@@ -75,7 +80,7 @@
         </form>
       </mat-step>
 
-      <mat-step  *ngIf="EnvironmentGeneralForm.get('environmenttype').value != 'SQL'" [stepControl]="userDetailsForm">
+      <mat-step *ngIf="EnvironmentGeneralForm.get('environmenttype').value != 'SQL'" [stepControl]="userDetailsForm">
         <form [formGroup]="userDetailsForm" (ngSubmit)="onSubmitUserDetails(userDetailsForm.value)">
           <ng-template matStepLabel>Vertica</ng-template>
 
@@ -89,7 +94,7 @@
         </form>
       </mat-step>
 
-      <mat-step *ngIf="RServerIncluded.checked"  [stepControl]="userDetailsForm">
+      <mat-step *ngIf="RServerIncluded.checked" [stepControl]="userDetailsForm">
         <form [formGroup]="userDetailsForm" (ngSubmit)="onSubmitUserDetails(userDetailsForm.value)">
           <ng-template matStepLabel>R Server</ng-template>
 
