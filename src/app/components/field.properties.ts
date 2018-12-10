@@ -1,4 +1,5 @@
 import { FormBuilder, FormGroup, Validators, FormControl, ValidatorFn } from '@angular/forms';
+import { forEach } from '@angular/router/src/utils/collection';
 
 export class FieldProperties{
     private _defaultValue: any;
@@ -6,14 +7,24 @@ export class FieldProperties{
     private _description: string;
     private _validationMsg: any;
     private _options: string[];
+    private _jsonInputMapping: string[];
 
-    constructor(defultValue: any, validators:ValidatorFn[], description:string, validationMessage:any, options?:string[]) {
+
+    constructor(defultValue: any, validators:ValidatorFn[], description:string, validationMessage:any,jsonInputMapping?:string[], options?:string[]) {
         this.defaultValue = defultValue;
         this.validators = validators;
         this.description = description;
         this.validationMsg = validationMessage;
+        this.jsonInputMapping = jsonInputMapping
         if(options)
             this.options = options
+    }
+
+    public static getValueFromJson(fields:string[], json:any){
+        for(let f of fields){
+            json = json[f]
+        }
+        return json;
     }
 
     public get options(): any {
@@ -45,6 +56,12 @@ export class FieldProperties{
     }
     public set validationMsg(value: any) {
         this._validationMsg = value;
+    }
+    public get jsonInputMapping(): string[] {
+        return this._jsonInputMapping;
+    }
+    public set jsonInputMapping(value: string[]) {
+        this._jsonInputMapping = value;
     }
 
 

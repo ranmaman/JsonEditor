@@ -22,13 +22,13 @@ export class EnvironmentGeneralComponent {
     "Both"
   ];
 
-  private _nameField: FieldProperties = new FieldProperties('',[Validators.required],'Environment name as mentined in the globals',[{ type: 'required', message: 'Environment name is required' }]);
-  private _environmentTypeField: FieldProperties = new FieldProperties(this.environmentTypes[0],[Validators.required],'',[{ type: 'required', message: 'Please select environment type' }],this.environmentTypes);
-  private _industryField: FieldProperties = new FieldProperties(this.industries[0],[Validators.required],'',[{ type: 'required', message: 'Please select industry type' }],this.industries);
+  private _nameField: FieldProperties = new FieldProperties('',[Validators.required],'Environment name as mentined in the globals',[{ type: 'required', message: 'Environment name is required' }],["name"]);
+  private _environmentTypeField: FieldProperties = new FieldProperties(this.environmentTypes[0],[Validators.required],'',[{ type: 'required', message: 'Please select environment type' }],[],this.environmentTypes);
+  private _industryField: FieldProperties = new FieldProperties(this.industries[0],[Validators.required],'',[{ type: 'required', message: 'Please select industry type' }],[],this.industries);
   private _chefWSField: FieldProperties = new FieldProperties('',[Validators.required, Validators.pattern("^([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})$")],'Please specify Chef Workstation ip address',[
     { type: 'required', message: 'Chef Workstation address cannot be empty' },
-    { type: 'pattern', message: 'Chef Workstation contains invalid ip address' }
-  ]);
+    { type: 'pattern', message: 'Chef Workstation contains invalid ip address' }]
+  ,["default_attributes","ChefWs","IP"]);
   private _RserverField: FieldProperties;
 
 
@@ -63,14 +63,6 @@ export class EnvironmentGeneralComponent {
     { message: 'Please specify Chef Workstation ip address' }
   };
 
-  GetEnvironmentTypes() {
-    return this.environmentTypes
-  }
-
-  GetIndustries() {
-    return this.industries
-  }
-
   GetEnvironmentGeneralForm(): FormGroup {
     return new FormGroup({
       name: new FormControl(this.nameField.defaultValue, this.nameField.validators),
@@ -81,17 +73,9 @@ export class EnvironmentGeneralComponent {
     });
   }
 
-  GetDescriptions() {
-    return this.descriptions
-  }
-
-  GetValidationMessages() {
-    return this.validation_messages
-  }
-
   patchValues(form: FormGroup, filecontent: any) {
-    form.patchValue({ name: filecontent.name });
-    form.patchValue({ chefWSAddress: filecontent.default_attributes.ChefWs.IP });
+    form.patchValue({ name: FieldProperties.getValueFromJson(this.nameField.jsonInputMapping,filecontent)});
+    form.patchValue({ chefWSAddress: FieldProperties.getValueFromJson(this.chefWSField.jsonInputMapping,filecontent) });
 
   }
 
