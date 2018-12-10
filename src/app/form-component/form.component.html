@@ -7,50 +7,75 @@
           <ng-template matStepLabel>Environment General Information</ng-template>
           <input type='file' (change)="onSelectFile($event)"><br /><br />
 
+          <div class="field-container">
+            <div class="popup" align="end">
+              <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('name_info')" (mouseleave)="infoPopUp('name_info')">
+              </mat-icon>
+              <span class="popuptext" id="name_info">Environment Name Info!</span>
+            </div>
+            <mat-form-field class="full-width">
 
+              <input matInput placeholder="Environment Name" formControlName="name" required>
 
+              <mat-hint align="start">{{EnvironmentGeneralComponent.nameField.description}}</mat-hint>
 
+              <mat-error *ngFor="let validation of EnvironmentGeneralComponent.nameField.validationMsg">
+                <mat-error class="error-message" *ngIf="EnvironmentGeneralForm.get('name').hasError(validation.type) && (EnvironmentGeneralForm.get('name').dirty || EnvironmentGeneralForm.get('name').touched)">{{validation.message}}</mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
 
-          <mat-form-field class="full-width">
-            <input matInput placeholder="Environment Name" formControlName="name" required>
-            <mat-hint align="start">{{EnvironmentGeneralComponent.nameField.description}}</mat-hint>
-            <mat-error *ngFor="let validation of EnvironmentGeneralComponent.nameField.validationMsg">
-              <mat-error class="error-message" *ngIf="EnvironmentGeneralForm.get('name').hasError(validation.type) && (EnvironmentGeneralForm.get('name').dirty || EnvironmentGeneralForm.get('name').touched)">{{validation.message}}</mat-error>
-            </mat-error>
-          </mat-form-field>
+          <div class="field-container">
+            <div class="popup" align="end">
+              <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('chefWSAddress_info')" (mouseleave)="infoPopUp('chefWSAddress_info')">
+              </mat-icon>
+              <span class="popuptext" id="chefWSAddress_info">Chef WS Address Info!</span>
+            </div>
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Chef Workstation ip" formControlName="chefWSAddress" required>
+              <mat-hint align="start">{{EnvironmentGeneralComponent.chefWSField.description}}</mat-hint>
+              <mat-error *ngFor="let validation of EnvironmentGeneralComponent.chefWSField.validationMsg">
+                <mat-error class="error-message" *ngIf="EnvironmentGeneralForm.get('chefWSAddress').hasError(validation.type) && (EnvironmentGeneralForm.get('chefWSAddress').dirty || EnvironmentGeneralForm.get('chefWSAddress').touched)">{{validation.message}}</mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="field-container">
+            <div class="popup" align="end">
+              <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('environmenttype_info')" (mouseleave)="infoPopUp('environmenttype_info')">
+              </mat-icon>
+              <span class="popuptext" id="environmenttype_info">Environment Type Info!</span>
+            </div>
+            <mat-form-field class="full-width">
+              <mat-select placeholder="Environment Type" formControlName="environmenttype" #envType>
+                <mat-option *ngFor="let envType of EnvironmentGeneralComponent.environmentTypeField.options" [value]="envType">
+                  {{ envType }}
+                </mat-option>
+              </mat-select>
+              <mat-hint align="start">{{EnvironmentGeneralComponent.environmentTypeField.description}}</mat-hint>
+              <mat-error *ngFor="let validation of EnvironmentGeneralComponent.environmentTypeField.validationMsg">
+                <mat-error class="error-message" *ngIf="EnvironmentGeneralForm.get('environmenttype').hasError(validation.type) && (EnvironmentGeneralForm.get('environmenttype').dirty || EnvironmentGeneralForm.get('environmenttype').touched)">{{validation.message}}</mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
 
-          <mat-form-field class="full-width">
-            <input matInput placeholder="Chef Workstation ip" formControlName="chefWSAddress" required>
-            <mat-hint align="start">{{EnvironmentGeneralComponent.chefWSField.description}}</mat-hint>
-            <mat-error *ngFor="let validation of EnvironmentGeneralComponent.chefWSField.validationMsg">
-              <mat-error class="error-message" *ngIf="EnvironmentGeneralForm.get('chefWSAddress').hasError(validation.type) && (EnvironmentGeneralForm.get('chefWSAddress').dirty || EnvironmentGeneralForm.get('chefWSAddress').touched)">{{validation.message}}</mat-error>
-            </mat-error>
-          </mat-form-field>
-
-          <mat-form-field class="full-width">
-            <mat-select placeholder="Environment Type" formControlName="environmenttype" #envType>
-              <mat-option *ngFor="let envType of EnvironmentGeneralComponent.environmentTypeField.options" [value]="envType">
-                {{ envType }}
-              </mat-option>
-            </mat-select>
-            <mat-hint align="start">{{EnvironmentGeneralComponent.environmentTypeField.description}}</mat-hint>
-            <mat-error *ngFor="let validation of EnvironmentGeneralComponent.environmentTypeField.validationMsg">
-              <mat-error class="error-message" *ngIf="EnvironmentGeneralForm.get('environmenttype').hasError(validation.type) && (EnvironmentGeneralForm.get('environmenttype').dirty || EnvironmentGeneralForm.get('environmenttype').touched)">{{validation.message}}</mat-error>
-            </mat-error>
-          </mat-form-field>
-
-          <mat-form-field class="full-width">
-            <mat-select placeholder="Industry Type" formControlName="industries">
-              <mat-option *ngFor="let industryType of EnvironmentGeneralComponent.industryField.options" [value]="industryType">
-                {{ industryType }}
-              </mat-option>
-            </mat-select>
-            <mat-hint align="start">{{EnvironmentGeneralComponent.industryField.description}}</mat-hint>
-            <mat-error *ngFor="let validation of EnvironmentGeneralComponent.industryField.validationMsg">
-              <mat-error class="error-message" *ngIf="EnvironmentGeneralForm.get('industries').hasError(validation.type) && (EnvironmentGeneralForm.get('industries').dirty || EnvironmentGeneralForm.get('industries').touched)">{{validation.message}}</mat-error>
-            </mat-error>
-          </mat-form-field>
-
+          <div class="field-container">
+            <div class="popup" align="end">
+              <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('industries_info')" (mouseleave)="infoPopUp('industries_info')">
+              </mat-icon>
+              <span class="popuptext" id="industries_info">Industries Info!</span>
+            </div>
+            <mat-form-field class="full-width">
+              <mat-select placeholder="Industry Type" formControlName="industries">
+                <mat-option *ngFor="let industryType of EnvironmentGeneralComponent.industryField.options" [value]="industryType">
+                  {{ industryType }}
+                </mat-option>
+              </mat-select>
+              <mat-hint align="start">{{EnvironmentGeneralComponent.industryField.description}}</mat-hint>
+              <mat-error *ngFor="let validation of EnvironmentGeneralComponent.industryField.validationMsg">
+                <mat-error class="error-message" *ngIf="EnvironmentGeneralForm.get('industries').hasError(validation.type) && (EnvironmentGeneralForm.get('industries').dirty || EnvironmentGeneralForm.get('industries').touched)">{{validation.message}}</mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
           <mat-checkbox formControlName="RserverIncluded" #RServerIncluded>
             Install R server
           </mat-checkbox>
@@ -168,121 +193,121 @@
 
 
       <!-- <mat-step *ngIf="userDetailsForm.get('bio').value == 'bbb'" [stepControl]="accountDetailsForm">
-
-        <form [formGroup]="accountDetailsForm" novalidate (ngSubmit)="onSubmitAccountDetails(accountDetailsForm.value)">
-          <ng-template matStepLabel>Account Details</ng-template>
-          <mat-form-field class="full-width">
-            <input matInput maxlength="25" placeholder="Username" formControlName="username" required>
-            <mat-error *ngFor="let validation of accountDetailsComponent.GetValidationMessages().username">
-              <mat-error class="error-message" *ngIf="accountDetailsForm.get('username').hasError(validation.type) && (accountDetailsForm.get('username').dirty || accountDetailsForm.get('username').touched)">{{validation.message}}</mat-error>
-            </mat-error>
-          </mat-form-field>
-
-          <mat-form-field class="full-width">
-            <input matInput type="email" placeholder="Email" formControlName="email" required>
-            <mat-error *ngFor="let validation of accountDetailsComponent.GetValidationMessages().email">
-              <mat-error class="error-message" *ngIf="accountDetailsForm.get('email').hasError(validation.type) && (accountDetailsForm.get('email').dirty || accountDetailsForm.get('email').touched)">{{validation.message}}</mat-error>
-            </mat-error>
-          </mat-form-field>
-
-
-          <div formGroupName="matching_passwords">
+  
+          <form [formGroup]="accountDetailsForm" novalidate (ngSubmit)="onSubmitAccountDetails(accountDetailsForm.value)">
+            <ng-template matStepLabel>Account Details</ng-template>
             <mat-form-field class="full-width">
-              <input matInput type="password" placeholder="Password" formControlName="password" required>
-              <mat-error *ngFor="let validation of accountDetailsComponent.GetValidationMessages().password">
-                <mat-error class="error-message" *ngIf="accountDetailsForm.get('matching_passwords').get('password').hasError(validation.type) && (accountDetailsForm.get('matching_passwords').get('password').dirty || accountDetailsForm.get('matching_passwords').get('password').touched)">{{validation.message}}</mat-error>
+              <input matInput maxlength="25" placeholder="Username" formControlName="username" required>
+              <mat-error *ngFor="let validation of accountDetailsComponent.GetValidationMessages().username">
+                <mat-error class="error-message" *ngIf="accountDetailsForm.get('username').hasError(validation.type) && (accountDetailsForm.get('username').dirty || accountDetailsForm.get('username').touched)">{{validation.message}}</mat-error>
               </mat-error>
             </mat-form-field>
-
+  
             <mat-form-field class="full-width">
-              <input matInput type="password" placeholder="Confirm Password" formControlName="confirm_password" [errorStateMatcher]="parentErrorStateMatcher"
-                required>
-              <mat-error *ngFor="let validation of accountDetailsComponent.GetValidationMessages().confirm_password">
-                <mat-error class="error-message" *ngIf="(accountDetailsForm.get('matching_passwords').get('confirm_password').hasError(validation.type)|| accountDetailsForm.get('matching_passwords').hasError(validation.type)) && (accountDetailsForm.get('matching_passwords').get('confirm_password').dirty || accountDetailsForm.get('matching_passwords').get('confirm_password').touched)">{{validation.message}}</mat-error>
+              <input matInput type="email" placeholder="Email" formControlName="email" required>
+              <mat-error *ngFor="let validation of accountDetailsComponent.GetValidationMessages().email">
+                <mat-error class="error-message" *ngIf="accountDetailsForm.get('email').hasError(validation.type) && (accountDetailsForm.get('email').dirty || accountDetailsForm.get('email').touched)">{{validation.message}}</mat-error>
               </mat-error>
             </mat-form-field>
-
-          </div>
-
-          <mat-checkbox formControlName="terms">
-            I accept terms and conditions
-          </mat-checkbox>
-          <mat-error *ngFor="let validation of accountDetailsComponent.GetValidationMessages().terms">
-            <mat-error class="error-message" *ngIf="accountDetailsForm.get('terms').hasError(validation.type) && (accountDetailsForm.get('terms').dirty || accountDetailsForm.get('terms').touched)">{{validation.message}}</mat-error>
-          </mat-error>
-
-          <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button class="submit-btn" mat-button [disabled]="!accountDetailsForm.valid" matStepperNext>Next</button>
-          </div>
-
-        </form>
-      </mat-step>
-      <mat-step [stepControl]="userDetailsForm">
-        <form [formGroup]="userDetailsForm" (ngSubmit)="onSubmitUserDetails(userDetailsForm.value)">
-          <ng-template matStepLabel>User Details</ng-template>
-          <input type='file' (change)="onSelectFile($event)"><br /><br />
-          <mat-form-field class="full-width">
-            <input matInput placeholder="Full Name" formControlName="fullname" required>
-            <mat-hint align="start">{{userDetailsComponent.GetDescriptions().fullname.message}}</mat-hint>
-            <mat-error *ngFor="let validation of userDetailsComponent.GetValidationMessages().fullname">
-              <mat-error class="error-message" *ngIf="userDetailsForm.get('fullname').hasError(validation.type) && (userDetailsForm.get('fullname').dirty || userDetailsForm.get('fullname').touched)">{{validation.message}}</mat-error>
+  
+  
+            <div formGroupName="matching_passwords">
+              <mat-form-field class="full-width">
+                <input matInput type="password" placeholder="Password" formControlName="password" required>
+                <mat-error *ngFor="let validation of accountDetailsComponent.GetValidationMessages().password">
+                  <mat-error class="error-message" *ngIf="accountDetailsForm.get('matching_passwords').get('password').hasError(validation.type) && (accountDetailsForm.get('matching_passwords').get('password').dirty || accountDetailsForm.get('matching_passwords').get('password').touched)">{{validation.message}}</mat-error>
+                </mat-error>
+              </mat-form-field>
+  
+              <mat-form-field class="full-width">
+                <input matInput type="password" placeholder="Confirm Password" formControlName="confirm_password" [errorStateMatcher]="parentErrorStateMatcher"
+                  required>
+                <mat-error *ngFor="let validation of accountDetailsComponent.GetValidationMessages().confirm_password">
+                  <mat-error class="error-message" *ngIf="(accountDetailsForm.get('matching_passwords').get('confirm_password').hasError(validation.type)|| accountDetailsForm.get('matching_passwords').hasError(validation.type)) && (accountDetailsForm.get('matching_passwords').get('confirm_password').dirty || accountDetailsForm.get('matching_passwords').get('confirm_password').touched)">{{validation.message}}</mat-error>
+                </mat-error>
+              </mat-form-field>
+  
+            </div>
+  
+            <mat-checkbox formControlName="terms">
+              I accept terms and conditions
+            </mat-checkbox>
+            <mat-error *ngFor="let validation of accountDetailsComponent.GetValidationMessages().terms">
+              <mat-error class="error-message" *ngIf="accountDetailsForm.get('terms').hasError(validation.type) && (accountDetailsForm.get('terms').dirty || accountDetailsForm.get('terms').touched)">{{validation.message}}</mat-error>
             </mat-error>
-          </mat-form-field>
-
-
-
-          <mat-form-field class="full-width">
-            <mat-select placeholder="Gender">
-              <mat-option *ngFor="let gender of userDetailsComponent.GetGenders()" [value]="gender">
-                {{ gender }}
-              </mat-option>
-            </mat-select>
-            <mat-hint align="start">{{userDetailsComponent.GetDescriptions().gender.message}}</mat-hint>
-            <mat-error *ngFor="let validation of userDetailsComponent.GetValidationMessages().gender">
-              <mat-error class="error-message" *ngIf="userDetailsForm.get('gender').hasError(validation.type) && (userDetailsForm.get('gender').dirty || userDetailsForm.get('gender').touched)">{{validation.message}}</mat-error>
-            </mat-error>
-          </mat-form-field>
-
-
-          <div formGroupName="country_phone" class="row">
-            <mat-form-field class="full-width col-4">
-              <mat-select formControlName="country" placeholder="Country">
-                <mat-option *ngFor="let country of userDetailsComponent.GetCountries()" [value]="country">
-                  {{ country.name }}
+  
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button class="submit-btn" mat-button [disabled]="!accountDetailsForm.valid" matStepperNext>Next</button>
+            </div>
+  
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="userDetailsForm">
+          <form [formGroup]="userDetailsForm" (ngSubmit)="onSubmitUserDetails(userDetailsForm.value)">
+            <ng-template matStepLabel>User Details</ng-template>
+            <input type='file' (change)="onSelectFile($event)"><br /><br />
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Full Name" formControlName="fullname" required>
+              <mat-hint align="start">{{userDetailsComponent.GetDescriptions().fullname.message}}</mat-hint>
+              <mat-error *ngFor="let validation of userDetailsComponent.GetValidationMessages().fullname">
+                <mat-error class="error-message" *ngIf="userDetailsForm.get('fullname').hasError(validation.type) && (userDetailsForm.get('fullname').dirty || userDetailsForm.get('fullname').touched)">{{validation.message}}</mat-error>
+              </mat-error>
+            </mat-form-field>
+  
+  
+  
+            <mat-form-field class="full-width">
+              <mat-select placeholder="Gender">
+                <mat-option *ngFor="let gender of userDetailsComponent.GetGenders()" [value]="gender">
+                  {{ gender }}
                 </mat-option>
               </mat-select>
-              <mat-hint align="start">{{userDetailsComponent.GetDescriptions().country.message}}</mat-hint>
-            </mat-form-field>
-            <mat-form-field class="full-width col-8">
-              <input matInput placeholder="Phone" type="tel" formControlName="phone" required>
-              <mat-hint align="start"><strong>Mobile:</strong> {{ userDetailsForm.value.country_phone.country.sampleMobilePhone }}</mat-hint>
-              <mat-hint align="end"><strong>Fixed:</strong> {{ userDetailsForm.value.country_phone.country.sampleFixedPhone }}</mat-hint>
-              <mat-error *ngFor="let validation of userDetailsComponent.GetValidationMessages().phone">
-                <mat-error class="error-message" class="error-message" *ngIf="userDetailsForm.get('country_phone').get('phone').hasError(validation.type) && (userDetailsForm.get('country_phone').get('phone').dirty || userDetailsForm.get('country_phone').get('phone').touched)">
-                  {{ validation.message }}
-                </mat-error>
+              <mat-hint align="start">{{userDetailsComponent.GetDescriptions().gender.message}}</mat-hint>
+              <mat-error *ngFor="let validation of userDetailsComponent.GetValidationMessages().gender">
+                <mat-error class="error-message" *ngIf="userDetailsForm.get('gender').hasError(validation.type) && (userDetailsForm.get('gender').dirty || userDetailsForm.get('gender').touched)">{{validation.message}}</mat-error>
               </mat-error>
             </mat-form-field>
-          </div>
-
-          <mat-form-field class="full-width">
-            <textarea matInput maxlength="256" placeholder="Bio" formControlName="bio" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5"></textarea>
-            <mat-hint align="start">Tell us about yourself</mat-hint>
-            <mat-hint align="end">{{userDetailsForm.get('bio').value.length}} / 256</mat-hint>
-            <mat-error *ngFor="let validation of userDetailsComponent.GetValidationMessages().bio">
-              <mat-error class="error-message" *ngIf="userDetailsForm.get('bio').hasError(validation.type) && (userDetailsForm.get('bio').dirty || userDetailsForm.get('bio').touched)">{{validation.message}}</mat-error>
-            </mat-error>
-          </mat-form-field>
-
-
-
-          <div>
-            <button class="submit-btn" mat-button [disabled]="!userDetailsForm.valid" matStepperNext>Next</button>
-          </div>
-
-        </form>
-      </mat-step>-->
+  
+  
+            <div formGroupName="country_phone" class="row">
+              <mat-form-field class="full-width col-4">
+                <mat-select formControlName="country" placeholder="Country">
+                  <mat-option *ngFor="let country of userDetailsComponent.GetCountries()" [value]="country">
+                    {{ country.name }}
+                  </mat-option>
+                </mat-select>
+                <mat-hint align="start">{{userDetailsComponent.GetDescriptions().country.message}}</mat-hint>
+              </mat-form-field>
+              <mat-form-field class="full-width col-8">
+                <input matInput placeholder="Phone" type="tel" formControlName="phone" required>
+                <mat-hint align="start"><strong>Mobile:</strong> {{ userDetailsForm.value.country_phone.country.sampleMobilePhone }}</mat-hint>
+                <mat-hint align="end"><strong>Fixed:</strong> {{ userDetailsForm.value.country_phone.country.sampleFixedPhone }}</mat-hint>
+                <mat-error *ngFor="let validation of userDetailsComponent.GetValidationMessages().phone">
+                  <mat-error class="error-message" class="error-message" *ngIf="userDetailsForm.get('country_phone').get('phone').hasError(validation.type) && (userDetailsForm.get('country_phone').get('phone').dirty || userDetailsForm.get('country_phone').get('phone').touched)">
+                    {{ validation.message }}
+                  </mat-error>
+                </mat-error>
+              </mat-form-field>
+            </div>
+  
+            <mat-form-field class="full-width">
+              <textarea matInput maxlength="256" placeholder="Bio" formControlName="bio" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5"></textarea>
+              <mat-hint align="start">Tell us about yourself</mat-hint>
+              <mat-hint align="end">{{userDetailsForm.get('bio').value.length}} / 256</mat-hint>
+              <mat-error *ngFor="let validation of userDetailsComponent.GetValidationMessages().bio">
+                <mat-error class="error-message" *ngIf="userDetailsForm.get('bio').hasError(validation.type) && (userDetailsForm.get('bio').dirty || userDetailsForm.get('bio').touched)">{{validation.message}}</mat-error>
+              </mat-error>
+            </mat-form-field>
+  
+  
+  
+            <div>
+              <button class="submit-btn" mat-button [disabled]="!userDetailsForm.valid" matStepperNext>Next</button>
+            </div>
+  
+          </form>
+        </mat-step>-->
     </mat-horizontal-stepper>
 
   </div>

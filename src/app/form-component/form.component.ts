@@ -1,13 +1,15 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { UserDetailsComponent, AccountDetailsComponent, EnvironmentGeneralComponent } from '../components';
-
+import { DomSanitizer } from '@angular/platform-browser';
+import { MatIconRegistry } from '@angular/material';
 @Component({
   selector: 'app-forms-page',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
+
 export class FormComponent implements OnInit {
 
   userDetailsForm: FormGroup;
@@ -22,7 +24,11 @@ export class FormComponent implements OnInit {
   filecontent: any;
 
 
-  constructor(private fb: FormBuilder) { }
+  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+    iconRegistry.addSvgIcon(
+      'info',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/baseline-info-24px.svg'));
+  }
 
   ngOnInit() {
     this.createForms();
@@ -56,6 +62,13 @@ export class FormComponent implements OnInit {
 
 
     }
+  }
+
+  // When the user clicks on div, open the popup
+  infoPopUp(id: string) {
+    console.log("$$$$$$$$$$$$$$$$$$$$$")
+    var popup = document.getElementById(id);
+    popup.classList.toggle("show");
   }
 
 

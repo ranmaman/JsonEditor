@@ -17,35 +17,15 @@ app-forms-page {
     margin-bottom: 20px;
   }
 
-  .user-details-container {
-    padding: 20px;
-    text-align: center;
-
-    .user-image {
-      width: 100%;
-      border-radius: 50%;
-    }
-
-    .user-title {
-      font-size: 14px;
-      font-weight: 500;
-      margin-top: 30px;
-      display: block;
-    }
-
-    .user-bio {
-      font-size: 12px;
-      margin-top: 20px;
-      display: block;
-      color: rgba(0, 0, 0, 0.70);
-    }
+  .field-container{
+    display: flex;
+    align-items: center;
   }
-
-
 
   .full-width {
     width: 100%;
     margin-bottom: 10px;
+    margin-left: 1rem;
   }
 
   .error-message {
@@ -65,4 +45,63 @@ app-forms-page {
   .submit-btn {
     margin-top: 30px;
   }
+
+  /* Popup container - can be anything you want */
+.popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* The actual popup */
+.popup .popuptext {
+    visibility: hidden;
+    width: fit-content;
+    min-width: 160px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px;
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    left: 100%;
+    margin-left: 5px;
+}
+
+/* Popup arrow */
+/*.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: calc(50% - 5px);
+  left: -5px;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+  transform: rotate(90deg);
+}*/
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;} 
+    to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+}
 }

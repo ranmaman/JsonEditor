@@ -13,6 +13,7 @@ import {
   MatDatepickerModule,
   MatNativeDateModule,
   MatStepperModule,
+  MatIconModule,
   MatTooltipModule
 
 
@@ -41,6 +42,7 @@ import { FormComponent } from './form-component/form.component';
     HttpClientModule,
     MatSelectModule,
     MatStepperModule,
+    MatIconModule,
     MatTooltipModule
   ],
   providers: [],
