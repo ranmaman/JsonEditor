@@ -7,10 +7,10 @@ export class FieldProperties{
     private _description: string;
     private _validationMsg: any;
     private _options: string[];
-    private _jsonInputMapping: string[];
+    private _jsonInputMapping: any[];
 
 
-    constructor(defultValue: any, validators:ValidatorFn[], description:string, validationMessage:any,jsonInputMapping?:string[], options?:string[]) {
+    constructor(defultValue: any, validators:ValidatorFn[], description:string, validationMessage:any,jsonInputMapping?:any[], options?:string[]) {
         this.defaultValue = defultValue;
         this.validators = validators;
         this.description = description;
@@ -24,6 +24,7 @@ export class FieldProperties{
         for(let f of fields){
             json = json[f]
         }
+        console.log(json)
         return json;
     }
 
@@ -57,10 +58,10 @@ export class FieldProperties{
     public set validationMsg(value: any) {
         this._validationMsg = value;
     }
-    public get jsonInputMapping(): string[] {
+    public get jsonInputMapping(): any[] {
         return this._jsonInputMapping;
     }
-    public set jsonInputMapping(value: string[]) {
+    public set jsonInputMapping(value: any[]) {
         this._jsonInputMapping = value;
     }
 

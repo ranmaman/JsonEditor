@@ -37,7 +37,7 @@ export class AccountDetailsComponent {
 
   constructor() { }
   
-  GetAccountDetailsForm(): FormGroup {
+  GetForm(): FormGroup {
     return new FormGroup({
       username: new FormControl('', Validators.compose([
         UsernameValidator.validUsername,

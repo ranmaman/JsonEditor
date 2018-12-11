@@ -62,7 +62,7 @@ export class UserDetailsComponent {
     { message: 'phone description' }
   };
 
-  GetUserDetailsForm(): FormGroup {
+  GetForm(): FormGroup {
     return new FormGroup({
       fullname: new FormControl('', Validators.required),
       bio: new FormControl('', Validators.maxLength(256)),

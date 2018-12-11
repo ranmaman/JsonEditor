@@ -11,7 +11,7 @@
             <div class="popup" align="end">
               <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('name_info')" (mouseleave)="infoPopUp('name_info')">
               </mat-icon>
-              <span class="popuptext" id="name_info">Environment Name Info!</span>
+              <span class="popuptext" id="name_info">{{EnvironmentGeneralComponent.nameField.description}}</span>
             </div>
             <mat-form-field class="full-width">
 
@@ -29,7 +29,7 @@
             <div class="popup" align="end">
               <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('chefWSAddress_info')" (mouseleave)="infoPopUp('chefWSAddress_info')">
               </mat-icon>
-              <span class="popuptext" id="chefWSAddress_info">Chef WS Address Info!</span>
+              <span class="popuptext" id="chefWSAddress_info">{{EnvironmentGeneralComponent.chefWSField.description}}</span>
             </div>
             <mat-form-field class="full-width">
               <input matInput placeholder="Chef Workstation ip" formControlName="chefWSAddress" required>
@@ -39,6 +39,56 @@
               </mat-error>
             </mat-form-field>
           </div>
+
+          <div class="field-container">
+            <div class="popup" align="end">
+              <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('ntp_info')" (mouseleave)="infoPopUp('ntp_info')">
+              </mat-icon>
+              <span class="popuptext" id="ntp_info">{{EnvironmentGeneralComponent.ntpField.description}}</span>
+            </div>
+            <mat-form-field class="full-width">
+              <input matInput placeholder="NTP Server Address" formControlName="ntpServers" required>
+              <mat-hint align="start">{{EnvironmentGeneralComponent.ntpField.description}}</mat-hint>
+              <mat-error *ngFor="let validation of EnvironmentGeneralComponent.ntpField.validationMsg">
+                <mat-error class="error-message" *ngIf="EnvironmentGeneralForm.get('ntpServers').hasError(validation.type) && (EnvironmentGeneralForm.get('ntpServers').dirty || EnvironmentGeneralForm.get('ntpServers').touched)">{{validation.message}}</mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="field-container">
+            <div class="popup" align="end">
+              <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('OTTree_info')" (mouseleave)="infoPopUp('OTTree_info')">
+              </mat-icon>
+              <span class="popuptext" id="OTTree_info">{{EnvironmentGeneralComponent.OTTreeLocationField.description}}</span>
+            </div>
+            <mat-form-field class="full-width">
+              <input matInput placeholder="OTTree Location" formControlName="OTTree" required>
+              <mat-hint align="start">{{EnvironmentGeneralComponent.OTTreeLocationField.description}}</mat-hint>
+              <mat-error *ngFor="let validation of EnvironmentGeneralComponent.OTTreeLocationField.validationMsg">
+                <mat-error class="error-message" *ngIf="EnvironmentGeneralForm.get('OTTree').hasError(validation.type) && (EnvironmentGeneralForm.get('OTTree').dirty || EnvironmentGeneralForm.get('OTTree').touched)">{{validation.message}}</mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="field-container">
+            <div class="popup" align="end">
+              <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('linuxVersion_info')" (mouseleave)="infoPopUp('linuxVersion_info')">
+              </mat-icon>
+              <span class="popuptext" id="linuxVersion_info">Linux Version Info!</span>
+            </div>
+            <mat-form-field class="full-width">
+              <mat-select placeholder="Linux Version" formControlName="linuxVersions" #envType>
+                <mat-option *ngFor="let lnxversion of EnvironmentGeneralComponent.linuxVersionField.options" [value]="lnxversion">
+                  {{ lnxversion }}
+                </mat-option>
+              </mat-select>
+              <mat-hint align="start">{{EnvironmentGeneralComponent.linuxVersionField.description}}</mat-hint>
+              <mat-error *ngFor="let validation of EnvironmentGeneralComponent.linuxVersionField.validationMsg">
+                <mat-error class="error-message" *ngIf="EnvironmentGeneralForm.get('linuxVersions').hasError(validation.type) && (EnvironmentGeneralForm.get('linuxVersions').dirty || EnvironmentGeneralForm.get('linuxVersions').touched)">{{validation.message}}</mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
           <div class="field-container">
             <div class="popup" align="end">
               <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('environmenttype_info')" (mouseleave)="infoPopUp('environmenttype_info')">
@@ -80,8 +130,6 @@
             Install R server
           </mat-checkbox>
 
-
-
           <div>
             <button class="submit-btn" mat-button [disabled]="!EnvironmentGeneralForm.valid" matStepperNext>Next</button>
           </div>
@@ -91,15 +139,77 @@
 
 
 
-      <mat-step [stepControl]="userDetailsForm">
-        <form [formGroup]="userDetailsForm" (ngSubmit)="onSubmitUserDetails(userDetailsForm.value)">
-          <ng-template matStepLabel>SQL Connection</ng-template>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <mat-step [stepControl]="SQLonnForm">
+        <form [formGroup]="SQLConnForm">
+          <ng-template matStepLabel>SQL Connection</ng-template>
+          <div class="field-container">
+            <div class="popup" align="end">
+              <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('SQLHostName_info')" (mouseleave)="infoPopUp('SQLHostName_info')">
+              </mat-icon>
+              <span class="popuptext" id="SQLHostName_info">{{SQLConnComponent.HostField.description}}</span>
+            </div>
+            <mat-form-field class="full-width">
+
+              <input matInput placeholder="SQL Host Name" formControlName="SQLHostName" required>
+
+              <mat-hint align="start">{{SQLConnComponent.HostField.description}}</mat-hint>
+
+              <mat-error *ngFor="let validation of SQLConnComponent.HostField.validationMsg">
+                <mat-error class="error-message" *ngIf="SQLConnForm.get('SQLHostName').hasError(validation.type) && (SQLConnForm.get('SQLHostName').dirty || SQLConnForm.get('SQLHostName').touched)">{{validation.message}}</mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="field-container">
+            <div class="popup" align="end">
+              <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('SQLinstanceName_info')" (mouseleave)="infoPopUp('SQLinstanceName_info')">
+              </mat-icon>
+              <span class="popuptext" id="SQLinstanceName_info">{{SQLConnComponent.InstanceNameField.description}}</span>
+            </div>
+            <mat-form-field class="full-width">
+
+              <input matInput placeholder="SQL Instance Name" formControlName="SQLinstanceName">
+
+              <mat-hint align="start">{{SQLConnComponent.InstanceNameField.description}}</mat-hint>
+            </mat-form-field>
+          </div>
+
+          <div class="field-container">
+            <div class="popup" align="end">
+              <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('SQLDBName_info')" (mouseleave)="infoPopUp('SQLDBName_info')">
+              </mat-icon>
+              <span class="popuptext" id="SQLDBName_info">{{SQLConnComponent.DBNameField.description}}</span>
+            </div>
+            <mat-form-field class="full-width">
+
+              <input matInput placeholder="SQL DB Name" formControlName="SQLDBName" required>
+
+              <mat-hint align="start">{{SQLConnComponent.DBNameField.description}}</mat-hint>
+
+              <mat-error *ngFor="let validation of SQLConnComponent.DBNameField.validationMsg">
+                <mat-error class="error-message" *ngIf="SQLConnForm.get('SQLDBName').hasError(validation.type) && (SQLConnForm.get('SQLDBName').dirty || SQLConnForm.get('SQLDBName').touched)">{{validation.message}}</mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
 
 
           <div>
             <button mat-button matStepperPrevious>Back</button>
-            <button class="submit-btn" mat-button matStepperNext>Next</button>
+            <button class="submit-btn" mat-button [disabled]="!SQLConnForm.valid" matStepperNext>Next</button>
           </div>
 
         </form>
