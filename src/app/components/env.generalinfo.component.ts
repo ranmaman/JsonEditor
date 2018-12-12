@@ -17,9 +17,9 @@ export class EnvironmentGeneralComponent {
   ];
 
   industries = [
-    "Semi",
-    "Electronics",
-    "Both"
+    "semi",
+    "electronics",
+    "both"
   ];
 
   RedHatCentos_versions = [
@@ -29,7 +29,7 @@ export class EnvironmentGeneralComponent {
 
   private _nameField: FieldProperties = new FieldProperties('', [Validators.required], 'Environment name as mentined in the globals', [{ type: 'required', message: 'Environment name is required' }], ["name"]);
   private _environmentTypeField: FieldProperties = new FieldProperties(this.environmentTypes[0], [Validators.required], '', [{ type: 'required', message: 'Please select environment type' }], [], this.environmentTypes);
-  private _industryField: FieldProperties = new FieldProperties(this.industries[0], [Validators.required], '', [{ type: 'required', message: 'Please select industry type' }], [], this.industries);
+  private _industryField: FieldProperties = new FieldProperties(this.industries[0], [Validators.required], '', [{ type: 'required', message: 'Please select industry type' }], ["default_attributes", "vertica", "industry_type"], this.industries);
   private _chefWSField: FieldProperties = new FieldProperties('', [Validators.required, Validators.pattern("^([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})$")], 'Please specify Chef Workstation ip address', [
     { type: 'required', message: 'Chef Workstation address cannot be empty' },
     { type: 'pattern', message: 'Chef Workstation contains invalid ip address' }]
@@ -66,6 +66,7 @@ export class EnvironmentGeneralComponent {
     form.patchValue({ ntpServers: FieldProperties.getValueFromJson(this.ntpField.jsonInputMapping, filecontent) });
     form.patchValue({ OTTree: FieldProperties.getValueFromJson(this.OTTreeLocationField.jsonInputMapping, filecontent) });
     form.patchValue({ IsCloudEnv: FieldProperties.getValueFromJson(this.IsCloudField.jsonInputMapping, filecontent) });
+    form.patchValue({ industries: FieldProperties.getValueFromJson(this.industryField.jsonInputMapping, filecontent) });
     
   }
 

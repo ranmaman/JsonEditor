@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { UserDetailsComponent, AccountDetailsComponent, EnvironmentGeneralComponent,SQLConnComponent } from '../components';
+import { UserDetailsComponent, AccountDetailsComponent, EnvironmentGeneralComponent,SQLConnComponent, VerticaComponent} from '../components';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material';
 @Component({
@@ -24,6 +24,9 @@ export class FormComponent implements OnInit {
   SQLConnForm: FormGroup;
   SQLConnComponent = new SQLConnComponent();
 
+  VerticaForm: FormGroup;
+  VerticaComponent = new VerticaComponent();
+
   filecontent: any;
 
 
@@ -42,6 +45,7 @@ export class FormComponent implements OnInit {
   createForms() {
     this.SQLConnForm = this.SQLConnComponent.GetForm();
     this.EnvironmentGeneralForm = this.EnvironmentGeneralComponent.GetForm();
+    this.VerticaForm = this.VerticaComponent.GetForm();
     this.userDetailsForm = this.userDetailsComponent.GetForm();
     this.accountDetailsForm = this.accountDetailsComponent.GetForm();
 
@@ -67,6 +71,7 @@ export class FormComponent implements OnInit {
       this.userDetailsComponent.patchValues(this.userDetailsForm, this.filecontent)
       this.EnvironmentGeneralComponent.patchValues(this.EnvironmentGeneralForm, this.filecontent)
       this.SQLConnComponent.patchValues(this.SQLConnForm, this.filecontent)
+      this.VerticaComponent.patchValues(this.VerticaForm,this.filecontent)
 
 
 
