@@ -24,7 +24,7 @@ export class FieldProperties{
         for(let f of fields){
             json = json[f]
         }
-        console.log(json)
+        console.log(fields + ' ' + json)
         return json;
     }
 

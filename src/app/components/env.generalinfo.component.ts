@@ -40,6 +40,7 @@ export class EnvironmentGeneralComponent {
     { type: 'required', message: 'OTTree is required' },
     { type: 'pattern', message: 'OTTree location must be valid UNC path' }]
     , ["default_attributes", "OTTree"]);
+  private _IsCloudField: FieldProperties= new FieldProperties(false, [], 'Cloud environment?', [] , ["default_attributes", "Cloud_Support"]);
   private _RserverField: FieldProperties;
 
 
@@ -53,7 +54,8 @@ export class EnvironmentGeneralComponent {
       linuxVersions: new FormControl(this.linuxVersionField.defaultValue, this.linuxVersionField.validators),
       ntpServers: new FormControl(this.ntpField.defaultValue, this.ntpField.validators),
       OTTree: new FormControl(this.OTTreeLocationField.defaultValue, this.OTTreeLocationField.validators),
-      RserverIncluded: new FormControl('true')
+      IsCloudEnv: new FormControl(this.IsCloudField.defaultValue),
+      RserverIncluded: new FormControl(true)
     });
   }
 
@@ -63,7 +65,8 @@ export class EnvironmentGeneralComponent {
     form.patchValue({ linuxVersions: FieldProperties.getValueFromJson(this.linuxVersionField.jsonInputMapping, filecontent) });
     form.patchValue({ ntpServers: FieldProperties.getValueFromJson(this.ntpField.jsonInputMapping, filecontent) });
     form.patchValue({ OTTree: FieldProperties.getValueFromJson(this.OTTreeLocationField.jsonInputMapping, filecontent) });
-
+    form.patchValue({ IsCloudEnv: FieldProperties.getValueFromJson(this.IsCloudField.jsonInputMapping, filecontent) });
+    
   }
 
   public get RserverField(): FieldProperties {
@@ -114,6 +117,12 @@ export class EnvironmentGeneralComponent {
   }
   public set OTTreeLocationField(value: FieldProperties) {
     this._OTTreeLocationField = value;
+  }
+  public get IsCloudField(): FieldProperties {
+    return this._IsCloudField;
+  }
+  public set IsCloudField(value: FieldProperties) {
+    this._IsCloudField = value;
   }
 
 
