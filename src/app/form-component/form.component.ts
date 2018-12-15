@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import { UserDetailsComponent, AccountDetailsComponent, EnvironmentGeneralComponent,SQLConnComponent, VerticaComponent} from '../components';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material';
@@ -83,6 +83,30 @@ export class FormComponent implements OnInit {
     var popup = document.getElementById(id);
     popup.classList.toggle("show");
   }
+
+addVerticaHost() {
+  this.VerticaComponent.addVerticaHost(this.VerticaForm);
+}
+addInternalIP() {
+  this.VerticaComponent.addInternalIP(this.VerticaForm);
+}
+
+removeVerticaHost() {
+     const control = <FormArray>this.VerticaForm.controls['VerticaHosts'];
+     console.log(control.length)
+     if (control.length>3){
+      control.removeAt(control.length-1);
+     }
+}
+
+removeInternalIP() {
+  const control = <FormArray>this.VerticaForm.controls['InternalIPs'];
+  console.log(control.length)
+  if (control.length>3){
+   control.removeAt(control.length-1);
+  }
+}
+
 
 
 }

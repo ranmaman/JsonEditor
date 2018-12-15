@@ -367,7 +367,8 @@
             </div>
             <mat-form-field class="full-width">
 
-              <input matInput readonly="true" disabled = "true" placeholder="Vertica DB Name" formControlName="dbName" required>
+              <input matInput readonly="true" disabled="true" placeholder="Vertica DB Name" formControlName="dbName"
+                required>
 
               <mat-hint align="start">{{VerticaComponent.dbNameField.description}}</mat-hint>
               <mat-error *ngFor="let validation of VerticaComponent.dbNameField.validationMsg">
@@ -444,9 +445,74 @@
             </mat-form-field>
           </div>
 
+          <div class="field-container">
+            <div class="popup" align="end">
+              <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('verticaHosts_info')" (mouseleave)="infoPopUp('verticaHosts_info')">
+              </mat-icon>
+              <span class="popuptext" id="verticaHosts_info">{{VerticaComponent.VerticaHostsField.description}}</span>
+            </div>
+
+            <div class="full-width" formArrayName="VerticaHosts">
+              <mat-form-field *ngFor="let host of VerticaForm.get('VerticaHosts').controls; let i=index"
+                [formGroupName]="i">
+
+                <input matInput placeholder="Vertica External IP {{i+1}}" formControlName="VerticaHost">
+                <mat-error *ngFor="let validation of VerticaComponent.VerticaHostField.validationMsg">
+                  <mat-error class="error-message" *ngIf="VerticaForm.get('VerticaHosts').at(i).get('VerticaHost').hasError(validation.type) && (VerticaForm.get('VerticaHosts').at(i).get('VerticaHost').dirty || VerticaForm.get('VerticaHosts').at(i).get('VerticaHost').touched)">{{validation.message}}</mat-error>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <button (click)="removeVerticaHost()">-</button>
+            <button (click)="addVerticaHost()">+</button>
+
+
+
+
+          </div>
+
+          <div class="field-container">
+              <div class="popup" align="end">
+                <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('InternalIPs_info')" (mouseleave)="infoPopUp('InternalIPs_info')">
+                </mat-icon>
+                <span class="popuptext" id="InternalIPs_info">{{VerticaComponent.InternalIPsField.description}}</span>
+              </div>
+  
+              <div class="full-width" formArrayName="InternalIPs">
+                <mat-form-field *ngFor="let host of VerticaForm.get('InternalIPs').controls; let i=index"
+                  [formGroupName]="i">
+  
+                  <input matInput placeholder="Vertica Internal IP {{i+1}}" formControlName="InternalIP">
+                  <mat-error *ngFor="let validation of VerticaComponent.InternalIPField.validationMsg">
+                    <mat-error class="error-message" *ngIf="VerticaForm.get('InternalIPs').at(i).get('InternalIP').hasError(validation.type) && (VerticaForm.get('InternalIPs').at(i).get('InternalIP').dirty || VerticaForm.get('InternalIPs').at(i).get('InternalIP').touched)">{{validation.message}}</mat-error>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+  
+              <button (click)="removeInternalIP()">-</button>
+              <button (click)="addInternalIP()">+</button>
+  
+  
+  
+  
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           <mat-checkbox formControlName="thresholdNone">
             Skip Installation Warnings
-          </mat-checkbox><br><br>          
+          </mat-checkbox><br><br>
           <mat-checkbox formControlName="EnablePerfTest">
             Execute Vertica performance tests
           </mat-checkbox><br><br>
@@ -486,7 +552,7 @@
 
           <div>
             <button mat-button matStepperPrevious>Back</button>
-            <button class="submit-btn" mat-button  [disabled]="!VerticaForm.valid" matStepperNext>Next</button>
+            <button class="submit-btn" mat-button [disabled]="!VerticaForm.valid" matStepperNext>Next</button>
           </div>
 
         </form>
