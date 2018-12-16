@@ -17,6 +17,21 @@ app-forms-page {
     margin-bottom: 20px;
   }
 
+  .section-container {
+    display: flex;
+    align-items: center;
+    .section-title {
+      transform: rotate(90deg);
+      height: 2px;
+      margin-bottom: 0;
+      text-align: center;
+      flex-basis: 19%;
+    }
+    .section-components-container {
+        flex: 1;
+    }
+  }
+
   .field-container{
     display: flex;
     align-items: center;

@@ -195,54 +195,58 @@
             </mat-form-field>
           </div>
 
-          <p>SQL Admin User</p>
-          <div class="field-container">
-            <div class="popup" align="end">
-              <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('AdminDomain_info')" (mouseleave)="infoPopUp('AdminDomain_info')">
-              </mat-icon>
-              <span class="popuptext" id="AdminDomain_info">{{SQLConnComponent.AdminDomainField.description}}</span>
+          <div class="section-container">
+            <p class="section-title">SQL Admin User</p>
+            <div class="section-components-container">
+              <div class="field-container">
+                <div class="popup" align="end">
+                  <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('AdminDomain_info')" (mouseleave)="infoPopUp('AdminDomain_info')">
+                  </mat-icon>
+                  <span class="popuptext" id="AdminDomain_info">{{SQLConnComponent.AdminDomainField.description}}</span>
+                </div>
+                <mat-form-field class="full-width">
+                  <input matInput placeholder="User Domain" formControlName="AdminDomain">
+                  <mat-hint align="start">{{SQLConnComponent.AdminDomainField.description}}</mat-hint>
+                  <mat-error *ngFor="let validation of SQLConnComponent.AdminDomainField.validationMsg">
+                    <mat-error class="error-message" *ngIf="SQLConnForm.get('AdminDomain').hasError(validation.type) && (SQLConnForm.get('AdminDomain').dirty || SQLConnForm.get('AdminDomain').touched)">{{validation.message}}</mat-error>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="field-container">
+                <div class="popup" align="end">
+                  <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('AdminUser_info')" (mouseleave)="infoPopUp('AdminUser_info')">
+                  </mat-icon>
+                  <span class="popuptext" id="AdminUser_info">{{SQLConnComponent.AdminUserField.description}}</span>
+                </div>
+                <mat-form-field class="full-width">
+
+                  <input matInput placeholder="User Name" formControlName="AdminUser" required>
+
+                  <mat-hint align="start">{{SQLConnComponent.AdminUserField.description}}</mat-hint>
+                  <mat-error *ngFor="let validation of SQLConnComponent.AdminUserField.validationMsg">
+                    <mat-error class="error-message" *ngIf="SQLConnForm.get('AdminUser').hasError(validation.type) && (SQLConnForm.get('AdminUser').dirty || SQLConnForm.get('AdminUser').touched)">{{validation.message}}</mat-error>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="field-container">
+                <div class="popup" align="end">
+                  <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('AdminPassword_info')" (mouseleave)="infoPopUp('AdminPassword_info')">
+                  </mat-icon>
+                  <span class="popuptext" id="AdminPassword_info">{{SQLConnComponent.AdminPasswordField.description}}</span>
+                </div>
+                <mat-form-field class="full-width">
+
+                  <input matInput type="password" placeholder="Password" formControlName="AdminPassword" required>
+
+                  <mat-hint align="start">{{SQLConnComponent.AdminPasswordField.description}}</mat-hint>
+                  <mat-error *ngFor="let validation of SQLConnComponent.AdminPasswordField.validationMsg">
+                    <mat-error class="error-message" *ngIf="SQLConnForm.get('AdminPassword').hasError(validation.type) && (SQLConnForm.get('AdminPassword').dirty || SQLConnForm.get('AdminPassword').touched)">{{validation.message}}</mat-error>
+                  </mat-error>
+                </mat-form-field>
+              </div>
             </div>
-            <mat-form-field class="full-width">
-              <input matInput placeholder="User Domain" formControlName="AdminDomain">
-              <mat-hint align="start">{{SQLConnComponent.AdminDomainField.description}}</mat-hint>
-              <mat-error *ngFor="let validation of SQLConnComponent.AdminDomainField.validationMsg">
-                <mat-error class="error-message" *ngIf="SQLConnForm.get('AdminDomain').hasError(validation.type) && (SQLConnForm.get('AdminDomain').dirty || SQLConnForm.get('AdminDomain').touched)">{{validation.message}}</mat-error>
-              </mat-error>
-            </mat-form-field>
-          </div>
-
-          <div class="field-container">
-            <div class="popup" align="end">
-              <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('AdminUser_info')" (mouseleave)="infoPopUp('AdminUser_info')">
-              </mat-icon>
-              <span class="popuptext" id="AdminUser_info">{{SQLConnComponent.AdminUserField.description}}</span>
-            </div>
-            <mat-form-field class="full-width">
-
-              <input matInput placeholder="User Name" formControlName="AdminUser" required>
-
-              <mat-hint align="start">{{SQLConnComponent.AdminUserField.description}}</mat-hint>
-              <mat-error *ngFor="let validation of SQLConnComponent.AdminUserField.validationMsg">
-                <mat-error class="error-message" *ngIf="SQLConnForm.get('AdminUser').hasError(validation.type) && (SQLConnForm.get('AdminUser').dirty || SQLConnForm.get('AdminUser').touched)">{{validation.message}}</mat-error>
-              </mat-error>
-            </mat-form-field>
-          </div>
-
-          <div class="field-container">
-            <div class="popup" align="end">
-              <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('AdminPassword_info')" (mouseleave)="infoPopUp('AdminPassword_info')">
-              </mat-icon>
-              <span class="popuptext" id="AdminPassword_info">{{SQLConnComponent.AdminPasswordField.description}}</span>
-            </div>
-            <mat-form-field class="full-width">
-
-              <input matInput type="password" placeholder="Password" formControlName="AdminPassword" required>
-
-              <mat-hint align="start">{{SQLConnComponent.AdminPasswordField.description}}</mat-hint>
-              <mat-error *ngFor="let validation of SQLConnComponent.AdminPasswordField.validationMsg">
-                <mat-error class="error-message" *ngIf="SQLConnForm.get('AdminPassword').hasError(validation.type) && (SQLConnForm.get('AdminPassword').dirty || SQLConnForm.get('AdminPassword').touched)">{{validation.message}}</mat-error>
-              </mat-error>
-            </mat-form-field>
           </div>
 
           <p>SQL App User</p>
@@ -472,30 +476,29 @@
           </div>
 
           <div class="field-container">
-              <div class="popup" align="end">
-                <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('InternalIPs_info')" (mouseleave)="infoPopUp('InternalIPs_info')">
-                </mat-icon>
-                <span class="popuptext" id="InternalIPs_info">{{VerticaComponent.InternalIPsField.description}}</span>
-              </div>
-  
-              <div class="full-width" formArrayName="InternalIPs">
-                <mat-form-field *ngFor="let host of VerticaForm.get('InternalIPs').controls; let i=index"
-                  [formGroupName]="i">
-  
-                  <input matInput placeholder="Vertica Internal IP {{i+1}}" formControlName="InternalIP">
-                  <mat-error *ngFor="let validation of VerticaComponent.InternalIPField.validationMsg">
-                    <mat-error class="error-message" *ngIf="VerticaForm.get('InternalIPs').at(i).get('InternalIP').hasError(validation.type) && (VerticaForm.get('InternalIPs').at(i).get('InternalIP').dirty || VerticaForm.get('InternalIPs').at(i).get('InternalIP').touched)">{{validation.message}}</mat-error>
-                  </mat-error>
-                </mat-form-field>
-              </div>
-  
-              <button (click)="removeInternalIP()">-</button>
-              <button (click)="addInternalIP()">+</button>
-  
-  
-  
-  
+            <div class="popup" align="end">
+              <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('InternalIPs_info')" (mouseleave)="infoPopUp('InternalIPs_info')">
+              </mat-icon>
+              <span class="popuptext" id="InternalIPs_info">{{VerticaComponent.InternalIPsField.description}}</span>
             </div>
+
+            <div class="full-width" formArrayName="InternalIPs">
+              <mat-form-field *ngFor="let host of VerticaForm.get('InternalIPs').controls; let i=index" [formGroupName]="i">
+
+                <input matInput placeholder="Vertica Internal IP {{i+1}}" formControlName="InternalIP">
+                <mat-error *ngFor="let validation of VerticaComponent.InternalIPField.validationMsg">
+                  <mat-error class="error-message" *ngIf="VerticaForm.get('InternalIPs').at(i).get('InternalIP').hasError(validation.type) && (VerticaForm.get('InternalIPs').at(i).get('InternalIP').dirty || VerticaForm.get('InternalIPs').at(i).get('InternalIP').touched)">{{validation.message}}</mat-error>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <button (click)="removeInternalIP()">-</button>
+            <button (click)="addInternalIP()">+</button>
+
+
+
+
+          </div>
 
 
 
