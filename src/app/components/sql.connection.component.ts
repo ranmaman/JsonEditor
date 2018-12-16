@@ -52,6 +52,23 @@ export class SQLConnComponent {
     form.patchValue({ AppPassword: FieldProperties.getValueFromJson(this.AppPasswordField.jsonInputMapping, filecontent) });
   }
 
+  setJson(origJson:any, form: FormGroup){
+    origJson['default_attributes']['sql_server'] = {}
+    origJson['default_attributes']['sql_server']['Hostname'] = form.get('SQLHostName').value
+    origJson['default_attributes']['sql_server']['Instance_Name'] = form.get('SQLinstanceName').value
+    origJson['default_attributes']['sql_server']['DB_Name'] = form.get('SQLDBName').value
+    origJson['default_attributes']['sql_server']['admin_account'] = {}
+    origJson['default_attributes']['sql_server']['admin_account']['user'] = form.get('AdminUser').value
+    origJson['default_attributes']['sql_server']['admin_account']['domain'] = form.get('AdminDomain').value
+    origJson['default_attributes']['sql_server']['admin_account']['password'] = form.get('AdminPassword').value
+    origJson['default_attributes']['sql_server']['app_account'] = {}
+    origJson['default_attributes']['sql_server']['app_account']['user'] = form.get('AppUser').value
+    origJson['default_attributes']['sql_server']['app_account']['domain'] = form.get('AppDomain').value
+    origJson['default_attributes']['sql_server']['app_account']['password'] = form.get('AppPassword').value
+    return origJson;
+    
+  }
+
   public get HostField(): FieldProperties {
     return this._HostField;
   }

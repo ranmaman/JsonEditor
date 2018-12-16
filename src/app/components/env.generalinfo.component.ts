@@ -67,6 +67,32 @@ export class EnvironmentGeneralComponent {
     form.patchValue({ OTTree: FieldProperties.getValueFromJson(this.OTTreeLocationField.jsonInputMapping, filecontent) });
     form.patchValue({ IsCloudEnv: FieldProperties.getValueFromJson(this.IsCloudField.jsonInputMapping, filecontent) });
     form.patchValue({ industries: FieldProperties.getValueFromJson(this.industryField.jsonInputMapping, filecontent) });
+    let envType = 'SQL'
+    console.log('!!!!!!!!!!!!!!!' + filecontent['default_attributes']['hadoop_deployment']['Hadoop_Hosts'])
+    if (filecontent['default_attributes']['vertica']['hosts'] != ''){
+      envType = 'Vertica'
+    }
+    if (filecontent['default_attributes']['hadoop_deployment']['Hadoop_Hosts'] != ''){
+      envType = 'Hadoop'
+    }
+
+    form.patchValue({ environmenttype: envType });
+    
+  }
+
+  setJson(origJson: any,form: FormGroup){
+    origJson['name'] = form.get('name').value
+    origJson['default_attributes'] = {}
+    origJson['default_attributes'] ['ChefWs']= {}
+    origJson['default_attributes']['ChefWs']['IP'] = form.get('chefWSAddress').value 
+    origJson['default_attributes']['ChefWs']['RootHttpUrl'] = 'http://' + form.get('chefWSAddress').value + ':8080' 
+    origJson['default_attributes']['ChefWs']['RootHttpsUrl'] = 'https://' + form.get('chefWSAddress').value + ':4433'
+    origJson['default_attributes']['linux_version'] = form.get('linuxVersions').value 
+    origJson['default_attributes'] ['ntp']= {}
+    origJson['default_attributes']['ntp']['servers'] = [form.get('ntpServers').value] 
+    origJson['default_attributes']['OTTree'] = form.get('OTTree').value 
+    origJson['default_attributes']['Cloud_Support'] = form.get('IsCloudEnv').value
+    return origJson;  
     
   }
 

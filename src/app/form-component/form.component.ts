@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
-import { UserDetailsComponent, AccountDetailsComponent, EnvironmentGeneralComponent,SQLConnComponent, VerticaComponent} from '../components';
+import { UserDetailsComponent, AccountDetailsComponent, EnvironmentGeneralComponent, SQLConnComponent, VerticaComponent } from '../components';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material';
 @Component({
@@ -35,11 +35,11 @@ export class FormComponent implements OnInit {
     iconRegistry.addSvgIcon(
       'info',
       sanitizer.bypassSecurityTrustResourceUrl('assets/baseline-info-24px.svg'));
-      
+
   }
 
   ngOnInit() {
-    
+
   }
 
   createForms() {
@@ -49,7 +49,7 @@ export class FormComponent implements OnInit {
     this.userDetailsForm = this.userDetailsComponent.GetForm();
     this.accountDetailsForm = this.accountDetailsComponent.GetForm();
 
-    
+
   }
 
   onSubmitAccountDetails(value) {
@@ -67,15 +67,20 @@ export class FormComponent implements OnInit {
     reader.onload = (event) => { // called once readAsDataURL is completed
 
       this.filecontent = JSON.parse(reader.result.toString());
-      this.accountDetailsComponent.patchValues(this.accountDetailsForm, this.filecontent)
-      this.userDetailsComponent.patchValues(this.userDetailsForm, this.filecontent)
       this.EnvironmentGeneralComponent.patchValues(this.EnvironmentGeneralForm, this.filecontent)
       this.SQLConnComponent.patchValues(this.SQLConnForm, this.filecontent)
-      this.VerticaComponent.patchValues(this.VerticaForm,this.filecontent)
-
-
+      this.VerticaComponent.patchValues(this.VerticaForm, this.filecontent)
 
     }
+  }
+
+  finishForm() {
+    let json = {}
+    json = this.EnvironmentGeneralComponent.setJson(json, this.EnvironmentGeneralForm);
+    json = this.SQLConnComponent.setJson(json, this.SQLConnForm);
+    json = this.VerticaComponent.setJson(json, this.VerticaForm);
+    console.log("JSON: " + JSON.stringify(json))
+
   }
 
   // When the user clicks on div, open the popup
@@ -84,28 +89,28 @@ export class FormComponent implements OnInit {
     popup.classList.toggle("show");
   }
 
-addVerticaHost() {
-  this.VerticaComponent.addVerticaHost(this.VerticaForm);
-}
-addInternalIP() {
-  this.VerticaComponent.addInternalIP(this.VerticaForm);
-}
-
-removeVerticaHost() {
-     const control = <FormArray>this.VerticaForm.controls['VerticaHosts'];
-     console.log(control.length)
-     if (control.length>3){
-      control.removeAt(control.length-1);
-     }
-}
-
-removeInternalIP() {
-  const control = <FormArray>this.VerticaForm.controls['InternalIPs'];
-  console.log(control.length)
-  if (control.length>3){
-   control.removeAt(control.length-1);
+  addVerticaHost() {
+    this.VerticaComponent.addVerticaHost(this.VerticaForm);
   }
-}
+  addInternalIP() {
+    this.VerticaComponent.addInternalIP(this.VerticaForm);
+  }
+
+  removeVerticaHost() {
+    const control = <FormArray>this.VerticaForm.controls['VerticaHosts'];
+    console.log(control.length)
+    if (control.length > 3) {
+      control.removeAt(control.length - 1);
+    }
+  }
+
+  removeInternalIP() {
+    const control = <FormArray>this.VerticaForm.controls['InternalIPs'];
+    console.log(control.length)
+    if (control.length > 3) {
+      control.removeAt(control.length - 1);
+    }
+  }
 
 
 

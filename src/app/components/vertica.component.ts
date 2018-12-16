@@ -26,13 +26,16 @@ export class VerticaComponent {
   private _dbPassField: FieldProperties = new FieldProperties('', [Validators.required], 'Vertica Data base password', [{ type: 'required', message: 'this field is required' }], ["default_attributes", "vertica", "verticaDbPassword"]);
   private _workDirField: FieldProperties = new FieldProperties('/opt/ot', [Validators.required, Validators.pattern("^(/[^/ ]*)+/?$")], 'O+ Working directory', [{ type: 'required', message: 'this field is required' }, { type: 'pattern', message: 'value needs to be valid linux path' }], ["default_attributes", "vertica", "OPlus_working_dir_root"]);
   private _BroadcastField: FieldProperties = new FieldProperties('', [Validators.required, , Validators.pattern("^([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})$")], 'Broadcast ip between nodes', [{ type: 'required', message: 'this field is required' }, { type: 'pattern', message: 'value needs to be a valid ip address' }], ["default_attributes", "vertica", "BroadcastDataBetweenNodesIP"]);
-  private _VerticaHostField: FieldProperties = new FieldProperties('', [Validators.required, , Validators.pattern("^([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})$")], 'Vertica Host', [{ type: 'required', message: 'this field is required' }, { type: 'pattern', message: 'value needs to be a valid ip address' }], ["default_attributes", "vertica", "hosts"]);
-  private _VerticaHostsField: FieldProperties = new FieldProperties(this._VerticaHostField, [], 'Vertica Hosts External ip list', [], ["default_attributes", "vertica", "hosts"]);
-  private _InternalIPField: FieldProperties = new FieldProperties('', [Validators.required, , Validators.pattern("^([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})$")], 'Vertica Internal IP', [{ type: 'required', message: 'this field is required' }, { type: 'pattern', message: 'value needs to be a valid ip address' }], ["default_attributes", "vertica", "syncDataBetweenNodesIPs"]);
-  private _InternalIPsField: FieldProperties = new FieldProperties(this._InternalIPField, [], 'Vertica Hosts Internal ip list', [], ["default_attributes", "vertica", "syncDataBetweenNodesIPs"]);
   private _thresholdNoneField: FieldProperties = new FieldProperties(false, [], 'true in order to skip vertica installation warnings', [], ["default_attributes", "vertica", "apply_failure_threshold_none"]);
   private _isHdpCollocatedField: FieldProperties = new FieldProperties(false, [], 'true if Hadoop and Vertica installed on the same machines', [], ["default_attributes", "vertica", "IsHadoopCollocated"]);
   private _EnablePerfTestField: FieldProperties = new FieldProperties(false, [], 'execute vertica performance tests if true', [], ["default_attributes", "vertica", "vperf", "EnableVperfTests"]);
+  
+  //Vertica External IP's
+  private _VerticaHostField: FieldProperties = new FieldProperties('', [Validators.required, , Validators.pattern("^([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})$")], 'Vertica Host', [{ type: 'required', message: 'this field is required' }, { type: 'pattern', message: 'value needs to be a valid ip address' }], ["default_attributes", "vertica", "hosts"]);
+  private _VerticaHostsField: FieldProperties = new FieldProperties(this._VerticaHostField, [], 'Vertica Hosts External ip list', [], ["default_attributes", "vertica", "hosts"]);
+  //Vertica Internal IP's
+  private _InternalIPField: FieldProperties = new FieldProperties('', [Validators.required, , Validators.pattern("^([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})$")], 'Vertica Internal IP', [{ type: 'required', message: 'this field is required' }, { type: 'pattern', message: 'value needs to be a valid ip address' }], ["default_attributes", "vertica", "syncDataBetweenNodesIPs"]);
+  private _InternalIPsField: FieldProperties = new FieldProperties(this._InternalIPField, [], 'Vertica Hosts Internal ip list', [], ["default_attributes", "vertica", "syncDataBetweenNodesIPs"]);
   
   public get InternalIPsField(): FieldProperties {
     return this._InternalIPsField;
@@ -160,6 +163,7 @@ export class VerticaComponent {
     form.patchValue({ isHdpCollocated: FieldProperties.getValueFromJson(this.isHdpCollocatedField.jsonInputMapping, filecontent) });
     form.patchValue({ EnablePerfTest: FieldProperties.getValueFromJson(this.EnablePerfTestField.jsonInputMapping, filecontent) });
 
+    
   }
 
   updateFormArray(form: FormGroup,jsonMapping:any[],parentControlName : string,childControlName : string,newControl: FormGroup,  filecontent: any){
@@ -184,6 +188,37 @@ export class VerticaComponent {
       
     }
 
+  }
+
+  setJson(origJson: any, form: FormGroup){
+
+    origJson['default_attributes']['vertica'] = {}
+    origJson['default_attributes']['vertica']['verticaVersion'] = form.get('version').value
+    origJson['default_attributes']['vertica']['TimeZone'] = form.get('TZ').value
+    origJson['default_attributes']['vertica']['verticaDsn'] = form.get('dsn').value
+    origJson['default_attributes']['vertica']['verticaDbName'] = form.get('dbName').value
+    origJson['default_attributes']['vertica']['verticaSchemaName'] = form.get('schema').value
+    origJson['default_attributes']['vertica']['verticaDbPassword'] = form.get('dbPass').value
+    origJson['default_attributes']['vertica']['OPlus_working_dir_root'] = form.get('workDir').value
+    origJson['default_attributes']['vertica']['BroadcastDataBetweenNodesIP'] = form.get('Broadcast').value
+    origJson['default_attributes']['vertica']['apply_failure_threshold_none'] = form.get('thresholdNone').value
+    origJson['default_attributes']['vertica']['IsHadoopCollocated'] = form.get('isHdpCollocated').value
+    origJson['default_attributes']['vertica']['vperf'] = {}
+    origJson['default_attributes']['vertica']['vperf']['EnableVperfTests'] = form.get('EnablePerfTest').value
+    origJson['default_attributes']['vertica']['hosts'] = this.getFormArrayValues('VerticaHost',<FormArray>form.get('VerticaHosts'))
+    origJson['default_attributes']['vertica']['syncDataBetweenNodesIPs'] = this.getFormArrayValues('InternalIP',<FormArray>form.get('InternalIPs'))
+
+
+    return origJson
+  }
+
+  getFormArrayValues(childControlName: string, subform: FormArray){
+    let childArray = []
+    for (let index = 0; index < subform.length; index++) {
+      childArray[index] = subform.at(index).get(childControlName).value
+    }
+    console.log("ARRAY:" + childArray)
+    return childArray;
   }
 
   addVerticaHost(form: FormGroup){

@@ -618,12 +618,25 @@
 
           <div>
             <button mat-button matStepperPrevious>Back</button>
-            <button class="submit-btn" mat-button matStepperNext>Finish</button>
+            <button class="submit-btn" mat-button matStepperNext>Next</button>
           </div>
 
         </form>
       </mat-step>
 
+      <mat-step  [stepControl]="userDetailsForm">
+          <form [formGroup]="userDetailsForm" (ngSubmit)="finishForm()">
+            <ng-template matStepLabel>Finish Page</ng-template>
+  
+  
+  
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button class="submit-btn" mat-button matStepperNext>Finish</button>
+            </div>
+  
+          </form>
+        </mat-step>
 
 
 
