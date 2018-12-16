@@ -248,56 +248,63 @@
               </div>
             </div>
           </div>
+<br><br>
+          <div class="section-container">
+            <p class="section-title">SQL App User</p>
+            <div class="section-components-container">
+              <div class="field-container">
+                <div class="popup" align="end">
+                  <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('AppDomain_info')" (mouseleave)="infoPopUp('AppDomain_info')">
+                  </mat-icon>
+                  <span class="popuptext" id="AppDomain_info">{{SQLConnComponent.AppDomainField.description}}</span>
+                </div>
+                <mat-form-field class="full-width">
+                  <input matInput placeholder="User Domain" formControlName="AppDomain">
+                  <mat-hint align="start">{{SQLConnComponent.AppDomainField.description}}</mat-hint>
+                  <mat-error *ngFor="let validation of SQLConnComponent.AppDomainField.validationMsg">
+                    <mat-error class="error-message" *ngIf="SQLConnForm.get('AppDomain').hasError(validation.type) && (SQLConnForm.get('AppDomain').dirty || SQLConnForm.get('AppDomain').touched)">{{validation.message}}</mat-error>
+                  </mat-error>
+                </mat-form-field>
+              </div>
 
-          <p>SQL App User</p>
-          <div class="field-container">
-            <div class="popup" align="end">
-              <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('AppDomain_info')" (mouseleave)="infoPopUp('AppDomain_info')">
-              </mat-icon>
-              <span class="popuptext" id="AppDomain_info">{{SQLConnComponent.AppDomainField.description}}</span>
+              <div class="field-container">
+                <div class="popup" align="end">
+                  <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('AppUser_info')" (mouseleave)="infoPopUp('AppUser_info')">
+                  </mat-icon>
+                  <span class="popuptext" id="AppUser_info">{{SQLConnComponent.AppUserField.description}}</span>
+                </div>
+                <mat-form-field class="full-width">
+
+                  <input matInput placeholder="User Name" formControlName="AppUser" required>
+
+                  <mat-hint align="start">{{SQLConnComponent.AppUserField.description}}</mat-hint>
+                  <mat-error *ngFor="let validation of SQLConnComponent.AppUserField.validationMsg">
+                    <mat-error class="error-message" *ngIf="SQLConnForm.get('AppUser').hasError(validation.type) && (SQLConnForm.get('AppUser').dirty || SQLConnForm.get('AppUser').touched)">{{validation.message}}</mat-error>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="field-container">
+                <div class="popup" align="end">
+                  <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('AppPassword_info')" (mouseleave)="infoPopUp('AppPassword_info')">
+                  </mat-icon>
+                  <span class="popuptext" id="AppPassword_info">{{SQLConnComponent.AppPasswordField.description}}</span>
+                </div>
+                <mat-form-field class="full-width">
+
+                  <input matInput type="password" placeholder="Password" formControlName="AppPassword" required>
+
+                  <mat-hint align="start">{{SQLConnComponent.AppPasswordField.description}}</mat-hint>
+                  <mat-error *ngFor="let validation of SQLConnComponent.AppPasswordField.validationMsg">
+                    <mat-error class="error-message" *ngIf="SQLConnForm.get('AppPassword').hasError(validation.type) && (SQLConnForm.get('AppPassword').dirty || SQLConnForm.get('AppPassword').touched)">{{validation.message}}</mat-error>
+                  </mat-error>
+                </mat-form-field>
+              </div>
             </div>
-            <mat-form-field class="full-width">
-              <input matInput placeholder="User Domain" formControlName="AppDomain">
-              <mat-hint align="start">{{SQLConnComponent.AppDomainField.description}}</mat-hint>
-              <mat-error *ngFor="let validation of SQLConnComponent.AppDomainField.validationMsg">
-                <mat-error class="error-message" *ngIf="SQLConnForm.get('AppDomain').hasError(validation.type) && (SQLConnForm.get('AppDomain').dirty || SQLConnForm.get('AppDomain').touched)">{{validation.message}}</mat-error>
-              </mat-error>
-            </mat-form-field>
           </div>
 
-          <div class="field-container">
-            <div class="popup" align="end">
-              <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('AppUser_info')" (mouseleave)="infoPopUp('AppUser_info')">
-              </mat-icon>
-              <span class="popuptext" id="AppUser_info">{{SQLConnComponent.AppUserField.description}}</span>
-            </div>
-            <mat-form-field class="full-width">
 
-              <input matInput placeholder="User Name" formControlName="AppUser" required>
 
-              <mat-hint align="start">{{SQLConnComponent.AppUserField.description}}</mat-hint>
-              <mat-error *ngFor="let validation of SQLConnComponent.AppUserField.validationMsg">
-                <mat-error class="error-message" *ngIf="SQLConnForm.get('AppUser').hasError(validation.type) && (SQLConnForm.get('AppUser').dirty || SQLConnForm.get('AppUser').touched)">{{validation.message}}</mat-error>
-              </mat-error>
-            </mat-form-field>
-          </div>
-
-          <div class="field-container">
-            <div class="popup" align="end">
-              <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('AppPassword_info')" (mouseleave)="infoPopUp('AppPassword_info')">
-              </mat-icon>
-              <span class="popuptext" id="AppPassword_info">{{SQLConnComponent.AppPasswordField.description}}</span>
-            </div>
-            <mat-form-field class="full-width">
-
-              <input matInput type="password" placeholder="Password" formControlName="AppPassword" required>
-
-              <mat-hint align="start">{{SQLConnComponent.AppPasswordField.description}}</mat-hint>
-              <mat-error *ngFor="let validation of SQLConnComponent.AppPasswordField.validationMsg">
-                <mat-error class="error-message" *ngIf="SQLConnForm.get('AppPassword').hasError(validation.type) && (SQLConnForm.get('AppPassword').dirty || SQLConnForm.get('AppPassword').touched)">{{validation.message}}</mat-error>
-              </mat-error>
-            </mat-form-field>
-          </div>
 
           <div>
             <button mat-button matStepperPrevious>Back</button>

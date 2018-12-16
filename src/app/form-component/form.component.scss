@@ -20,15 +20,21 @@ app-forms-page {
   .section-container {
     display: flex;
     align-items: center;
+    
     .section-title {
       transform: rotate(90deg);
-      height: 2px;
+      height: 100px;
       margin-bottom: 0;
       text-align: center;
       flex-basis: 19%;
+      font-size: 1.5rem;
     }
     .section-components-container {
         flex: 1;
+        border-left-style: solid;
+        border-block-start: 5px;
+        padding-left: 30px;
+        border-left-width: 2px;
     }
   }
 
