@@ -127,8 +127,7 @@ export class VerticaComponent {
   
   
   GetForm(): FormGroup {
-    let VerticaHostControl = new FormControl(this.VerticaHostField.defaultValue,this.VerticaHostField.validators);
-    let InternalIPControl = new FormControl(this.InternalIPField.defaultValue,this.InternalIPField.validators);
+
     return new FormGroup({
       version: new FormControl(this.versionField.defaultValue, this.versionField.validators),
       TZ: new FormControl(this.TZField.defaultValue, this.TZField.validators),
@@ -138,8 +137,8 @@ export class VerticaComponent {
       dbPass: new FormControl(this.dbPassField.defaultValue, this.dbPassField.validators),
       workDir: new FormControl(this.workDirField.defaultValue, this.workDirField.validators),
       Broadcast: new FormControl(this.BroadcastField.defaultValue, this.BroadcastField.validators),
-      VerticaHosts: new FormArray([this.fb.group({VerticaHost : VerticaHostControl}),this.fb.group({VerticaHost : VerticaHostControl}),this.fb.group({VerticaHost : VerticaHostControl})]),
-      InternalIPs: new FormArray([this.fb.group({InternalIP : InternalIPControl}),this.fb.group({InternalIP : InternalIPControl}),this.fb.group({InternalIP : InternalIPControl})]),
+      VerticaHosts: new FormArray([this.fb.group({VerticaHost : new FormControl(this.VerticaHostField.defaultValue,this.VerticaHostField.validators)}),this.fb.group({VerticaHost : new FormControl(this.VerticaHostField.defaultValue,this.VerticaHostField.validators)}),this.fb.group({VerticaHost : new FormControl(this.VerticaHostField.defaultValue,this.VerticaHostField.validators)})]),
+      InternalIPs: new FormArray([this.fb.group({InternalIP : new FormControl(this.InternalIPField.defaultValue,this.InternalIPField.validators)}),this.fb.group({InternalIP : new FormControl(this.InternalIPField.defaultValue,this.InternalIPField.validators)}),this.fb.group({InternalIP : new FormControl(this.InternalIPField.defaultValue,this.InternalIPField.validators)})]),
       thresholdNone: new FormControl(this.thresholdNoneField.defaultValue, this.thresholdNoneField.validators),
       isHdpCollocated: new FormControl(this.isHdpCollocatedField.defaultValue, this.isHdpCollocatedField.validators),
       EnablePerfTest: new FormControl(this.EnablePerfTestField.defaultValue, this.EnablePerfTestField.validators),
