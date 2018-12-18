@@ -23,8 +23,26 @@ export class KafkaComponent {
   private _ReplicationFactorField: FieldProperties = new FieldProperties(1, [Validators.required], 'Kafka replication factor', [{ type: 'required', message: 'this field is required' }], ["default_attributes", "opKafka", "replication_factor"]);
   private _RunningZkIdField: FieldProperties = new FieldProperties(1, [Validators.required], 'Running zookeeper id', [{ type: 'required', message: 'this field is required' }], ["default_attributes", "opKafka", "RunningZkId"]);
   private _TopicPartitionsField: FieldProperties = new FieldProperties(1, [Validators.required], 'Topic partitions number', [{ type: 'required', message: 'this field is required' }], ["default_attributes", "opKafka", "topic_partitions"]);
+  private _ClientPortField: FieldProperties = new FieldProperties(9092, [Validators.required], 'Kafka client port', [{ type: 'required', message: 'this field is required' }], ["default_attributes", "opKafka", "kafka_client_port"]);
+  private _ZKClientPortField: FieldProperties = new FieldProperties(2181, [Validators.required], 'Zookeeper client port', [{ type: 'required', message: 'this field is required' }], ["default_attributes", "opKafka", "zookeeper_client_port"]);
 
     /**
+     * Getter ZKClientPortField
+     * @return {FieldProperties }
+     */
+	public get ZKClientPortField(): FieldProperties  {
+		return this._ZKClientPortField;
+	}
+
+    /**
+     * Setter ZKClientPortField
+     * @param {FieldProperties } value
+     */
+	public set ZKClientPortField(value: FieldProperties ) {
+		this._ZKClientPortField = value;
+	}
+  
+  /**
      * Getter ClientPortField
      * @return {FieldProperties }
      */
@@ -39,7 +57,7 @@ export class KafkaComponent {
 	public set ClientPortField(value: FieldProperties ) {
 		this._ClientPortField = value;
 	}
-  private _ClientPortField: FieldProperties = new FieldProperties(9092, [Validators.required], 'Kafka client port', [{ type: 'required', message: 'this field is required' }], ["default_attributes", "opKafka", "kafka_client_port"]);
+  
 
     /**
      * Getter TopicLogsField
@@ -199,6 +217,7 @@ export class KafkaComponent {
       TopicPartitions: new FormControl(this.TopicPartitionsField.defaultValue, this.TopicPartitionsField.validators),
       TopicLogs: new FormControl(this.TopicLogsField.defaultValue, this.TopicLogsField.validators),
       ClientPort: new FormControl(this.ClientPortField.defaultValue, this.ClientPortField.validators),
+      ZKClientPort: new FormControl(this.ZKClientPortField.defaultValue, this.ZKClientPortField.validators),
     });
   }
 
@@ -211,6 +230,7 @@ export class KafkaComponent {
     form.patchValue({ TopicPartitions: FieldProperties.getValueFromJson(this.TopicPartitionsField.jsonInputMapping, filecontent) });
     form.patchValue({ TopicLogs: FieldProperties.getValueFromJson(this.TopicLogsField.jsonInputMapping, filecontent) });
     form.patchValue({ ClientPort: FieldProperties.getValueFromJson(this.ClientPortField.jsonInputMapping, filecontent) });
+    form.patchValue({ ZKClientPort: this.ZKClientPortField.getValueFromJson1( filecontent) });
   }
 
   updateFormArray(form: FormGroup,jsonMapping:any[],parentControlName : string,childControlName : string,newControl: FormGroup,  filecontent: any){
@@ -238,31 +258,7 @@ export class KafkaComponent {
   }
 
   setJson(origJson: any, form: FormGroup){
-      // "opKafka": {
-  //   "ZooKeeper_Hosts": [ "CIPatchKafka2" ],
-  //   "Kafka_Hosts": [ "CIPatchKafka2" ],
-  //   "DFM_topics": [
-  //     "DFM_BATCH_STATUS"
-  //   ],
-  //   "Hadoop_topics": [
-  //     "loadTestResults",
-  //     "testResultsLoaded",
-  //     "loadMetaData",
-  //     "READY_FOR_AGGREGATION",
-  //     "READY_FOR_COMPACTION_METADATA",
-  //     "READY_FOR_COMPACTION_TESTRESULTS",
-  //     "READY_FOR_RULE_EXECUTION",
-  //     "RULE_RESULTS_READY",
-  //     "failure"
-  //   ],
-  //   "kafka_conf": {
-  //     "log.dirs": "/opt/op/kafka-logs"
-  //   },
-  //   "kafka_logs_dir": "/opt/kafka/topics",
-  //   "replication_factor": "1",
-  //   "RunningZkId": 1,
-  //   "topic_partitions": "40"
-  // },
+
     origJson['default_attributes']['OPKafka'] = {}
     origJson['default_attributes']['OPKafka']['kafka_conf'] = {}
     origJson['default_attributes']['OPKafka']['kafka_conf']['log.dirs'] = form.get('Logs').value
@@ -273,6 +269,7 @@ export class KafkaComponent {
     origJson['default_attributes']['OPKafka']['topic_partitions'] = form.get('TopicPartitions').value
     origJson['default_attributes']['OPKafka']['kafka_logs_dir'] = form.get('TopicLogs').value
     origJson['default_attributes']['OPKafka']['kafka_client_port'] = form.get('ClientPort').value
+    origJson['default_attributes']['OPKafka']['zookeeper_client_port'] = form.get('ZKClientPort').value
     return origJson
   }
 

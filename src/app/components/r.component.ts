@@ -234,7 +234,7 @@ export class RComponent {
     origJson['default_attributes']['SimpleR']['hosts'] = this.getFormArrayValues('RHost',<FormArray>form.get('RHosts'))
     origJson['default_attributes']['SimpleR']['Ext_FW_SecurityCheck'] = form.get('CheckExternalFW').value
     origJson['default_attributes']['SimpleR']['Secure_Internal_Firewall'] = form.get('SecureInternalFW').value
-    origJson['default_attributes']['SimpleR']['RInputPath'] = form.get('RInput').value.split('\\').join('.')
+    origJson['default_attributes']['SimpleR']['RInputPath'] = form.get('RInput').value.split('\\').join('/')
     return origJson
   }
 

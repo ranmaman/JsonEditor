@@ -36,7 +36,7 @@ export class EnvironmentGeneralComponent {
     , ["default_attributes", "ChefWs", "IP"]);
   private _linuxVersionField: FieldProperties = new FieldProperties(this.RedHatCentos_versions[0], [Validators.required], '', [{ type: 'required', message: 'Please select linux OS version' }], ["default_attributes", "linux_version"], this.RedHatCentos_versions);
   private _ntpField: FieldProperties = new FieldProperties('', [Validators.required], 'NTP server', [{ type: 'required', message: 'NTP server address is required' }], ["default_attributes", "ntp", "servers", 0]);
-  private _OTTreeLocationField: FieldProperties = new FieldProperties('', [Validators.required, Validators.pattern("\/\/[a-zA-Z0-9\.\-_]{1,}(\/[a-zA-Z0-9\-_]{1,}){1,}[\$]{0,1}")], 'OTTree Location', [
+  private _OTTreeLocationField: FieldProperties = new FieldProperties('', [Validators.required, Validators.pattern("\\\\\\\\[a-zA-Z0-9\\.\\-_]{1,}(\\\\[a-zA-Z0-9\\-_]{1,}){1,}[\\$]{0,1}")], 'OTTree Location', [
     { type: 'required', message: 'OTTree is required' },
     { type: 'pattern', message: 'OTTree location must be valid UNC path' }]
     , ["default_attributes", "OTTree"]);
@@ -64,9 +64,10 @@ export class EnvironmentGeneralComponent {
     form.patchValue({ chefWSAddress: FieldProperties.getValueFromJson(this.chefWSField.jsonInputMapping, filecontent) });
     form.patchValue({ linuxVersions: FieldProperties.getValueFromJson(this.linuxVersionField.jsonInputMapping, filecontent) });
     form.patchValue({ ntpServers: FieldProperties.getValueFromJson(this.ntpField.jsonInputMapping, filecontent) });
-    form.patchValue({ OTTree: FieldProperties.getValueFromJson(this.OTTreeLocationField.jsonInputMapping, filecontent) });
+    form.patchValue({ OTTree: FieldProperties.getValueFromJson(this.OTTreeLocationField.jsonInputMapping, filecontent).split('/').join('\\') });
     form.patchValue({ IsCloudEnv: FieldProperties.getValueFromJson(this.IsCloudField.jsonInputMapping, filecontent) });
     form.patchValue({ industries: FieldProperties.getValueFromJson(this.industryField.jsonInputMapping, filecontent) });
+    form.patchValue({ RserverIncluded: filecontent['default_attributes']['SimpleR'] == undefined || ( filecontent['default_attributes']['SimpleR'] != undefined && filecontent['default_attributes']['SimpleR']['hosts'] == '') ?  false : true});
     let envType = 'SQL'
     if (filecontent['default_attributes']['vertica']['hosts'] != ''){
       envType = 'Vertica'
@@ -89,7 +90,7 @@ export class EnvironmentGeneralComponent {
     origJson['default_attributes']['linux_version'] = form.get('linuxVersions').value 
     origJson['default_attributes'] ['ntp']= {}
     origJson['default_attributes']['ntp']['servers'] = [form.get('ntpServers').value] 
-    origJson['default_attributes']['OTTree'] = form.get('OTTree').value 
+    origJson['default_attributes']['OTTree'] = form.get('OTTree').value.split('\\').join('/')
     origJson['default_attributes']['Cloud_Support'] = form.get('IsCloudEnv').value
     return origJson;  
     

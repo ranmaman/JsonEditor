@@ -78,20 +78,31 @@ export class FormComponent implements OnInit {
       this.EnvironmentGeneralComponent.patchValues(this.EnvironmentGeneralForm, this.filecontent)
       this.SQLConnComponent.patchValues(this.SQLConnForm, this.filecontent)
       this.VerticaComponent.patchValues(this.VerticaForm, this.filecontent)
-      this.RComponent.patchValues(this.RForm, this.filecontent)
-      this.KafkaComponent.patchValues(this.KafkaForm, this.filecontent)
+      if(this.EnvironmentGeneralForm.controls['RserverIncluded'].value == true){
+        this.RComponent.patchValues(this.RForm, this.filecontent)
+      }
+      if(this.EnvironmentGeneralForm.controls['industries'].value != 'semi'){
+        this.KafkaComponent.patchValues(this.KafkaForm, this.filecontent)
+      }
 
     }
   }
 
   finishForm() {
-    let json = {}
+    let json = {    "description": "OptimalPlus Environment",
+    "json_class": "Chef::Environment",
+    "chef_type": "environment"}
+
     json = this.EnvironmentGeneralComponent.setJson(json, this.EnvironmentGeneralForm);
     json = this.SQLConnComponent.setJson(json, this.SQLConnForm);
     json = this.VerticaComponent.setJson(json, this.VerticaForm);
-    //TODO: fill only if R is requiered
-    json = this.RComponent.setJson(json, this.RForm);
-    json = this.KafkaComponent.setJson(json, this.KafkaForm);
+
+    if(this.EnvironmentGeneralForm.controls['RserverIncluded'].value == true){
+      json = this.RComponent.setJson(json, this.RForm);
+    }
+    if(this.EnvironmentGeneralForm.controls['industries'].value != 'semi'){
+      json = this.KafkaComponent.setJson(json, this.KafkaForm);
+    }
     console.log("JSON: " + JSON.stringify(json))
 
   }

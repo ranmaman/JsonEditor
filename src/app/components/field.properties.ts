@@ -28,6 +28,14 @@ export class FieldProperties{
         return json;
     }
 
+    public getValueFromJson1(json:any){
+        for(let f of this.jsonInputMapping){
+            json = json[f]
+        }
+        console.log(this.jsonInputMapping + ' ' + json)
+        return json != undefined ? json : this.defaultValue
+    }
+
     public get options(): any {
         return this._options;
     }
