@@ -20,6 +20,57 @@ export class RComponent {
   private _MgmPasswordField: FieldProperties = new FieldProperties('', [Validators.required], 'R Managment user password', [{ type: 'required', message: 'this field is required' }], ["default_attributes", "SimpleR", "managementUser","password"]);
   private _MgmGroupField: FieldProperties = new FieldProperties('', [Validators.required], 'R Managment user password', [{ type: 'required', message: 'this field is required' }], ["default_attributes", "SimpleR", "managementUser","group"]);
   private _MgmCreateField: FieldProperties = new FieldProperties(true, [], 'Create managment user if true', [], ["default_attributes", "SimpleR", "managementUser", "CREATE_IF_NOT_EXIST"]);
+  private _CheckExternalFWField: FieldProperties = new FieldProperties(true, [], 'Check if R server is open via external firewall', [], ["default_attributes", "SimpleR", "Ext_FW_SecurityCheck"]);
+  private _SecureInternalFWField: FieldProperties = new FieldProperties(true, [], 'Enable internal Firewall', [], ["default_attributes", "SimpleR", "Secure_Internal_Firewall"]);
+
+    /**
+     * Getter CheckExternalFWField
+     * @return {FieldProperties }
+     */
+	public get CheckExternalFWField(): FieldProperties  {
+		return this._CheckExternalFWField;
+	}
+
+    /**
+     * Getter RInputField
+     * @return {FieldProperties }
+     */
+	public get RInputField(): FieldProperties  {
+		return this._RInputField;
+	}
+
+    /**
+     * Setter RInputField
+     * @param {FieldProperties } value
+     */
+	public set RInputField(value: FieldProperties ) {
+		this._RInputField = value;
+	}
+
+    /**
+     * Setter CheckExternalFWField
+     * @param {FieldProperties } value
+     */
+	public set CheckExternalFWField(value: FieldProperties ) {
+		this._CheckExternalFWField = value;
+	}
+
+    /**
+     * Getter SecureInternalFWField
+     * @return {FieldProperties }
+     */
+	public get SecureInternalFWField(): FieldProperties  {
+		return this._SecureInternalFWField;
+	}
+
+    /**
+     * Setter SecureInternalFWField
+     * @param {FieldProperties } value
+     */
+	public set SecureInternalFWField(value: FieldProperties ) {
+		this._SecureInternalFWField = value;
+	}
+  private _RInputField: FieldProperties = new FieldProperties('', [Validators.required, Validators.pattern("\\\\\\\\[a-zA-Z0-9\\.\\-_]{1,}(\\\\[a-zA-Z0-9\\-_]{1,}){1,}[\\$]{0,1}")], 'UNC path for R input', [{ type: 'required', message: 'this field is required' }, { type: 'pattern', message: 'value needs to be valid UNC path' }], ["default_attributes", "SimpleR", "RInputPath"]);
 
     /**
      * Getter RHostField
@@ -129,6 +180,9 @@ export class RComponent {
       MgmPassword: new FormControl(this.MgmPasswordField.defaultValue, this.MgmPasswordField.validators),
       MgmGroup: new FormControl(this.MgmGroupField.defaultValue, this.MgmGroupField.validators),
       RHosts: new FormArray([this.fb.group({RHost : new FormControl(this.RHostField.defaultValue,this.RHostField.validators)})]),
+      CheckExternalFW: new FormControl(this.CheckExternalFWField.defaultValue, this.CheckExternalFWField.validators),
+      SecureInternalFW: new FormControl(this.SecureInternalFWField.defaultValue, this.SecureInternalFWField.validators),
+      RInput: new FormControl(this.RInputField.defaultValue, this.RInputField.validators),
     });
   }
 
@@ -138,6 +192,9 @@ export class RComponent {
     form.patchValue({ MgmUser: FieldProperties.getValueFromJson(this.MgmUserField.jsonInputMapping, filecontent)});
     form.patchValue({ MgmPassword: FieldProperties.getValueFromJson(this.MgmPasswordField.jsonInputMapping, filecontent) });
     form.patchValue({ MgmGroup: FieldProperties.getValueFromJson(this.MgmGroupField.jsonInputMapping, filecontent) });
+    form.patchValue({ CheckExternalFW: FieldProperties.getValueFromJson(this.CheckExternalFWField.jsonInputMapping, filecontent) });
+    form.patchValue({ SecureInternalFW: FieldProperties.getValueFromJson(this.SecureInternalFWField.jsonInputMapping, filecontent) });
+    form.patchValue({ RInput: FieldProperties.getValueFromJson(this.RInputField.jsonInputMapping, filecontent).split('/').join('\\') });
 
 
     
@@ -175,6 +232,9 @@ export class RComponent {
     origJson['default_attributes']['SimpleR']['managementUser']['password'] = form.get('MgmPassword').value
     origJson['default_attributes']['SimpleR']['managementUser']['group'] = form.get('MgmGroup').value
     origJson['default_attributes']['SimpleR']['hosts'] = this.getFormArrayValues('RHost',<FormArray>form.get('RHosts'))
+    origJson['default_attributes']['SimpleR']['Ext_FW_SecurityCheck'] = form.get('CheckExternalFW').value
+    origJson['default_attributes']['SimpleR']['Secure_Internal_Firewall'] = form.get('SecureInternalFW').value
+    origJson['default_attributes']['SimpleR']['RInputPath'] = form.get('RInput').value.split('\\').join('.')
     return origJson
   }
 

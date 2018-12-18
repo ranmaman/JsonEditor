@@ -817,6 +817,23 @@
             <button (click)="addRHost()">+</button>
           </div>
 
+          <div class="field-container">
+            <div class="popup" align="end">
+              <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('RInput_info')" (mouseleave)="infoPopUp('RInput_info')">
+              </mat-icon>
+              <span class="popuptext" id="RInput_info">{{RComponent.RInputField.description}}</span>
+            </div>
+            <mat-form-field class="full-width">
+
+              <input matInput placeholder="R Input path" formControlName="RInput"
+                required>
+
+              <mat-hint align="start">{{RComponent.RInputField.description}}</mat-hint>
+              <mat-error *ngFor="let validation of RComponent.RInputField.validationMsg">
+                <mat-error class="error-message" *ngIf="RForm.get('RInput').hasError(validation.type) && (RForm.get('RInput').dirty || RForm.get('RInput').touched)">{{validation.message}}</mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
 
           <div class="section-container">
             <p class="section-title">R Managment User</p>
@@ -880,7 +897,12 @@
               </mat-checkbox>
             </div>
           </div>
-
+          <mat-checkbox formControlName="SecureInternalFW">
+            Secure Internal Firewall
+          </mat-checkbox><br><br>
+          <mat-checkbox formControlName="CheckExternalFW">
+            Validate External Firewall Security
+          </mat-checkbox>
 
           <div>
             <button mat-button matStepperPrevious>Back</button>
