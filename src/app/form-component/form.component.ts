@@ -99,29 +99,20 @@ export class FormComponent implements OnInit {
   addVerticaHost() {
     this.VerticaComponent.addVerticaHost(this.VerticaForm);
   }
-  addInternalIP() {
-    this.VerticaComponent.addInternalIP(this.VerticaForm);
-  }
+
   addRHost() {
     this.RComponent.addRHost(this.RForm);
   }
 
   removeVerticaHost() {
-    const control = <FormArray>this.VerticaForm.controls['VerticaHosts'];
-    console.log(control.length)
-    if (control.length > 3) {
-      control.removeAt(control.length - 1);
+    const externalControl = <FormArray>this.VerticaForm.controls['VerticaHosts'];
+    const internalControl = <FormArray>this.VerticaForm.controls['InternalIPs'];
+    if (externalControl.length > 3) {
+      externalControl.removeAt(externalControl.length - 1);
+      internalControl.removeAt(internalControl.length - 1);
     }
   }
   
-  removeInternalIP() {
-    const control = <FormArray>this.VerticaForm.controls['InternalIPs'];
-    console.log(control.length)
-    if (control.length > 1) {
-      control.removeAt(control.length - 1);
-    }
-  }
-
   removeRHost() {
     const control = <FormArray>this.RForm.controls['RHosts'];
     console.log(control.length)

@@ -415,12 +415,10 @@ export class VerticaComponent {
   }
 
   addVerticaHost(form: FormGroup){
-    const control = <FormArray>form.controls['VerticaHosts'];
-    control.push(this.fb.group({VerticaHost : new FormControl(this.VerticaHostField.defaultValue,this.VerticaHostField.validators)}));
+    const externalControl = <FormArray>form.controls['VerticaHosts'];
+    const internalControl = <FormArray>form.controls['InternalIPs'];
+    externalControl.push(this.fb.group({VerticaHost : new FormControl(this.VerticaHostField.defaultValue,this.VerticaHostField.validators)}));
+    internalControl.push(this.fb.group({InternalIP : new FormControl(this.InternalIPField.defaultValue,this.InternalIPField.validators)}));
   }
-  addInternalIP(form: FormGroup){
-    const control = <FormArray>form.controls['InternalIPs'];
-    control.push(this.fb.group({InternalIP : new FormControl(this.InternalIPField.defaultValue,this.InternalIPField.validators)}));
-  }
-
+  
 }
