@@ -499,7 +499,7 @@
               </mat-form-field>
             </div>
           </div>
-          
+
           <div class="section-container">
             <p class="section-title">External Storage for CSV</p>
             <div class="section-components-container">
@@ -900,7 +900,7 @@
 
           <div>
             <button mat-button matStepperPrevious>Back</button>
-            <button class="submit-btn" mat-button matStepperNext>Next</button>
+            <button class="submit-btn" mat-button [disabled]="!RForm.valid" matStepperNext>Next</button>
           </div>
 
         </form>
@@ -920,15 +920,150 @@
         </form>
       </mat-step>
 
-      <mat-step *ngIf="EnvironmentGeneralForm.get('industries').value != 'semi'" [stepControl]="userDetailsForm">
-        <form [formGroup]="userDetailsForm" (ngSubmit)="onSubmitUserDetails(userDetailsForm.value)">
+      <mat-step *ngIf="EnvironmentGeneralForm.get('industries').value != 'semi'" [stepControl]="KafkaForm">
+        <form [formGroup]="KafkaForm">
           <ng-template matStepLabel>Kafka</ng-template>
+          <div class="field-container">
+            <div class="popup" align="end">
+              <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('KafkaHosts_info')" (mouseleave)="infoPopUp('KafkaHosts_info')">
+              </mat-icon>
+              <span class="popuptext" id="KafkaHosts_info">{{KafkaComponent.KafkaHostsField.description}}</span>
+            </div>
+
+            <div class="full-width" formArrayName="KafkaHosts">
+              <mat-form-field *ngFor="let host of KafkaForm.get('KafkaHosts').controls; let i=index"
+                [formGroupName]="i">
+
+                <input matInput placeholder="Kafka External IP {{i+1}}" formControlName="KafkaHost">
+                <mat-error *ngFor="let validation of KafkaComponent.KafkaHostField.validationMsg">
+                  <mat-error class="error-message" *ngIf="KafkaForm.get('KafkaHosts').at(i).get('KafkaHost').hasError(validation.type) && (KafkaForm.get('KafkaHosts').at(i).get('KafkaHost').dirty || KafkaForm.get('KafkaHosts').at(i).get('KafkaHost').touched)">{{validation.message}}</mat-error>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <button (click)="removeKafkaHost()">-</button>
+            <button (click)="addKafkaHost()">+</button>
+
+
+
+
+          </div>
+
+          <div class="field-container">
+            <div class="popup" align="end">
+              <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('ZKHosts_info')" (mouseleave)="infoPopUp('ZKHosts_info')">
+              </mat-icon>
+              <span class="popuptext" id="ZKHosts_info">{{KafkaComponent.ZKHostsField.description}}</span>
+            </div>
+
+            <div class="full-width" formArrayName="ZKHosts">
+              <mat-form-field *ngFor="let host of KafkaForm.get('ZKHosts').controls; let i=index"
+                [formGroupName]="i">
+
+                <input matInput placeholder="ZooKeeper External IP {{i+1}}" formControlName="ZKHost">
+                <mat-error *ngFor="let validation of KafkaComponent.ZKHostField.validationMsg">
+                  <mat-error class="error-message" *ngIf="KafkaForm.get('ZKHosts').at(i).get('ZKHost').hasError(validation.type) && (KafkaForm.get('ZKHosts').at(i).get('ZKHost').dirty || KafkaForm.get('ZKHosts').at(i).get('ZKHost').touched)">{{validation.message}}</mat-error>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <button (click)="removeZKHost()">-</button>
+            <button (click)="addZKHost()">+</button>
+
+          </div>
+
+          <div class="field-container">
+            <div class="popup" align="end">
+              <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('Logs_info')" (mouseleave)="infoPopUp('Logs_info')">
+              </mat-icon>
+              <span class="popuptext" id="Logs_info">{{KafkaComponent.LogsField.description}}</span>
+            </div>
+            <mat-form-field class="full-width">
+
+              <input matInput placeholder="Kafka Logs location" formControlName="Logs" required>
+
+              <mat-hint align="start">{{KafkaComponent.LogsField.description}}</mat-hint>
+              <mat-error *ngFor="let validation of KafkaComponent.LogsField.validationMsg">
+                <mat-error class="error-message" *ngIf="KafkaForm.get('Logs').hasError(validation.type) && (KafkaForm.get('Logs').dirty || KafkaForm.get('Logs').touched)">{{validation.message}}</mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="field-container">
+            <div class="popup" align="end">
+              <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('ReplicationFactor_info')" (mouseleave)="infoPopUp('ReplicationFactor_info')">
+              </mat-icon>
+              <span class="popuptext" id="ReplicationFactor_info">{{KafkaComponent.ReplicationFactorField.description}}</span>
+            </div>
+            <mat-form-field class="full-width">
+
+              <input matInput type="number" placeholder="Kafka Replication Factor" formControlName="ReplicationFactor" required>
+
+              <mat-hint align="start">{{KafkaComponent.ReplicationFactorField.description}}</mat-hint>
+              <mat-error *ngFor="let validation of KafkaComponent.ReplicationFactorField.validationMsg">
+                <mat-error class="error-message" *ngIf="KafkaForm.get('ReplicationFactor').hasError(validation.type) && (KafkaForm.get('ReplicationFactor').dirty || KafkaForm.get('ReplicationFactor').touched)">{{validation.message}}</mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="field-container">
+            <div class="popup" align="end">
+              <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('RunningZkId_info')" (mouseleave)="infoPopUp('RunningZkId_info')">
+              </mat-icon>
+              <span class="popuptext" id="RunningZkId_info">{{KafkaComponent.RunningZkIdField.description}}</span>
+            </div>
+            <mat-form-field class="full-width">
+
+              <input matInput type="number" placeholder="Running Zookeeper id" formControlName="RunningZkId" required>
+
+              <mat-hint align="start">{{KafkaComponent.RunningZkIdField.description}}</mat-hint>
+              <mat-error *ngFor="let validation of KafkaComponent.RunningZkIdField.validationMsg">
+                <mat-error class="error-message" *ngIf="KafkaForm.get('RunningZkId').hasError(validation.type) && (KafkaForm.get('RunningZkId').dirty || KafkaForm.get('RunningZkId').touched)">{{validation.message}}</mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="field-container">
+            <div class="popup" align="end">
+              <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('TopicPartitions_info')" (mouseleave)="infoPopUp('TopicPartitions_info')">
+              </mat-icon>
+              <span class="popuptext" id="TopicPartitions_info">{{KafkaComponent.TopicPartitionsField.description}}</span>
+            </div>
+            <mat-form-field class="full-width">
+
+              <input matInput type="number" placeholder="Topic partitions number" formControlName="TopicPartitions" required>
+
+              <mat-hint align="start">{{KafkaComponent.TopicPartitionsField.description}}</mat-hint>
+              <mat-error *ngFor="let validation of KafkaComponent.TopicPartitionsField.validationMsg">
+                <mat-error class="error-message" *ngIf="KafkaForm.get('TopicPartitions').hasError(validation.type) && (KafkaForm.get('TopicPartitions').dirty || KafkaForm.get('TopicPartitions').touched)">{{validation.message}}</mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="field-container">
+            <div class="popup" align="end">
+              <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('TopicLogs_info')" (mouseleave)="infoPopUp('TopicLogs_info')">
+              </mat-icon>
+              <span class="popuptext" id="TopicLogs_info">{{KafkaComponent.TopicLogsField.description}}</span>
+            </div>
+            <mat-form-field class="full-width">
+
+              <input matInput placeholder="Logs per topic location" formControlName="TopicLogs" required>
+
+              <mat-hint align="start">{{KafkaComponent.TopicLogsField.description}}</mat-hint>
+              <mat-error *ngFor="let validation of KafkaComponent.TopicLogsField.validationMsg">
+                <mat-error class="error-message" *ngIf="KafkaForm.get('TopicLogs').hasError(validation.type) && (KafkaForm.get('TopicLogs').dirty || KafkaForm.get('TopicLogs').touched)">{{validation.message}}</mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          
 
 
 
           <div>
             <button mat-button matStepperPrevious>Back</button>
-            <button class="submit-btn" mat-button matStepperNext>Next</button>
+            <button class="submit-btn" mat-button [disabled]="!KafkaForm.valid" matStepperNext>Next</button>
           </div>
 
         </form>

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
-import { UserDetailsComponent, AccountDetailsComponent, EnvironmentGeneralComponent, SQLConnComponent, VerticaComponent, RComponent } from '../components';
+import { UserDetailsComponent, AccountDetailsComponent, EnvironmentGeneralComponent, SQLConnComponent, VerticaComponent, RComponent, KafkaComponent } from '../components';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material';
 @Component({
@@ -30,6 +30,9 @@ export class FormComponent implements OnInit {
   RForm: FormGroup;
   RComponent = new RComponent();
 
+  KafkaForm: FormGroup;
+  KafkaComponent = new KafkaComponent();
+
   filecontent: any;
 
 
@@ -50,6 +53,7 @@ export class FormComponent implements OnInit {
     this.EnvironmentGeneralForm = this.EnvironmentGeneralComponent.GetForm();
     this.VerticaForm = this.VerticaComponent.GetForm();
     this.RForm = this.RComponent.GetForm();
+    this.KafkaForm = this.KafkaComponent.GetForm();
     this.userDetailsForm = this.userDetailsComponent.GetForm();
     this.accountDetailsForm = this.accountDetailsComponent.GetForm();
 
@@ -75,6 +79,7 @@ export class FormComponent implements OnInit {
       this.SQLConnComponent.patchValues(this.SQLConnForm, this.filecontent)
       this.VerticaComponent.patchValues(this.VerticaForm, this.filecontent)
       this.RComponent.patchValues(this.RForm, this.filecontent)
+      this.KafkaComponent.patchValues(this.KafkaForm, this.filecontent)
 
     }
   }
@@ -86,6 +91,7 @@ export class FormComponent implements OnInit {
     json = this.VerticaComponent.setJson(json, this.VerticaForm);
     //TODO: fill only if R is requiered
     json = this.RComponent.setJson(json, this.RForm);
+    json = this.KafkaComponent.setJson(json, this.KafkaForm);
     console.log("JSON: " + JSON.stringify(json))
 
   }
@@ -104,6 +110,14 @@ export class FormComponent implements OnInit {
     this.RComponent.addRHost(this.RForm);
   }
 
+  addKafkaHost() {
+    this.KafkaComponent.addKafkaHost(this.KafkaForm);
+  }
+
+  addZKHost() {
+    this.KafkaComponent.addZKHost(this.KafkaForm);
+  }
+
   removeVerticaHost() {
     const externalControl = <FormArray>this.VerticaForm.controls['VerticaHosts'];
     const internalControl = <FormArray>this.VerticaForm.controls['InternalIPs'];
@@ -117,6 +131,22 @@ export class FormComponent implements OnInit {
     const control = <FormArray>this.RForm.controls['RHosts'];
     console.log(control.length)
     if (control.length > 1) {
+      control.removeAt(control.length - 1);
+    }
+  }
+
+  removeKafkaHost() {
+    const control = <FormArray>this.KafkaForm.controls['KafkaHosts'];
+    console.log(control.length)
+    if (control.length > 3) {
+      control.removeAt(control.length - 1);
+    }
+  }
+
+  removeZKHost() {
+    const control = <FormArray>this.KafkaForm.controls['ZKHosts'];
+    console.log(control.length)
+    if (control.length > 3) {
       control.removeAt(control.length - 1);
     }
   }
