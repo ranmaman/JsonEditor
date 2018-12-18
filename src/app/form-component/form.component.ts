@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
-import { UserDetailsComponent, AccountDetailsComponent, EnvironmentGeneralComponent, SQLConnComponent, VerticaComponent } from '../components';
+import { UserDetailsComponent, AccountDetailsComponent, EnvironmentGeneralComponent, SQLConnComponent, VerticaComponent, RComponent } from '../components';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material';
 @Component({
@@ -27,6 +27,9 @@ export class FormComponent implements OnInit {
   VerticaForm: FormGroup;
   VerticaComponent = new VerticaComponent();
 
+  RForm: FormGroup;
+  RComponent = new RComponent();
+
   filecontent: any;
 
 
@@ -46,6 +49,7 @@ export class FormComponent implements OnInit {
     this.SQLConnForm = this.SQLConnComponent.GetForm();
     this.EnvironmentGeneralForm = this.EnvironmentGeneralComponent.GetForm();
     this.VerticaForm = this.VerticaComponent.GetForm();
+    this.RForm = this.RComponent.GetForm();
     this.userDetailsForm = this.userDetailsComponent.GetForm();
     this.accountDetailsForm = this.accountDetailsComponent.GetForm();
 
@@ -70,6 +74,7 @@ export class FormComponent implements OnInit {
       this.EnvironmentGeneralComponent.patchValues(this.EnvironmentGeneralForm, this.filecontent)
       this.SQLConnComponent.patchValues(this.SQLConnForm, this.filecontent)
       this.VerticaComponent.patchValues(this.VerticaForm, this.filecontent)
+      this.RComponent.patchValues(this.RForm, this.filecontent)
 
     }
   }
@@ -79,6 +84,8 @@ export class FormComponent implements OnInit {
     json = this.EnvironmentGeneralComponent.setJson(json, this.EnvironmentGeneralForm);
     json = this.SQLConnComponent.setJson(json, this.SQLConnForm);
     json = this.VerticaComponent.setJson(json, this.VerticaForm);
+    //TODO: fill only if R is requiered
+    json = this.RComponent.setJson(json, this.RForm);
     console.log("JSON: " + JSON.stringify(json))
 
   }
@@ -95,6 +102,9 @@ export class FormComponent implements OnInit {
   addInternalIP() {
     this.VerticaComponent.addInternalIP(this.VerticaForm);
   }
+  addRHost() {
+    this.RComponent.addRHost(this.RForm);
+  }
 
   removeVerticaHost() {
     const control = <FormArray>this.VerticaForm.controls['VerticaHosts'];
@@ -103,11 +113,19 @@ export class FormComponent implements OnInit {
       control.removeAt(control.length - 1);
     }
   }
-
+  
   removeInternalIP() {
     const control = <FormArray>this.VerticaForm.controls['InternalIPs'];
     console.log(control.length)
-    if (control.length > 3) {
+    if (control.length > 1) {
+      control.removeAt(control.length - 1);
+    }
+  }
+
+  removeRHost() {
+    const control = <FormArray>this.RForm.controls['RHosts'];
+    console.log(control.length)
+    if (control.length > 1) {
       control.removeAt(control.length - 1);
     }
   }

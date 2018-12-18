@@ -68,7 +68,6 @@ export class EnvironmentGeneralComponent {
     form.patchValue({ IsCloudEnv: FieldProperties.getValueFromJson(this.IsCloudField.jsonInputMapping, filecontent) });
     form.patchValue({ industries: FieldProperties.getValueFromJson(this.industryField.jsonInputMapping, filecontent) });
     let envType = 'SQL'
-    console.log('!!!!!!!!!!!!!!!' + filecontent['default_attributes']['hadoop_deployment']['Hadoop_Hosts'])
     if (filecontent['default_attributes']['vertica']['hosts'] != ''){
       envType = 'Vertica'
     }
