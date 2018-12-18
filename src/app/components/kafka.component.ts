@@ -25,6 +25,23 @@ export class KafkaComponent {
   private _TopicPartitionsField: FieldProperties = new FieldProperties(1, [Validators.required], 'Topic partitions number', [{ type: 'required', message: 'this field is required' }], ["default_attributes", "opKafka", "topic_partitions"]);
 
     /**
+     * Getter ClientPortField
+     * @return {FieldProperties }
+     */
+	public get ClientPortField(): FieldProperties  {
+		return this._ClientPortField;
+	}
+
+    /**
+     * Setter ClientPortField
+     * @param {FieldProperties } value
+     */
+	public set ClientPortField(value: FieldProperties ) {
+		this._ClientPortField = value;
+	}
+  private _ClientPortField: FieldProperties = new FieldProperties(9092, [Validators.required], 'Kafka client port', [{ type: 'required', message: 'this field is required' }], ["default_attributes", "opKafka", "kafka_client_port"]);
+
+    /**
      * Getter TopicLogsField
      * @return {FieldProperties }
      */
@@ -181,6 +198,7 @@ export class KafkaComponent {
       RunningZkId: new FormControl(this.RunningZkIdField.defaultValue, this.RunningZkIdField.validators),
       TopicPartitions: new FormControl(this.TopicPartitionsField.defaultValue, this.TopicPartitionsField.validators),
       TopicLogs: new FormControl(this.TopicLogsField.defaultValue, this.TopicLogsField.validators),
+      ClientPort: new FormControl(this.ClientPortField.defaultValue, this.ClientPortField.validators),
     });
   }
 
@@ -192,6 +210,7 @@ export class KafkaComponent {
     form.patchValue({ RunningZkId: FieldProperties.getValueFromJson(this.RunningZkIdField.jsonInputMapping, filecontent) });
     form.patchValue({ TopicPartitions: FieldProperties.getValueFromJson(this.TopicPartitionsField.jsonInputMapping, filecontent) });
     form.patchValue({ TopicLogs: FieldProperties.getValueFromJson(this.TopicLogsField.jsonInputMapping, filecontent) });
+    form.patchValue({ ClientPort: FieldProperties.getValueFromJson(this.ClientPortField.jsonInputMapping, filecontent) });
   }
 
   updateFormArray(form: FormGroup,jsonMapping:any[],parentControlName : string,childControlName : string,newControl: FormGroup,  filecontent: any){
@@ -253,6 +272,7 @@ export class KafkaComponent {
     origJson['default_attributes']['OPKafka']['RunningZkId'] = form.get('RunningZkId').value
     origJson['default_attributes']['OPKafka']['topic_partitions'] = form.get('TopicPartitions').value
     origJson['default_attributes']['OPKafka']['kafka_logs_dir'] = form.get('TopicLogs').value
+    origJson['default_attributes']['OPKafka']['kafka_client_port'] = form.get('ClientPort').value
     return origJson
   }
 

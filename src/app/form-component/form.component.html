@@ -1057,6 +1057,23 @@
             </mat-form-field>
           </div>
 
+          <div class="field-container">
+            <div class="popup" align="end">
+              <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('ClientPort_info')" (mouseleave)="infoPopUp('ClientPort_info')">
+              </mat-icon>
+              <span class="popuptext" id="ClientPort_info">{{KafkaComponent.ClientPortField.description}}</span>
+            </div>
+            <mat-form-field class="full-width">
+
+              <input matInput type="number" placeholder="Kafka Client Port" formControlName="ClientPort" required>
+
+              <mat-hint align="start">{{KafkaComponent.ClientPortField.description}}</mat-hint>
+              <mat-error *ngFor="let validation of KafkaComponent.ClientPortField.validationMsg">
+                <mat-error class="error-message" *ngIf="KafkaForm.get('ClientPort').hasError(validation.type) && (KafkaForm.get('ClientPort').dirty || KafkaForm.get('ClientPort').touched)">{{validation.message}}</mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
           
 
 
