@@ -36,7 +36,155 @@ export class VerticaComponent {
   //Vertica Internal IP's
   private _InternalIPField: FieldProperties = new FieldProperties('', [Validators.required, , Validators.pattern("^([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})$")], 'Vertica Internal IP', [{ type: 'required', message: 'this field is required' }, { type: 'pattern', message: 'value needs to be a valid ip address' }], ["default_attributes", "vertica", "syncDataBetweenNodesIPs"]);
   private _InternalIPsField: FieldProperties = new FieldProperties(this._InternalIPField, [], 'Vertica Hosts Internal ip list', [], ["default_attributes", "vertica", "syncDataBetweenNodesIPs"]);
+  //External Storage
+  private _UNCPathField: FieldProperties = new FieldProperties('', [Validators.required, Validators.pattern("\\\\\\\\[a-zA-Z0-9\\.\\-_]{1,}(\\\\[a-zA-Z0-9\\-_]{1,}){1,}[\\$]{0,1}")], 'UNC path for CSV', [{ type: 'required', message: 'this field is required' }, { type: 'pattern', message: 'value needs to be valid UNC path' }], ["default_attributes", "CSV_Data_Mount_CIFS", "unc_path"]);
+  private _SMBUserField: FieldProperties = new FieldProperties('', [Validators.required], 'Samba user name to access csv files location', [{ type: 'required', message: 'this field is required' }], ["default_attributes", "CSV_Data_Mount_CIFS", "SMB_User"]);
+
   
+  private _SMBPasswordField: FieldProperties = new FieldProperties('', [Validators.required], 'Samba password to access csv files location', [{ type: 'required', message: 'this field is required' }], ["default_attributes", "CSV_Data_Mount_CIFS", "SMB_Pass"]);
+  private _SMBDomainField: FieldProperties = new FieldProperties('', [Validators.required], 'Samba user name domain to access csv files location', [{ type: 'required', message: 'this field is required' }], ["default_attributes", "CSV_Data_Mount_CIFS", "SMB_Domain"]);
+  private _MountDirField: FieldProperties = new FieldProperties('/opt/op/csv_data', [Validators.required, Validators.pattern("^(/[^/ ]*)+/?$")], 'linux folder location for CSV', [{ type: 'required', message: 'this field is required' }, { type: 'pattern', message: 'value needs to be valid linux path' }], ["default_attributes", "CSV_Data_Mount_CIFS", "mount_dir"]);
+  //Version Tree Samba
+  private _VTUNCPathField: FieldProperties = new FieldProperties('', [Validators.required, Validators.pattern("\\\\\\\\[a-zA-Z0-9\\.\\-_]{1,}(\\\\[a-zA-Z0-9\\-_]{1,}){1,}[\\$]{0,1}")], 'UNC path for Deployment Center location', [{ type: 'required', message: 'this field is required' }, { type: 'pattern', message: 'value needs to be valid UNC path' }], ["default_attributes","vertica", "versionTreeSmbShare", "UncPath"]);
+  private _VTUserField: FieldProperties = new FieldProperties('', [Validators.required, Validators.pattern("^[a-zA-Z][a-zA-Z0-9\\-\\.]{0,61}[a-zA-Z]\\\\[\\w\\.\\- ]*$")], 'User name to access deplyment center', [{ type: 'required', message: 'this field is required' }, { type: 'pattern', message: "value needs to be: 'Domain\\userName'" }], ["default_attributes", "vertica", "versionTreeSmbShare", "DomainUser"]);
+  private _VTPasswordField: FieldProperties = new FieldProperties('', [Validators.required], 'User password to access deployment center', [{ type: 'required', message: 'this field is required' }], ["default_attributes", "vertica", "versionTreeSmbShare", "Password"]);
+  //Vertica Managment User
+  private _MgmUserField: FieldProperties = new FieldProperties('', [Validators.required], 'Verica Managment user name', [{ type: 'required', message: 'this field is required' }], ["default_attributes", "vertica", "managementUser","dbadmin_user"]);
+  private _MgmPasswordField: FieldProperties = new FieldProperties('', [Validators.required], 'Verica Managment user password', [{ type: 'required', message: 'this field is required' }], ["default_attributes", "vertica", "managementUser","dbadmin_pass"]);
+  private _MgmGroupField: FieldProperties = new FieldProperties('', [Validators.required], 'Verica Managment user password', [{ type: 'required', message: 'this field is required' }], ["default_attributes", "vertica", "managementUser","dbadmin_group"]);
+  private _MgmHomeField: FieldProperties = new FieldProperties('', [Validators.required, Validators.pattern("^(/[^/ ]*)+/?$")], 'Verica Managment user home folder', [{ type: 'required', message: 'this field is required' }, { type: 'pattern', message: 'value needs to be valid linux path' }], ["default_attributes", "vertica", "managementUser","home_folder"]);
+  private _MgmCreateField: FieldProperties = new FieldProperties(true, [], 'Create managment user if true', [], ["default_attributes", "vertica", "managementUser", "CREATE_IF_NOT_EXIST"]);
+  
+
+  /**
+     * Getter MgmUserField
+     * @return {FieldProperties }
+     */
+    public get MgmUserField(): FieldProperties  {
+      return this._MgmUserField;
+    }
+  
+      /**
+       * Setter MgmUserField
+       * @param {FieldProperties } value
+       */
+    public set MgmUserField(value: FieldProperties ) {
+      this._MgmUserField = value;
+    }
+  
+      /**
+       * Getter MgmPasswordField
+       * @return {FieldProperties }
+       */
+    public get MgmPasswordField(): FieldProperties  {
+      return this._MgmPasswordField;
+    }
+  
+      /**
+       * Setter MgmPasswordField
+       * @param {FieldProperties } value
+       */
+    public set MgmPasswordField(value: FieldProperties ) {
+      this._MgmPasswordField = value;
+    }
+  
+      /**
+       * Getter MgmGroupField
+       * @return {FieldProperties }
+       */
+    public get MgmGroupField(): FieldProperties  {
+      return this._MgmGroupField;
+    }
+  
+      /**
+       * Setter MgmGroupField
+       * @param {FieldProperties } value
+       */
+    public set MgmGroupField(value: FieldProperties ) {
+      this._MgmGroupField = value;
+    }
+  
+      /**
+       * Getter MgmHomeField
+       * @return {FieldProperties }
+       */
+    public get MgmHomeField(): FieldProperties  {
+      return this._MgmHomeField;
+    }
+  
+      /**
+       * Setter MgmHomeField
+       * @param {FieldProperties } value
+       */
+    public set MgmHomeField(value: FieldProperties ) {
+      this._MgmHomeField = value;
+    }
+    /**
+     * Getter MgmCreateField
+     * @return {FieldProperties }
+     */
+	public get MgmCreateField(): FieldProperties  {
+		return this._MgmCreateField;
+	}
+
+    /**
+     * Setter MgmCreateField
+     * @param {FieldProperties } value
+     */
+	public set MgmCreateField(value: FieldProperties ) {
+		this._MgmCreateField = value;
+	}
+
+
+  public get VTUNCPathField(): FieldProperties {
+    return this._VTUNCPathField;
+  }
+  public set VTUNCPathField(value: FieldProperties) {
+    this._VTUNCPathField = value;
+  }
+  public get VTUserField(): FieldProperties {
+    return this._VTUserField;
+  }
+  public set VTUserField(value: FieldProperties) {
+    this._VTUserField = value;
+  }
+  public get VTPasswordField(): FieldProperties {
+    return this._VTPasswordField;
+  }
+  public set VTPasswordField(value: FieldProperties) {
+    this._VTPasswordField = value;
+  }
+
+  public get MountDirField(): FieldProperties {
+    return this._MountDirField;
+  }
+  public set MountDirField(value: FieldProperties) {
+    this._MountDirField = value;
+  }
+  public get SMBDomainField(): FieldProperties {
+    return this._SMBDomainField;
+  }
+  public set SMBDomainField(value: FieldProperties) {
+    this._SMBDomainField = value;
+  }
+  public get SMBPasswordField(): FieldProperties {
+    return this._SMBPasswordField;
+  }
+  public set SMBPasswordField(value: FieldProperties) {
+    this._SMBPasswordField = value;
+  }
+  public get SMBUserField(): FieldProperties {
+    return this._SMBUserField;
+  }
+  public set SMBUserField(value: FieldProperties) {
+    this._SMBUserField = value;
+  }
+  public get UNCPathField(): FieldProperties {
+    return this._UNCPathField;
+  }
+  public set UNCPathField(value: FieldProperties) {
+    this._UNCPathField = value;
+  }
   public get InternalIPsField(): FieldProperties {
     return this._InternalIPsField;
   }
@@ -145,6 +293,20 @@ export class VerticaComponent {
       thresholdNone: new FormControl(this.thresholdNoneField.defaultValue, this.thresholdNoneField.validators),
       isHdpCollocated: new FormControl(this.isHdpCollocatedField.defaultValue, this.isHdpCollocatedField.validators),
       EnablePerfTest: new FormControl(this.EnablePerfTestField.defaultValue, this.EnablePerfTestField.validators),
+      UNCPath: new FormControl(this.UNCPathField.defaultValue, this.UNCPathField.validators),
+      SMBDomain: new FormControl(this.SMBDomainField.defaultValue, this.SMBDomainField.validators),
+      SMBUser: new FormControl(this.SMBUserField.defaultValue, this.SMBUserField.validators),
+      SMBPassword: new FormControl(this.SMBPasswordField.defaultValue, this.SMBPasswordField.validators),
+      MountDir: new FormControl(this.MountDirField.defaultValue, this.MountDirField.validators),
+      VTUNCPath: new FormControl(this.VTUNCPathField.defaultValue, this.VTUNCPathField.validators),
+      VTUser: new FormControl(this.VTUserField.defaultValue, this.VTUserField.validators),
+      VTPassword: new FormControl(this.VTPasswordField.defaultValue, this.VTPasswordField.validators),
+      MgmCreate: new FormControl(this.MgmCreateField.defaultValue, this.MgmCreateField.validators),
+      MgmUser: new FormControl(this.MgmUserField.defaultValue, this.MgmUserField.validators),
+      MgmPassword: new FormControl(this.MgmPasswordField.defaultValue, this.MgmPasswordField.validators),
+      MgmGroup: new FormControl(this.MgmGroupField.defaultValue, this.MgmGroupField.validators),
+      MgmHome: new FormControl(this.MgmHomeField.defaultValue, this.MgmHomeField.validators),
+
     });
   }
 
@@ -162,6 +324,20 @@ export class VerticaComponent {
     form.patchValue({ thresholdNone: FieldProperties.getValueFromJson(this.thresholdNoneField.jsonInputMapping, filecontent) });
     form.patchValue({ isHdpCollocated: FieldProperties.getValueFromJson(this.isHdpCollocatedField.jsonInputMapping, filecontent) });
     form.patchValue({ EnablePerfTest: FieldProperties.getValueFromJson(this.EnablePerfTestField.jsonInputMapping, filecontent) });
+    form.patchValue({ UNCPath: FieldProperties.getValueFromJson(this.UNCPathField.jsonInputMapping, filecontent).split('/').join('\\') });
+    form.patchValue({ SMBUser: FieldProperties.getValueFromJson(this.SMBUserField.jsonInputMapping, filecontent) });
+    form.patchValue({ SMBPassword: FieldProperties.getValueFromJson(this.SMBPasswordField.jsonInputMapping, filecontent) });
+    form.patchValue({ SMBDomain: FieldProperties.getValueFromJson(this.SMBDomainField.jsonInputMapping, filecontent) });
+    form.patchValue({ MountDir: FieldProperties.getValueFromJson(this.MountDirField.jsonInputMapping, filecontent) });
+    form.patchValue({ VTUNCPath: FieldProperties.getValueFromJson(this.VTUNCPathField.jsonInputMapping, filecontent).split('/').join('\\') });
+    form.patchValue({ VTUser: FieldProperties.getValueFromJson(this.VTUserField.jsonInputMapping, filecontent).split('/').join('\\') });
+    form.patchValue({ VTPassword: FieldProperties.getValueFromJson(this.VTPasswordField.jsonInputMapping, filecontent) });
+    form.patchValue({ MgmCreate: FieldProperties.getValueFromJson(this.MgmCreateField.jsonInputMapping, filecontent)});
+    form.patchValue({ MgmUser: FieldProperties.getValueFromJson(this.MgmUserField.jsonInputMapping, filecontent)});
+    form.patchValue({ MgmPassword: FieldProperties.getValueFromJson(this.MgmPasswordField.jsonInputMapping, filecontent) });
+    form.patchValue({ MgmGroup: FieldProperties.getValueFromJson(this.MgmGroupField.jsonInputMapping, filecontent) });
+    form.patchValue({ MgmHome: FieldProperties.getValueFromJson(this.MgmHomeField.jsonInputMapping, filecontent) });
+
 
     
   }
@@ -207,7 +383,24 @@ export class VerticaComponent {
     origJson['default_attributes']['vertica']['vperf']['EnableVperfTests'] = form.get('EnablePerfTest').value
     origJson['default_attributes']['vertica']['hosts'] = this.getFormArrayValues('VerticaHost',<FormArray>form.get('VerticaHosts'))
     origJson['default_attributes']['vertica']['syncDataBetweenNodesIPs'] = this.getFormArrayValues('InternalIP',<FormArray>form.get('InternalIPs'))
+    origJson['default_attributes']['CSV_Data_Mount_CIFS'] = {}
+    origJson['default_attributes']['CSV_Data_Mount_CIFS']['unc_path'] = form.get('UNCPath').value.split('\\').join('/')
+    origJson['default_attributes']['CSV_Data_Mount_CIFS']['SMB_User'] = form.get('SMBUser').value
+    origJson['default_attributes']['CSV_Data_Mount_CIFS']['SMB_Pass'] = form.get('SMBPassword').value
+    origJson['default_attributes']['CSV_Data_Mount_CIFS']['SMB_Domain'] = form.get('SMBDomain').value
+    origJson['default_attributes']['CSV_Data_Mount_CIFS']['mount_dir'] = form.get('MountDir').value
 
+    origJson['default_attributes']['vertica']['versionTreeSmbShare'] = {}
+    origJson['default_attributes']['vertica']['versionTreeSmbShare']['UncPath'] = form.get('VTUNCPath').value.split('\\').join('/')
+    origJson['default_attributes']['vertica']['versionTreeSmbShare']['DomainUser'] = form.get('VTUser').value.split('\\').join('/')
+    origJson['default_attributes']['vertica']['versionTreeSmbShare']['Password'] = form.get('VTPassword').value
+
+    origJson['default_attributes']['vertica']['managementUser'] = {}
+    origJson['default_attributes']['vertica']['managementUser']['CREATE_IF_NOT_EXIST'] = form.get('MgmCreate').value
+    origJson['default_attributes']['vertica']['managementUser']['dbadmin_user'] = form.get('MgmUser').value
+    origJson['default_attributes']['vertica']['managementUser']['dbadmin_pass'] = form.get('MgmPassword').value
+    origJson['default_attributes']['vertica']['managementUser']['dbadmin_group'] = form.get('MgmGroup').value
+    origJson['default_attributes']['vertica']['managementUser']['home_folder'] = form.get('MgmHome').value
 
     return origJson
   }

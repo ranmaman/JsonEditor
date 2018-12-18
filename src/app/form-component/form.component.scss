@@ -13,21 +13,21 @@ app-forms-page {
     }
   }
 
-  .section-title {
-    margin-bottom: 20px;
-  }
+
 
   .section-container {
     display: flex;
     align-items: center;
+    margin-bottom:30px;
     
     .section-title {
-      transform: rotate(90deg);
-      height: 100px;
+      width: 150px;
       margin-bottom: 0;
       text-align: center;
-      flex-basis: 19%;
+      -ms-flex-preferred-size: 19%;
+      flex-basis: auto;
       font-size: 1.5rem;
+      padding-right: 20px;
     }
     .section-components-container {
         flex: 1;

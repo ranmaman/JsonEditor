@@ -248,7 +248,7 @@
               </div>
             </div>
           </div>
-<br><br>
+
           <div class="section-container">
             <p class="section-title">SQL App User</p>
             <div class="section-components-container">
@@ -506,6 +506,229 @@
 
 
           </div>
+          <div class="section-container">
+            <p class="section-title">External Storage for CSV</p>
+            <div class="section-components-container">
+              <div class="field-container">
+                <div class="popup" align="end">
+                  <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('UNCPath_info')" (mouseleave)="infoPopUp('UNCPath_info')">
+                  </mat-icon>
+                  <span class="popuptext" id="UNCPath_info">{{VerticaComponent.UNCPathField.description}}</span>
+                </div>
+                <mat-form-field class="full-width">
+
+                  <input matInput placeholder="UNC Path" formControlName="UNCPath" required>
+
+                  <mat-hint align="start">{{VerticaComponent.UNCPathField.description}}</mat-hint>
+                  <mat-error *ngFor="let validation of VerticaComponent.UNCPathField.validationMsg">
+                    <mat-error class="error-message" *ngIf="VerticaForm.get('UNCPath').hasError(validation.type) && (VerticaForm.get('UNCPath').dirty || VerticaForm.get('UNCPath').touched)">{{validation.message}}</mat-error>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="field-container">
+                <div class="popup" align="end">
+                  <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('SMBUser_info')" (mouseleave)="infoPopUp('SMBUser_info')">
+                  </mat-icon>
+                  <span class="popuptext" id="SMBUser_info">{{VerticaComponent.SMBUserField.description}}</span>
+                </div>
+                <mat-form-field class="full-width">
+
+                  <input matInput placeholder="Samba User Name" formControlName="SMBUser" required>
+
+                  <mat-hint align="start">{{VerticaComponent.SMBUserField.description}}</mat-hint>
+                  <mat-error *ngFor="let validation of VerticaComponent.SMBUserField.validationMsg">
+                    <mat-error class="error-message" *ngIf="VerticaForm.get('SMBUser').hasError(validation.type) && (VerticaForm.get('SMBUser').dirty || VerticaForm.get('SMBUser').touched)">{{validation.message}}</mat-error>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="field-container">
+                <div class="popup" align="end">
+                  <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('SMBPassword_info')" (mouseleave)="infoPopUp('SMBPassword_info')">
+                  </mat-icon>
+                  <span class="popuptext" id="SMBPassword_info">{{VerticaComponent.SMBPasswordField.description}}</span>
+                </div>
+                <mat-form-field class="full-width">
+
+                  <input matInput type="password" placeholder="Samba User Password" formControlName="SMBPassword" required>
+
+                  <mat-hint align="start">{{VerticaComponent.SMBPasswordField.description}}</mat-hint>
+                  <mat-error *ngFor="let validation of VerticaComponent.SMBPasswordField.validationMsg">
+                    <mat-error class="error-message" *ngIf="VerticaForm.get('SMBPassword').hasError(validation.type) && (VerticaForm.get('SMBPassword').dirty || VerticaForm.get('SMBPassword').touched)">{{validation.message}}</mat-error>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="field-container">
+                <div class="popup" align="end">
+                  <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('SMBDomain_info')" (mouseleave)="infoPopUp('SMBDomain_info')">
+                  </mat-icon>
+                  <span class="popuptext" id="SMBDomain_info">{{VerticaComponent.SMBDomainField.description}}</span>
+                </div>
+                <mat-form-field class="full-width">
+
+                  <input matInput placeholder="Samba User Domain" formControlName="SMBDomain" required>
+
+                  <mat-hint align="start">{{VerticaComponent.SMBDomainField.description}}</mat-hint>
+                  <mat-error *ngFor="let validation of VerticaComponent.SMBDomainField.validationMsg">
+                    <mat-error class="error-message" *ngIf="VerticaForm.get('SMBDomain').hasError(validation.type) && (VerticaForm.get('SMBDomain').dirty || VerticaForm.get('SMBDomain').touched)">{{validation.message}}</mat-error>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="field-container">
+                <div class="popup" align="end">
+                  <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('MountDir_info')" (mouseleave)="infoPopUp('MountDir_info')">
+                  </mat-icon>
+                  <span class="popuptext" id="MountDir_info">{{VerticaComponent.MountDirField.description}}</span>
+                </div>
+                <mat-form-field class="full-width">
+
+                  <input matInput placeholder="Linux Mount Path" formControlName="MountDir" required>
+
+                  <mat-hint align="start">{{VerticaComponent.MountDirField.description}}</mat-hint>
+                  <mat-error *ngFor="let validation of VerticaComponent.MountDirField.validationMsg">
+                    <mat-error class="error-message" *ngIf="VerticaForm.get('MountDir').hasError(validation.type) && (VerticaForm.get('MountDir').dirty || VerticaForm.get('MountDir').touched)">{{validation.message}}</mat-error>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+            </div>
+          </div>
+
+        <div class="section-container">
+          <p class="section-title">Deployment Center</p>
+          <div class="section-components-container">
+            <div class="field-container">
+              <div class="popup" align="end">
+                <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('VTUNCPath_info')" (mouseleave)="infoPopUp('VTUNCPath_info')">
+                </mat-icon>
+                <span class="popuptext" id="VTUNCPath_info">{{VerticaComponent.VTUNCPathField.description}}</span>
+              </div>
+              <mat-form-field class="full-width">
+
+                <input matInput placeholder="Deployment Center Location" formControlName="VTUNCPath" required>
+
+                <mat-hint align="start">{{VerticaComponent.VTUNCPathField.description}}</mat-hint>
+                <mat-error *ngFor="let validation of VerticaComponent.VTUNCPathField.validationMsg">
+                  <mat-error class="error-message" *ngIf="VerticaForm.get('VTUNCPath').hasError(validation.type) && (VerticaForm.get('VTUNCPath').dirty || VerticaForm.get('VTUNCPath').touched)">{{validation.message}}</mat-error>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="field-container">
+              <div class="popup" align="end">
+                <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('VTUser_info')" (mouseleave)="infoPopUp('VTUser_info')">
+                </mat-icon>
+                <span class="popuptext" id="VTUser_info">{{VerticaComponent.VTUserField.description}}</span>
+              </div>
+              <mat-form-field class="full-width">
+
+                <input matInput placeholder="Deployment Center USer" formControlName="VTUser" required>
+
+                <mat-hint align="start">{{VerticaComponent.VTUserField.description}}</mat-hint>
+                <mat-error *ngFor="let validation of VerticaComponent.VTUserField.validationMsg">
+                  <mat-error class="error-message" *ngIf="VerticaForm.get('VTUser').hasError(validation.type) && (VerticaForm.get('VTUser').dirty || VerticaForm.get('VTUser').touched)">{{validation.message}}</mat-error>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="field-container">
+              <div class="popup" align="end">
+                <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('VTPassword_info')" (mouseleave)="infoPopUp('VTPassword_info')">
+                </mat-icon>
+                <span class="popuptext" id="VTPassword_info">{{VerticaComponent.VTPasswordField.description}}</span>
+              </div>
+              <mat-form-field class="full-width">
+
+                <input matInput type="password" placeholder="Deployment Center Password" formControlName="VTPassword" required>
+
+                <mat-hint align="start">{{VerticaComponent.VTPasswordField.description}}</mat-hint>
+                <mat-error *ngFor="let validation of VerticaComponent.VTPasswordField.validationMsg">
+                  <mat-error class="error-message" *ngIf="VerticaForm.get('VTPassword').hasError(validation.type) && (VerticaForm.get('VTPassword').dirty || VerticaForm.get('VTPassword').touched)">{{validation.message}}</mat-error>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-container">
+          <p class="section-title">Vertica Managment User</p>
+          <div class="section-components-container">
+            <div class="field-container">
+              <div class="popup" align="end">
+                <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('MgmUser_info')" (mouseleave)="infoPopUp('MgmUser_info')">
+                </mat-icon>
+                <span class="popuptext" id="MgmUser_info">{{VerticaComponent.MgmUserField.description}}</span>
+              </div>
+              <mat-form-field class="full-width">
+
+                <input matInput placeholder="Vertica Managment User Name" formControlName="MgmUser" required>
+
+                <mat-hint align="start">{{VerticaComponent.MgmUserField.description}}</mat-hint>
+                <mat-error *ngFor="let validation of VerticaComponent.MgmUserField.validationMsg">
+                  <mat-error class="error-message" *ngIf="VerticaForm.get('MgmUser').hasError(validation.type) && (VerticaForm.get('MgmUser').dirty || VerticaForm.get('MgmUser').touched)">{{validation.message}}</mat-error>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="field-container">
+              <div class="popup" align="end">
+                <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('MgmPassword_info')" (mouseleave)="infoPopUp('MgmPassword_info')">
+                </mat-icon>
+                <span class="popuptext" id="MgmPassword_info">{{VerticaComponent.MgmPasswordField.description}}</span>
+              </div>
+              <mat-form-field class="full-width">
+
+                <input matInput type="password" placeholder="Vertica Managment User password" formControlName="MgmPassword" required>
+
+                <mat-hint align="start">{{VerticaComponent.MgmPasswordField.description}}</mat-hint>
+                <mat-error *ngFor="let validation of VerticaComponent.MgmPasswordField.validationMsg">
+                  <mat-error class="error-message" *ngIf="VerticaForm.get('MgmPassword').hasError(validation.type) && (VerticaForm.get('MgmPassword').dirty || VerticaForm.get('MgmPassword').touched)">{{validation.message}}</mat-error>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="field-container">
+              <div class="popup" align="end">
+                <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('MgmGroup_info')" (mouseleave)="infoPopUp('MgmGroup_info')">
+                </mat-icon>
+                <span class="popuptext" id="MgmGroup_info">{{VerticaComponent.MgmGroupField.description}}</span>
+              </div>
+              <mat-form-field class="full-width">
+
+                <input matInput placeholder="Vertica Managment User group" formControlName="MgmGroup" required>
+
+                <mat-hint align="start">{{VerticaComponent.MgmGroupField.description}}</mat-hint>
+                <mat-error *ngFor="let validation of VerticaComponent.MgmGroupField.validationMsg">
+                  <mat-error class="error-message" *ngIf="VerticaForm.get('MgmGroup').hasError(validation.type) && (VerticaForm.get('MgmGroup').dirty || VerticaForm.get('MgmGroup').touched)">{{validation.message}}</mat-error>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="field-container">
+              <div class="popup" align="end">
+                <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('MgmHome_info')" (mouseleave)="infoPopUp('MgmHome_info')">
+                </mat-icon>
+                <span class="popuptext" id="MgmHome_info">{{VerticaComponent.MgmHomeField.description}}</span>
+              </div>
+              <mat-form-field class="full-width">
+
+                <input matInput placeholder="Vertica Managment User home folder" formControlName="MgmHome" required>
+
+                <mat-hint align="start">{{VerticaComponent.MgmHomeField.description}}</mat-hint>
+                <mat-error *ngFor="let validation of VerticaComponent.MgmHomeField.validationMsg">
+                  <mat-error class="error-message" *ngIf="VerticaForm.get('MgmHome').hasError(validation.type) && (VerticaForm.get('MgmHome').dirty || VerticaForm.get('MgmHome').touched)">{{validation.message}}</mat-error>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <mat-checkbox formControlName="MgmCreate">
+              Create User
+            </mat-checkbox>
+          </div>
+        </div>
 
 
 
@@ -624,19 +847,19 @@
         </form>
       </mat-step>
 
-      <mat-step  [stepControl]="userDetailsForm">
-          <form [formGroup]="userDetailsForm" (ngSubmit)="finishForm()">
-            <ng-template matStepLabel>Finish Page</ng-template>
-  
-  
-  
-            <div>
-              <button mat-button matStepperPrevious>Back</button>
-              <button class="submit-btn" mat-button matStepperNext>Finish</button>
-            </div>
-  
-          </form>
-        </mat-step>
+      <mat-step [stepControl]="userDetailsForm">
+        <form [formGroup]="userDetailsForm" (ngSubmit)="finishForm()">
+          <ng-template matStepLabel>Finish Page</ng-template>
+
+
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button class="submit-btn" mat-button matStepperNext>Finish</button>
+          </div>
+
+        </form>
+      </mat-step>
 
 
 
