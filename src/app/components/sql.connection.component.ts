@@ -41,15 +41,15 @@ export class SQLConnComponent {
   }
 
   patchValues(form: FormGroup, filecontent: any) {
-    form.patchValue({ SQLHostName: FieldProperties.getValueFromJson(this.HostField.jsonInputMapping, filecontent) });
-    form.patchValue({ SQLinstanceName: FieldProperties.getValueFromJson(this.InstanceNameField.jsonInputMapping, filecontent) });
-    form.patchValue({ SQLDBName: FieldProperties.getValueFromJson(this.DBNameField.jsonInputMapping, filecontent) });
-    form.patchValue({ AdminDomain: FieldProperties.getValueFromJson(this.AdminDomainField.jsonInputMapping, filecontent) });
-    form.patchValue({ AdminUser: FieldProperties.getValueFromJson(this.AdminUserField.jsonInputMapping, filecontent) });
-    form.patchValue({ AdminPassword: FieldProperties.getValueFromJson(this.AdminPasswordField.jsonInputMapping, filecontent) });
-    form.patchValue({ AppDomain: FieldProperties.getValueFromJson(this.AppDomainField.jsonInputMapping, filecontent) });
-    form.patchValue({ AppUser: FieldProperties.getValueFromJson(this.AppUserField.jsonInputMapping, filecontent) });
-    form.patchValue({ AppPassword: FieldProperties.getValueFromJson(this.AppPasswordField.jsonInputMapping, filecontent) });
+    form.patchValue({ SQLHostName: this.HostField.getValueFromJson( filecontent) });
+    form.patchValue({ SQLinstanceName: this.InstanceNameField.getValueFromJson( filecontent) });
+    form.patchValue({ SQLDBName: this.DBNameField.getValueFromJson( filecontent) });
+    form.patchValue({ AdminDomain: this.AdminDomainField.getValueFromJson( filecontent) });
+    form.patchValue({ AdminUser: this.AdminUserField.getValueFromJson( filecontent) });
+    form.patchValue({ AdminPassword: this.AdminPasswordField.getValueFromJson( filecontent) });
+    form.patchValue({ AppDomain: this.AppDomainField.getValueFromJson( filecontent) });
+    form.patchValue({ AppUser: this.AppUserField.getValueFromJson( filecontent) });
+    form.patchValue({ AppPassword: this.AppPasswordField.getValueFromJson( filecontent) });
   }
 
   setJson(origJson:any, form: FormGroup){

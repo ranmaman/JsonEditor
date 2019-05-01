@@ -187,26 +187,26 @@ export class RComponent {
   }
 
   patchValues(form: FormGroup, filecontent: any) {
-    this.updateFormArray(form,this.RHostsField.jsonInputMapping,'RHosts','RHost',this.fb.group({RHost : new FormControl(this.RHostField.defaultValue,this.RHostField.validators)}),filecontent)
-    form.patchValue({ MgmCreate: FieldProperties.getValueFromJson(this.MgmCreateField.jsonInputMapping, filecontent)});
-    form.patchValue({ MgmUser: FieldProperties.getValueFromJson(this.MgmUserField.jsonInputMapping, filecontent)});
-    form.patchValue({ MgmPassword: FieldProperties.getValueFromJson(this.MgmPasswordField.jsonInputMapping, filecontent) });
-    form.patchValue({ MgmGroup: FieldProperties.getValueFromJson(this.MgmGroupField.jsonInputMapping, filecontent) });
-    form.patchValue({ CheckExternalFW: FieldProperties.getValueFromJson(this.CheckExternalFWField.jsonInputMapping, filecontent) });
-    form.patchValue({ SecureInternalFW: FieldProperties.getValueFromJson(this.SecureInternalFWField.jsonInputMapping, filecontent) });
-    form.patchValue({ RInput: FieldProperties.getValueFromJson(this.RInputField.jsonInputMapping, filecontent).split('/').join('\\') });
+    this.updateFormArray(form,this.RHostsField,'RHosts','RHost',this.fb.group({RHost : new FormControl(this.RHostField.defaultValue,this.RHostField.validators)}),filecontent)
+    form.patchValue({ MgmCreate: this.MgmCreateField.getValueFromJson(filecontent)});
+    form.patchValue({ MgmUser: this.MgmUserField.getValueFromJson(filecontent)});
+    form.patchValue({ MgmPassword: this.MgmPasswordField.getValueFromJson(filecontent) });
+    form.patchValue({ MgmGroup: this.MgmGroupField.getValueFromJson(filecontent) });
+    form.patchValue({ CheckExternalFW: this.CheckExternalFWField.getValueFromJson(filecontent) });
+    form.patchValue({ SecureInternalFW: this.SecureInternalFWField.getValueFromJson(filecontent) });
+    form.patchValue({ RInput: this.RInputField.getValueFromJson(filecontent).split('/').join('\\') });
 
 
     
   }
 
-  updateFormArray(form: FormGroup,jsonMapping:any[],parentControlName : string,childControlName : string,newControl: FormGroup,  filecontent: any){
+  updateFormArray(form: FormGroup,field: FieldProperties,parentControlName : string,childControlName : string,newControl: FormGroup,  filecontent: any){
     let RootElement = <FormArray>(form.controls[parentControlName]);
     console.log("Control array size:" + RootElement.length);
-    console.log("Json Array size:" + FieldProperties.getValueFromJson(jsonMapping, filecontent).length);
+    console.log("Json Array size:" + field.getValueFromJson(filecontent).length);
     //Add nodes over the default size
-    if (RootElement.length < FieldProperties.getValueFromJson(jsonMapping, filecontent).length){
-      for (let index = RootElement.length; index < FieldProperties.getValueFromJson(jsonMapping, filecontent).length; index++) {
+    if (RootElement.length < field.getValueFromJson(filecontent).length){
+      for (let index = RootElement.length; index < field.getValueFromJson(filecontent).length; index++) {
         console.log("UPDATE LENGTH");
         RootElement.push(newControl);
       }
@@ -215,9 +215,9 @@ export class RComponent {
     for (let index = 0; index < RootElement.length; index++) {
       let element = RootElement.at(index).get(childControlName)
       console.log("BEFORE element:" + element.value)
-      jsonMapping.push(index)
-      element.setValue(FieldProperties.getValueFromJson(jsonMapping, filecontent));
-      jsonMapping.pop();
+      field.jsonInputMapping.push(index)
+      element.setValue(field.getValueFromJson(filecontent));
+      field.jsonInputMapping.pop();
       console.log("AFTER element:" + element.value)
       
     }

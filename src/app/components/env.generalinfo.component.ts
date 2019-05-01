@@ -60,13 +60,13 @@ export class EnvironmentGeneralComponent {
   }
 
   patchValues(form: FormGroup, filecontent: any) {
-    form.patchValue({ name: FieldProperties.getValueFromJson(this.nameField.jsonInputMapping, filecontent) });
-    form.patchValue({ chefWSAddress: FieldProperties.getValueFromJson(this.chefWSField.jsonInputMapping, filecontent) });
-    form.patchValue({ linuxVersions: FieldProperties.getValueFromJson(this.linuxVersionField.jsonInputMapping, filecontent) });
-    form.patchValue({ ntpServers: FieldProperties.getValueFromJson(this.ntpField.jsonInputMapping, filecontent) });
-    form.patchValue({ OTTree: FieldProperties.getValueFromJson(this.OTTreeLocationField.jsonInputMapping, filecontent).split('/').join('\\') });
-    form.patchValue({ IsCloudEnv: FieldProperties.getValueFromJson(this.IsCloudField.jsonInputMapping, filecontent) });
-    form.patchValue({ industries: FieldProperties.getValueFromJson(this.industryField.jsonInputMapping, filecontent) });
+    form.patchValue({ name: this.nameField.getValueFromJson(filecontent) });
+    form.patchValue({ chefWSAddress: this.chefWSField.getValueFromJson(filecontent) });
+    form.patchValue({ linuxVersions: this.linuxVersionField.getValueFromJson(filecontent) });
+    form.patchValue({ ntpServers: this.ntpField.getValueFromJson(filecontent) });
+    form.patchValue({ OTTree: this.OTTreeLocationField.getValueFromJson(filecontent).split('/').join('\\') });
+    form.patchValue({ IsCloudEnv: this.IsCloudField.getValueFromJson(filecontent) });
+    form.patchValue({ industries: this.industryField.getValueFromJson(filecontent) });
     form.patchValue({ RserverIncluded: filecontent['default_attributes']['SimpleR'] == undefined || ( filecontent['default_attributes']['SimpleR'] != undefined && filecontent['default_attributes']['SimpleR']['hosts'] == '') ?  false : true});
     let envType = 'SQL'
     if (filecontent['default_attributes']['vertica']['hosts'] != ''){

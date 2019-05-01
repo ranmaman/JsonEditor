@@ -311,44 +311,44 @@ export class VerticaComponent {
   }
 
   patchValues(form: FormGroup, filecontent: any) {
-    this.updateFormArray(form,this.VerticaHostsField.jsonInputMapping,'VerticaHosts','VerticaHost',this.fb.group({VerticaHost : new FormControl(this.VerticaHostField.defaultValue,this.VerticaHostField.validators)}),filecontent)
-    this.updateFormArray(form,this.InternalIPsField.jsonInputMapping,'InternalIPs','InternalIP',this.fb.group({InternalIP : new FormControl(this.InternalIPField.defaultValue,this.InternalIPField.validators)}),filecontent)
-    form.patchValue({ version: FieldProperties.getValueFromJson(this.versionField.jsonInputMapping, filecontent) });
-    form.patchValue({ TZ: FieldProperties.getValueFromJson(this.TZField.jsonInputMapping, filecontent) });
-    form.patchValue({ dsn: FieldProperties.getValueFromJson(this.dsnField.jsonInputMapping, filecontent) });
-    form.patchValue({ dbName: FieldProperties.getValueFromJson(this.dbNameField.jsonInputMapping, filecontent) });
-    form.patchValue({ schema: FieldProperties.getValueFromJson(this.schemaField.jsonInputMapping, filecontent) });
-    form.patchValue({ dbPass: FieldProperties.getValueFromJson(this.dbPassField.jsonInputMapping, filecontent) });
-    form.patchValue({ workDir: FieldProperties.getValueFromJson(this.workDirField.jsonInputMapping, filecontent) });
-    form.patchValue({ Broadcast: FieldProperties.getValueFromJson(this.BroadcastField.jsonInputMapping, filecontent) });
-    form.patchValue({ thresholdNone: FieldProperties.getValueFromJson(this.thresholdNoneField.jsonInputMapping, filecontent) });
-    form.patchValue({ isHdpCollocated: FieldProperties.getValueFromJson(this.isHdpCollocatedField.jsonInputMapping, filecontent) });
-    form.patchValue({ EnablePerfTest: FieldProperties.getValueFromJson(this.EnablePerfTestField.jsonInputMapping, filecontent) });
-    form.patchValue({ UNCPath: FieldProperties.getValueFromJson(this.UNCPathField.jsonInputMapping, filecontent).split('/').join('\\') });
-    form.patchValue({ SMBUser: FieldProperties.getValueFromJson(this.SMBUserField.jsonInputMapping, filecontent) });
-    form.patchValue({ SMBPassword: FieldProperties.getValueFromJson(this.SMBPasswordField.jsonInputMapping, filecontent) });
-    form.patchValue({ SMBDomain: FieldProperties.getValueFromJson(this.SMBDomainField.jsonInputMapping, filecontent) });
-    form.patchValue({ MountDir: FieldProperties.getValueFromJson(this.MountDirField.jsonInputMapping, filecontent) });
-    form.patchValue({ VTUNCPath: FieldProperties.getValueFromJson(this.VTUNCPathField.jsonInputMapping, filecontent).split('/').join('\\') });
-    form.patchValue({ VTUser: FieldProperties.getValueFromJson(this.VTUserField.jsonInputMapping, filecontent).split('/').join('\\') });
-    form.patchValue({ VTPassword: FieldProperties.getValueFromJson(this.VTPasswordField.jsonInputMapping, filecontent) });
-    form.patchValue({ MgmCreate: FieldProperties.getValueFromJson(this.MgmCreateField.jsonInputMapping, filecontent)});
-    form.patchValue({ MgmUser: FieldProperties.getValueFromJson(this.MgmUserField.jsonInputMapping, filecontent)});
-    form.patchValue({ MgmPassword: FieldProperties.getValueFromJson(this.MgmPasswordField.jsonInputMapping, filecontent) });
-    form.patchValue({ MgmGroup: FieldProperties.getValueFromJson(this.MgmGroupField.jsonInputMapping, filecontent) });
-    form.patchValue({ MgmHome: FieldProperties.getValueFromJson(this.MgmHomeField.jsonInputMapping, filecontent) });
+    this.updateFormArray(form,this.VerticaHostsField,'VerticaHosts','VerticaHost',this.fb.group({VerticaHost : new FormControl(this.VerticaHostField.defaultValue,this.VerticaHostField.validators)}),filecontent)
+    this.updateFormArray(form,this.InternalIPsField,'InternalIPs','InternalIP',this.fb.group({InternalIP : new FormControl(this.InternalIPField.defaultValue,this.InternalIPField.validators)}),filecontent)
+    form.patchValue({ version: this.versionField.getValueFromJson(filecontent) });
+    form.patchValue({ TZ: this.TZField.getValueFromJson(filecontent) });
+    form.patchValue({ dsn: this.dsnField.getValueFromJson(filecontent) });
+    form.patchValue({ dbName: this.dbNameField.getValueFromJson(filecontent) });
+    form.patchValue({ schema: this.schemaField.getValueFromJson(filecontent) });
+    form.patchValue({ dbPass: this.dbPassField.getValueFromJson(filecontent) });
+    form.patchValue({ workDir: this.workDirField.getValueFromJson(filecontent) });
+    form.patchValue({ Broadcast: this.BroadcastField.getValueFromJson(filecontent) });
+    form.patchValue({ thresholdNone: this.thresholdNoneField.getValueFromJson(filecontent) });
+    form.patchValue({ isHdpCollocated: this.isHdpCollocatedField.getValueFromJson(filecontent) });
+    form.patchValue({ EnablePerfTest: this.EnablePerfTestField.getValueFromJson(filecontent) });
+    form.patchValue({ UNCPath: this.UNCPathField.getValueFromJson(filecontent).split('/').join('\\') });
+    form.patchValue({ SMBUser: this.SMBUserField.getValueFromJson(filecontent) });
+    form.patchValue({ SMBPassword: this.SMBPasswordField.getValueFromJson(filecontent) });
+    form.patchValue({ SMBDomain: this.SMBDomainField.getValueFromJson(filecontent) });
+    form.patchValue({ MountDir: this.MountDirField.getValueFromJson(filecontent) });
+    form.patchValue({ VTUNCPath: this.VTUNCPathField.getValueFromJson(filecontent).split('/').join('\\') });
+    form.patchValue({ VTUser: this.VTUserField.getValueFromJson(filecontent).split('/').join('\\') });
+    form.patchValue({ VTPassword: this.VTPasswordField.getValueFromJson(filecontent) });
+    form.patchValue({ MgmCreate: this.MgmCreateField.getValueFromJson(filecontent)});
+    form.patchValue({ MgmUser: this.MgmUserField.getValueFromJson(filecontent)});
+    form.patchValue({ MgmPassword: this.MgmPasswordField.getValueFromJson(filecontent) });
+    form.patchValue({ MgmGroup: this.MgmGroupField.getValueFromJson(filecontent) });
+    form.patchValue({ MgmHome: this.MgmHomeField.getValueFromJson(filecontent) });
 
 
     
   }
 
-  updateFormArray(form: FormGroup,jsonMapping:any[],parentControlName : string,childControlName : string,newControl: FormGroup,  filecontent: any){
+  updateFormArray(form: FormGroup,field: FieldProperties,parentControlName : string,childControlName : string,newControl: FormGroup,  filecontent: any){
     let RootElement = <FormArray>(form.controls[parentControlName]);
     console.log("Control array size:" + RootElement.length);
-    console.log("Json Array size:" + FieldProperties.getValueFromJson(jsonMapping, filecontent).length);
+    console.log("Json Array size:" + field.getValueFromJson(filecontent).length);
     //Add nodes over the default size
-    if (RootElement.length < FieldProperties.getValueFromJson(jsonMapping, filecontent).length){
-      for (let index = RootElement.length; index < FieldProperties.getValueFromJson(jsonMapping, filecontent).length; index++) {
+    if (RootElement.length < field.getValueFromJson(filecontent).length){
+      for (let index = RootElement.length; index < field.getValueFromJson(filecontent).length; index++) {
         console.log("UPDATE LENGTH");
         RootElement.push(newControl);
       }
@@ -357,9 +357,9 @@ export class VerticaComponent {
     for (let index = 0; index < RootElement.length; index++) {
       let element = RootElement.at(index).get(childControlName)
       console.log("BEFORE element:" + element.value)
-      jsonMapping.push(index)
-      element.setValue(FieldProperties.getValueFromJson(jsonMapping, filecontent));
-      jsonMapping.pop();
+      field.jsonInputMapping.push(index)
+      element.setValue(field.getValueFromJson(filecontent));
+      field.jsonInputMapping.pop();
       console.log("AFTER element:" + element.value)
       
     }

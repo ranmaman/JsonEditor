@@ -222,24 +222,24 @@ export class KafkaComponent {
   }
 
   patchValues(form: FormGroup, filecontent: any) {
-    this.updateFormArray(form,this.KafkaHostsField.jsonInputMapping,'KafkaHosts','KafkaHost',this.fb.group({KafkaHost : new FormControl(this.KafkaHostField.defaultValue,this.KafkaHostField.validators)}),filecontent)
-    this.updateFormArray(form,this.ZKHostsField.jsonInputMapping,'ZKHosts','ZKHost',this.fb.group({ZKHost : new FormControl(this.ZKHostField.defaultValue,this.ZKHostField.validators)}),filecontent)
-    form.patchValue({ ReplicationFactor: FieldProperties.getValueFromJson(this.ReplicationFactorField.jsonInputMapping, filecontent)});
-    form.patchValue({ Logs: FieldProperties.getValueFromJson(this.LogsField.jsonInputMapping, filecontent)});
-    form.patchValue({ RunningZkId: FieldProperties.getValueFromJson(this.RunningZkIdField.jsonInputMapping, filecontent) });
-    form.patchValue({ TopicPartitions: FieldProperties.getValueFromJson(this.TopicPartitionsField.jsonInputMapping, filecontent) });
-    form.patchValue({ TopicLogs: FieldProperties.getValueFromJson(this.TopicLogsField.jsonInputMapping, filecontent) });
-    form.patchValue({ ClientPort: FieldProperties.getValueFromJson(this.ClientPortField.jsonInputMapping, filecontent) });
-    form.patchValue({ ZKClientPort: this.ZKClientPortField.getValueFromJson1( filecontent) });
+    this.updateFormArray(form,this.KafkaHostsField,'KafkaHosts','KafkaHost',this.fb.group({KafkaHost : new FormControl(this.KafkaHostField.defaultValue,this.KafkaHostField.validators)}),filecontent)
+    this.updateFormArray(form,this.ZKHostsField,'ZKHosts','ZKHost',this.fb.group({ZKHost : new FormControl(this.ZKHostField.defaultValue,this.ZKHostField.validators)}),filecontent)
+    form.patchValue({ ReplicationFactor: this.ReplicationFactorField.getValueFromJson(filecontent)});
+    form.patchValue({ Logs: this.LogsField.getValueFromJson(filecontent)});
+    form.patchValue({ RunningZkId: this.RunningZkIdField.getValueFromJson(filecontent) });
+    form.patchValue({ TopicPartitions: this.TopicPartitionsField.getValueFromJson(filecontent) });
+    form.patchValue({ TopicLogs: this.TopicLogsField.getValueFromJson(filecontent) });
+    form.patchValue({ ClientPort: this.ClientPortField.getValueFromJson( filecontent) });
+    form.patchValue({ ZKClientPort: this.ZKClientPortField.getValueFromJson( filecontent) });
   }
 
-  updateFormArray(form: FormGroup,jsonMapping:any[],parentControlName : string,childControlName : string,newControl: FormGroup,  filecontent: any){
+  updateFormArray(form: FormGroup,field: FieldProperties,parentControlName : string,childControlName : string,newControl: FormGroup,  filecontent: any){
     let RootElement = <FormArray>(form.controls[parentControlName]);
     console.log("Control array size:" + RootElement.length);
-    console.log("Json Array size:" + FieldProperties.getValueFromJson(jsonMapping, filecontent).length);
+    console.log("Json Array size:" + field.getValueFromJson(filecontent).length);
     //Add nodes over the default size
-    if (RootElement.length < FieldProperties.getValueFromJson(jsonMapping, filecontent).length){
-      for (let index = RootElement.length; index < FieldProperties.getValueFromJson(jsonMapping, filecontent).length; index++) {
+    if (RootElement.length < field.getValueFromJson(filecontent).length){
+      for (let index = RootElement.length; index < field.getValueFromJson(filecontent).length; index++) {
         console.log("UPDATE LENGTH");
         RootElement.push(newControl);
       }
@@ -248,9 +248,9 @@ export class KafkaComponent {
     for (let index = 0; index < RootElement.length; index++) {
       let element = RootElement.at(index).get(childControlName)
       console.log("BEFORE element:" + element.value)
-      jsonMapping.push(index)
-      element.setValue(FieldProperties.getValueFromJson(jsonMapping, filecontent));
-      jsonMapping.pop();
+      field.jsonInputMapping.push(index)
+      element.setValue(field.getValueFromJson(filecontent));
+      field.jsonInputMapping.pop();
       console.log("AFTER element:" + element.value)
       
     }

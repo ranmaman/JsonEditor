@@ -20,15 +20,15 @@ export class FieldProperties{
             this.options = options
     }
 
-    public static getValueFromJson(fields:string[], json:any){
-        for(let f of fields){
-            json = json[f]
-        }
-        console.log(fields + ' ' + json)
-        return json;
-    }
+    // public static getValueFromJson(fields:string[], json:any){
+    //     for(let f of fields){
+    //         json = json[f]
+    //     }
+    //     console.log(fields + ' ' + json)
+    //     return json;
+    // }
 
-    public getValueFromJson1(json:any){
+    public getValueFromJson(json:any){
         for(let f of this.jsonInputMapping){
             json = json[f]
         }

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@ang
 import { UserDetailsComponent, AccountDetailsComponent, EnvironmentGeneralComponent, SQLConnComponent, VerticaComponent, RComponent, KafkaComponent } from '../components';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Component({
   selector: 'app-forms-page',
   templateUrl: './form.component.html',
@@ -36,7 +37,7 @@ export class FormComponent implements OnInit {
   filecontent: any;
 
 
-  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer,private http: HttpClient) {
     this.createForms();
     iconRegistry.addSvgIcon(
       'info',
@@ -104,7 +105,13 @@ export class FormComponent implements OnInit {
       json = this.KafkaComponent.setJson(json, this.KafkaForm);
     }
     console.log("JSON: " + JSON.stringify(json))
-
+   // const headers = new HttpHeaders()
+   //       .set('Content-Type', 'application/json');
+    // let options = {
+    //         headers: headers
+    //            }; 
+    this.http.post('http://127.0.0.1:3000/save', json).subscribe()
+    console.log("DDDDOOOOOONNNEEEEEE!!!!!!!!!!!!!!!!!")
   }
 
   // When the user clicks on div, open the popup
