@@ -14,7 +14,8 @@ import {
   MatNativeDateModule,
   MatStepperModule,
   MatIconModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatCardModule
 
 
  } from '@angular/material';
@@ -43,7 +44,8 @@ import { FormComponent } from './form-component/form.component';
     MatSelectModule,
     MatStepperModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

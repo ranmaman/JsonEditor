@@ -98,19 +98,6 @@ app-forms-page {
     margin-left: 5px;
 }
 
-/* Popup arrow */
-/*.popup .popuptext::after {
-  content: "";
-  position: absolute;
-  top: calc(50% - 5px);
-  left: -5px;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #555 transparent transparent transparent;
-  transform: rotate(90deg);
-}*/
-
 /* Toggle this class - hide and show the popup */
 .popup .show {
     visibility: visible;
@@ -128,4 +115,24 @@ app-forms-page {
     from {opacity: 0;}
     to {opacity:1 ;}
 }
+}
+.mat-card:not([class*=mat-elevation-z]) {
+  box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+}
+.mat-card {
+  transition: box-shadow 280ms cubic-bezier(.4,0,.2,1);
+  display: block;
+  position: relative;
+  padding: 16px;
+  border-radius: 4px;
+}
+.mat-card-header{
+  background: rgba(0,0,0,.04);
+  padding-top: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mat-card-header .mat-card-title {
+  font-size: 20px;
 }

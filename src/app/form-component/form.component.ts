@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@ang
 import { UserDetailsComponent, AccountDetailsComponent, EnvironmentGeneralComponent, SQLConnComponent, VerticaComponent, RComponent, KafkaComponent } from '../components';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpClientModule} from '@angular/common/http';
+import {Headers, RequestOptions, Response,HttpModule} from "@angular/http";
 @Component({
   selector: 'app-forms-page',
   templateUrl: './form.component.html',
@@ -105,13 +106,25 @@ export class FormComponent implements OnInit {
       json = this.KafkaComponent.setJson(json, this.KafkaForm);
     }
     console.log("JSON: " + JSON.stringify(json))
-   // const headers = new HttpHeaders()
-   //       .set('Content-Type', 'application/json');
-    // let options = {
-    //         headers: headers
-    //            }; 
     this.http.post('http://127.0.0.1:3000/save', json).subscribe()
+  }
+  
+  testSqlConnection(){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    this.http.post('http://127.0.0.1:3000/test/SQLConn', 
+    {
+      user : this.SQLConnForm.get('AppUser').value,
+      password : this.SQLConnForm.get('AppPassword').value,
+      DBName : this.SQLConnForm.get('SQLDBName').value,
+      DBServer : this.SQLConnForm.get('SQLHostName').value
+    },{
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }), observe: 'response'
+    }).subscribe(resp => console.log(resp.status));
     console.log("DDDDOOOOOONNNEEEEEE!!!!!!!!!!!!!!!!!")
+
   }
 
   // When the user clicks on div, open the popup
