@@ -6,10 +6,8 @@
         <form [formGroup]="EnvironmentGeneralForm">
           <ng-template matStepLabel>Environment General Information</ng-template>
           <input type='file' (change)="onSelectFile($event)"><br /><br />
-<!--<mat-card>
-  <mat-card-header>
-    <mat-card-title> Section Test</mat-card-title>
-  </mat-card-header>-->
+  <div class="section">
+    <span class="sectionTitle">General</span>
           <div class="field-container">
             <div class="popup" align="end">
               <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('name_info')" (mouseleave)="infoPopUp('name_info')">
@@ -42,7 +40,7 @@
               </mat-error>
             </mat-form-field>
           </div>
-        <!--</mat-card>-->
+        </div>
           <div class="field-container">
             <div class="popup" align="end">
               <mat-icon align="end" svgIcon="info" (mouseenter)="infoPopUp('ntp_info')" (mouseleave)="infoPopUp('ntp_info')">
